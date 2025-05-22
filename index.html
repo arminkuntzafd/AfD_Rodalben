@@ -154,24 +154,132 @@
   </section>
  
     <section id="blog">
-      <article> 
-      <h2>Willkommen auf unserem Blog</h2>
-      <time datetime="2025-05-22">22. Mai 2025</time>
-      <p>Dies ist der erste Beitrag unseres Blogs. Hier teilen wir regelmäßig Beiträge rund um Politik, Region und Meinungen.</p>
-    </article>
+  <!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mein Blog mit Kommentaren</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+    article {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    article h2 {
+      color: #333;
+    }
+    article time {
+      font-size: 0.9em;
+      color: #777;
+    }
+    .kommentare {
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+    .kommentar {
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 100%;
+      height: 60px;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
-    <article>
-      <h2>HTML Grundlagen</h2>
-      <time datetime="2025-05-20">20. Mai 2025</time>
-      <p>HTML ist die Grundlage jeder Webseite. Mit einfachen Tags kannst du Inhalte strukturieren und präsentieren.</p>
-    </article>
+<h1>Mein Blog</h1>
 
-    <article>
-      <h2>CSS Styling-Tipps</h2>
-      <time datetime="2025-05-18">18. Mai 2025</time>
-      <p>CSS macht deine Webseite schön! Mit Farben, Layouts und mehr bringst du Leben in deine Seiten.</p>
-    </article>
-  </section>
+<div id="blog">
+  <!-- Artikel 1 -->
+  <article>
+    <h2>Beitrag 1</h2>
+    <time datetime="2025-05-22">22. Mai 2025</time>
+    <p>Das ist der erste Blogbeitrag. Hier steht Inhalt zu Thema 1.</p>
+
+    <div class="kommentare">
+      <h3>Kommentare</h3>
+      <div class="kommentarliste"></div>
+      <textarea placeholder="Dein Kommentar..."></textarea>
+      <button onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
+    </div>
+  </article>
+
+  <!-- Artikel 2 -->
+  <article>
+    <h2>Beitrag 2</h2>
+    <time datetime="2025-05-21">21. Mai 2025</time>
+    <p>Dies ist ein weiterer Beitrag mit spannenden Infos.</p>
+
+    <div class="kommentare">
+      <h3>Kommentare</h3>
+      <div class="kommentarliste"></div>
+      <textarea placeholder="Dein Kommentar..."></textarea>
+      <button onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
+    </div>
+  </article>
+
+  <!-- Artikel 3 -->
+  <article>
+    <h2>Beitrag 3</h2>
+    <time datetime="2025-05-20">20. Mai 2025</time>
+    <p>Ein dritter Beitrag mit noch mehr Informationen.</p>
+
+    <div class="kommentare">
+      <h3>Kommentare</h3>
+      <div class="kommentarliste"></div>
+      <textarea placeholder="Dein Kommentar..."></textarea>
+      <button onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
+    </div>
+  </article>
+</div>
+</section>
+<script>
+  function kommentarHinzufuegen(button) {
+    const container = button.parentElement;
+    const textfeld = container.querySelector("textarea");
+    const kommentar = textfeld.value.trim();
+
+    if (kommentar === "") {
+      alert("Bitte gib einen Kommentar ein.");
+      return;
+    }
+
+    const kommentarliste = container.querySelector(".kommentarliste");
+    const neuesKommentarDiv = document.createElement("div");
+    neuesKommentarDiv.className = "kommentar";
+    neuesKommentarDiv.textContent = kommentar;
+    kommentarliste.appendChild(neuesKommentarDiv);
+
+    textfeld.value = ""; // Feld leeren
+  }
+</script>
+
+</body>
+</html>
+        
 <script>
   function zeige(id) {
     document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
