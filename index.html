@@ -106,13 +106,7 @@
   </style>
 </head>
 
-<script>
-  function zeige(id) {
-    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
-    const ziel = document.getElementById(id);
-    if (ziel) ziel.classList.add("active");
-  }
-</script>
+
   <body>
 
   <header>
@@ -164,6 +158,12 @@
       <p>CSS macht deine Webseite schön! Mit Farben, Layouts und mehr bringst du Leben in deine Seiten.</p>
     </article>
   </section>
+<script>
+  function zeige(id) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    const ziel = document.getElementById(id);
+    if (ziel) ziel.classList.add("active");
+  }
 </script>
   
   <footer>
