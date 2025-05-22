@@ -105,7 +105,15 @@
     }
   </style>
 </head>
-<body>
+
+<script>
+  function zeige(id) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    const ziel = document.getElementById(id);
+    if (ziel) ziel.classList.add("active");
+  }
+</script>
+  <body>
 
   <header>
     <img src="AfD_Logo_blau.png" alt="Logo">
@@ -121,7 +129,7 @@
     <button onclick="zeige('kontakt')">Kontakt</button>
     <button onclick="zeige('blog')">Blog</button>
   </nav>
-
+ 
   <section id="start" class="active">
     <h2>Willkommen</h2>
     <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
