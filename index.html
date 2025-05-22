@@ -156,7 +156,18 @@
       <p>CSS macht deine Webseite schön! Mit Farben, Layouts und mehr bringst du Leben in deine Seiten.</p>
     </article>
   </section>
+<div style="margin-top: 2rem;">
+  <button onclick="zeigeBeitragsformular()" style="padding: 0.5rem 1rem; font-weight: bold;">Neuen Beitrag schreiben</button>
+  
+  <div id="beitragsformular" style="display: none; margin-top: 1rem;">
+    <input type="text" id="titel" placeholder="Titel" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;">
+    <textarea id="inhalt" placeholder="Beitrag schreiben..." rows="5" style="width: 100%; padding: 0.5rem;"></textarea>
+    <button onclick="beitragVeröffentlichen()" style="margin-top: 0.5rem; padding: 0.5rem 1rem;">Veröffentlichen</button>
+  </div>
+</div>
 
+<div id="neueBeitraege" style="margin-top: 2rem;"></div>
+ 
   <footer>
     <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
   </footer>
