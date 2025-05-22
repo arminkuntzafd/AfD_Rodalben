@@ -94,7 +94,137 @@ header img {
 
 <section id="blog">
     <h2>Blog</h2>
-    <p>Du möchtest mitreden?</a>.</p>
+      <meta charset="UTF-8" />
+  <title>Logo im Header</title>
+  <style>
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+    header img {
+      height: 50px;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo" />
+  </header>
+
+  <main>
+    <p>Hier steht dein Seiteninhalt.</p>
+  </main>
+
+  <footer>
+    <p>Das ist der Footer</p>
+  </footer>
+</body>
+</html>
+Falls das Logo bei dir trotzdem unten steht, schick mir gern deinen aktuellen HTML- und CSS-Code. Dann schaue ich genau, wo es hakt!
+
+
+
+
+
+
+
+Du:
+gib mir einen blog in html
+
+
+ChatGPT:
+Klar! Hier ist ein einfacher, sauberer Blog in HTML mit ein bisschen CSS, damit er gut aussieht. Du kannst ihn direkt benutzen und nach Belieben erweitern:
+
+html
+Kopieren
+Bearbeiten
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mein Blog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #fafafa;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #2c3e50;
+    }
+    article {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    article h2 {
+      margin-top: 0;
+      color: #34495e;
+    }
+    article time {
+      color: #999;
+      font-size: 0.9em;
+    }
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px 0;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 0.9em;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mein Blog</h1>
+    <p>Gedanken, Tipps und mehr</p>
+  </header>
+
+  <article>
+    <h2>Willkommen auf meinem Blog</h2>
+    <time datetime="2025-05-22">22. Mai 2025</time>
+    <p>Dies ist der erste Beitrag meines Blogs. Hier werde ich regelmäßig interessante Themen rund um Webentwicklung, Design und mehr teilen. Bleib dran!</p>
+  </article>
+
+  <article>
+    <h2>HTML Grundlagen</h2>
+    <time datetime="2025-05-20">20. Mai 2025</time>
+    <p>HTML ist die Grundlage jeder Webseite. Mit einfachen Tags kannst du Inhalte strukturieren und präsentieren. In den nächsten Beiträgen zeige ich dir, wie du HTML effektiv nutzen kannst.</p>
+  </article>
+
+  <article>
+    <h2>CSS Styling-Tipps</h2>
+    <time datetime="2025-05-18">18. Mai 2025</time>
+    <p>CSS macht deine Webseite schön! Mit Farben, Layouts und Animationen kannst du deine Seiten einzigartig gestalten. Hier sind ein paar Basics, die du kennen solltest.</p>
+  </article>
+
+  <footer>
+    &copy; 2025 Mein Blog – Alle Rechte vorbehalten
+  </footer>
+</body>
   </section>  
   <footer>
     <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
