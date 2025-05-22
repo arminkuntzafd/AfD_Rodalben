@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AfD Rodalben</title>
-  <link rel="icon" href="AfD_Logo_blau.png" type="image/png" />
+  <link rel="icon" type="image/png" href="AfD_Logo_blau.png">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
     }
+
     header {
       background-color: #003366;
       color: white;
@@ -26,29 +28,72 @@
       align-items: center;
       gap: 1rem;
     }
+
     header img {
       height: 40px;
     }
-    header .text-container {
-      display: flex;
-      flex-direction: column;
+
+    header h1 {
+      font-size: 1.5rem;
     }
+
+    header p {
+      font-size: 0.9rem;
+    }
+
     nav {
       background-color: #005288;
       display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
       flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+      gap: 1rem;
     }
-    nav button, .dropbtn {
+
+    nav .dropdown,
+    nav > button {
+      position: relative;
+    }
+
+    nav button,
+    .dropbtn {
       background: none;
       border: none;
       color: white;
       font-weight: bold;
       cursor: pointer;
-      padding: 0.5rem 1rem;
+      padding: 8px 12px;
     }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #005288;
+      min-width: 140px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .dropdown-content button {
+      padding: 10px;
+      background: none;
+      border: none;
+      color: white;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+    .dropdown-content button:hover {
+      background-color: #0074b8;
+    }
+
     section {
       display: none;
       padding: 2rem;
@@ -58,53 +103,31 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     section.active {
       display: block;
     }
+
     footer {
-      background: #003366;
-      color: white;
       text-align: center;
       padding: 1rem;
+      background: #003366;
+      color: white;
       margin-top: auto;
     }
 
-    /* Dropdown Menü */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #005288;
-      min-width: 140px;
-      flex-direction: column;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
-    .dropdown-content button {
-      color: white;
-      padding: 10px 16px;
-      text-align: left;
-      background: none;
-      border: none;
-      width: 100%;
-      cursor: pointer;
-    }
-    .dropdown-content button:hover {
-      background-color: #0074b8;
-    }
-    .dropdown:hover .dropdown-content {
-      display: flex;
+    a {
+      color: #005288;
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
 
 <header>
-  <a href="index.html"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
-  <div class="text-container">
+  <a href="index.html"><img src="AfD_Logo_blau.png" alt="Logo"></a>
+  <div>
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
   </div>
@@ -123,20 +146,11 @@
   </div>
 
   <div class="dropdown">
-    <button class="dropbtn">Links ▾</button>
-    <div class="dropdown-content">
-      <button onclick="zeige('kreis')">Kreis</button>
-      <button onclick="zeige('land')">Land</button>
-      <button onclick="zeige('bund')">Bund</button>
-    </div>
-  </div>
-
-  <div class="dropdown">
     <button class="dropbtn">Satzungen ▾</button>
     <div class="dropdown-content">
-      <button onclick="zeige('kreissatzung')">Kreissatzung</button>
-      <button onclick="zeige('landessatzung')">Landessatzung</button>
-      <button onclick="zeige('bundessatzung')">Bundessatzung</button>
+      <button onclick="zeige('kreissatzung')">Kreis</button>
+      <button onclick="zeige('landessatzung')">Land</button>
+      <button onclick="zeige('bundessatzung')">Bund</button>
     </div>
   </div>
 
@@ -150,59 +164,49 @@
 
 <section id="ueberuns">
   <h2>Über uns</h2>
-  <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet...</p>
+  <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
 </section>
 
 <section id="kontakt">
   <h2>Kontakt</h2>
-  <p>Du erreichst uns unter: <a href="mailto:kuntzarmin6@gmail.com">kuntzarmin6@gmail.com</a></p>
+  <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="email">E-Mail:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="nachricht">Nachricht:</label><br>
+    <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br><br>
+    <button type="submit">Absenden</button>
+  </form>
 </section>
 
 <section id="lage">
   <h2>Unsere Lage</h2>
+  <p>Hier finden Sie uns:</p>
   <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12..."
-    width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
+    width="100%" height="400" style="border:0;" allowfullscreen loading="lazy">
   </iframe>
-</section>
-
-<section id="kreis">
-  <h2>Kreis</h2>
-  <p><a href="https://afd-swp.de/" target="_blank">AfD Kreisverband Südwestpfalz</a></p>
-</section>
-
-<section id="land">
-  <h2>Land</h2>
-  <p><a href="https://alternative-rlp.de/" target="_blank">AfD Rheinland-Pfalz</a></p>
-</section>
-
-<section id="bund">
-  <h2>Bund</h2>
-  <p><a href="https://www.afd.de/" target="_blank">AfD Bundesverband</a></p>
 </section>
 
 <section id="kreissatzung">
   <h2>Kreissatzung</h2>
-  <p>
-    Die Kreissatzung kannst du hier einsehen:
-    <a href="https://afd-swp.de/index.php?s=kvsatzung" target="_blank">Kreissatzung öffnen</a>
-  </p>
+  <p><a href="https://afd-swp.de/index.php?s=kvsatzung" target="_blank">Kreissatzung anzeigen</a></p>
 </section>
-
 
 <section id="landessatzung">
   <h2>Landessatzung</h2>
-  <p>Hier steht die Satzung des Landesverbands...</p>
+  <p><a href="https://alternative-rlp.de/wp-content/uploads/sites/9/2022/10/Satzung_Landesverband_RLP.pdf" target="_blank">Landessatzung als PDF öffnen</a></p>
 </section>
 
 <section id="bundessatzung">
   <h2>Bundessatzung</h2>
-  <p>Hier steht die Satzung des Bundesverbands...</p>
+  <p><a href="https://www.afd.de/wp-content/uploads/sites/111/2021/11/2021-11-28_Bundessatzung_der_AfD.pdf" target="_blank">Bundessatzung als PDF öffnen</a></p>
 </section>
 
 <section id="blog">
   <h2>Blog</h2>
-  <p>Aktuelle Beiträge folgen...</p>
+  <p>Hier erscheinen bald Beiträge...</p>
 </section>
 
 <footer>
@@ -211,7 +215,7 @@
 
 <script>
   function zeige(id) {
-    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
     const ziel = document.getElementById(id);
     if (ziel) ziel.classList.add("active");
   }
