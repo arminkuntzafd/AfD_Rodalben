@@ -103,6 +103,13 @@
       text-decoration: underline;
     }
   </style>
+  <script>
+    function zeige(id) {
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+      const ziel = document.getElementById(id);
+      if (ziel) ziel.classList.add("active");
+    }
+  </script>
 </head>
 
 <body>
@@ -135,14 +142,15 @@
       <button onclick="zeige('bundessatzung')">Bundessatzung</button>
     </div>
   </div>
-  
-<div class="dropdown">
+
+  <div class="dropdown">
     <button class="dropbtn">Verschiedenes ▾</button>
     <div class="dropdown-content">
-      <button onclick="zeige('mitgliedwerden')">Mitglied werden<</button>
-utton onc    </div>
+      <button onclick="zeige('mitgliedwerden')">Mitglied werden</button>
+    </div>
   </div>
-  
+
+  <button onclick="zeige('verschiedenes')">Verschiedenes</button>
   <button onclick="zeige('blog')">Blog</button>
 </nav>
 
@@ -180,7 +188,7 @@ utton onc    </div>
 
 <section id="kreissatzung">
   <h2>Kreissatzung</h2>
-  href="Satzung_Kreis.pdf" target="_blank">Kreissatzung anzeigen</a></p>
+  <p><a href="Satzung_Kreis.pdf" target="_blank">Kreissatzung anzeigen</a></p>
 </section>
 
 <section id="landessatzung">
@@ -188,28 +196,12 @@ utton onc    </div>
   <p><a href="https://alternative-rlp.de/wp-content/uploads/sites/9/2022/10/Satzung_Landesverband_RLP.pdf" target="_blank">Landessatzung als PDF öffnen</a></p>
 </section>
 
-<section id="Bundessatzung">
+<section id="bundessatzung">
   <h2>Bundessatzung</h2>
-  <object data=Satzung_Bund.pdf" type="application/pdf" width="100%" height="800px">
+  <object data="Satzung_Bund.pdf" type="application/pdf" width="100%" height="800px">
     <p>Dein Browser kann die PDF-Datei nicht anzeigen. 
     <a href="Satzung_Bund.pdf" target="_blank">Hier klicken, um die Datei herunterzuladen.</a></p>
   </object>
-</section>
-
-function zeige(id) {
-  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
-
-
-<section id="verschiedenes">
-  <h2>Verschiedenes</h2>
-  <p>Hier findest du eine Auswahl an weiteren Themen, die uns wichtig sind oder die nicht in andere Kategorien passen.</p>
-  <ul>
-    <li>Termine für Infostände</li>
-    <li>Veranstaltungen & Bürgerdialoge</li>
-    <li>Sonstiges Material (Flyer, Plakate etc.)</li>
-  </ul>
 </section>
 
 <section id="mitgliedwerden">
@@ -221,7 +213,17 @@ function zeige(id) {
     style="border: none;">
   </iframe>
 </section>
-  
+
+<section id="verschiedenes">
+  <h2>Verschiedenes</h2>
+  <p>Hier findest du eine Auswahl an weiteren Themen, die uns wichtig sind oder die nicht in andere Kategorien passen.</p>
+  <ul>
+    <li>Termine für Infostände</li>
+    <li>Veranstaltungen & Bürgerdialoge</li>
+    <li>Sonstiges Material (Flyer, Plakate etc.)</li>
+  </ul>
+</section>
+
 <section id="blog">
   <h2>Blog</h2>
   <p>Hier erscheinen bald Beiträge...</p>
@@ -231,5 +233,5 @@ function zeige(id) {
   <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
 </footer>
 
- </body>
+</body>
 </html>
