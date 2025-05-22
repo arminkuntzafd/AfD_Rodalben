@@ -106,7 +106,6 @@
   </style>
 </head>
 
-
   <body>
 
   <header>
@@ -159,18 +158,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mein Blog mit Kommentaren</title>
+  <title>Mein Blog</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
       background: #f4f4f4;
+      padding: 20px;
+      margin: 0;
     }
+
     h1 {
       text-align: center;
       color: #003366;
     }
+
+    #beitragsformular {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #beitragsformular input,
+    #beitragsformular textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    #beitragsformular button {
+      padding: 10px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #neuerBeitragBtn {
+      display: block;
+      margin: 0 auto 20px auto;
+      padding: 10px 20px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
     article {
       background: white;
       padding: 20px;
@@ -178,27 +214,24 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    article h2 {
-      color: #333;
-    }
-    article time {
-      font-size: 0.9em;
-      color: #777;
-    }
+
     .kommentare {
       margin-top: 20px;
       border-top: 1px solid #ddd;
       padding-top: 10px;
     }
+
     .kommentar {
       margin-bottom: 10px;
     }
+
     textarea {
       width: 100%;
       height: 60px;
       margin-top: 10px;
     }
-    button {
+
+    button.kommentar-btn {
       margin-top: 5px;
       padding: 5px 10px;
       background-color: #003366;
@@ -212,49 +245,81 @@
 
 <h1>Mein Blog</h1>
 
-<div id="blog">
-  <!-- Artikel 1 -->
-  <article>
-    <h2>Beitrag 1</h2>
-    <time datetime="2025-05-22">22. Mai 2025</time>
-    <p>Das ist der erste Blogbeitrag. Hier steht Inhalt zu Thema 1.</p>
+<button id="neuerBeitragBtn" onclick="zeigeFormular()">Neuen Beitrag schreiben</button>
 
-    <div class="kommentare">
-      <h3>Kommentare</h3>
-      <div class="kommentarliste"></div>
-      <textarea placeholder="Dein Kommentar..."></textarea>
-      <button onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
-    </div>
-  </article>
-
-  <!-- Artikel 2 -->
-  <article>
-    <h2>Beitrag 2</h2>
-    <time datetime="2025-05-21">21. Mai 2025</time>
-    <p>Dies ist ein weiterer Beitrag mit spannenden Infos.</p>
-
-    <div class="kommentare">
-      <h3>Kommentare</h3>
-      <div class="kommentarliste"></div>
-      <textarea placeholder="Dein Kommentar..."></textarea>
-      <button onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
-    </div>
-  </article>
-
-  <!-- Artikel 3 -->
-  <article>
-    <h2>Beitrag 3</h2>
-    <time datetime="2025-05-20">20. Mai 2025</time>
-    <p>Ein dritter Beitrag mit noch mehr Informationen.</p>
-
-    <div class="kommentare">
-      <h3>Kommentare</h3>
-      <div class="kommentarliste"></div>
-      <textarea placeholder="Dein Kommentar..."></textarea>
-      <button onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
-    </div>
-  </article>
+<div id="beitragsformular" style="display: none;">
+  <h2>Neuen Beitrag erstellen</h2>
+  <input type="text" id="titel" placeholder="Titel" required>
+  <textarea id="inhalt" placeholder="Inhalt" required></textarea>
+  <button onclick="beitragErstellen()">Veröffentlichen</button>
 </div>
+
+<div id="blog">
+  <!-- Neue Beiträge landen hier -->
+</div>
+
+<script>
+  function zeigeFormular() {
+    document.getElementById("beitragsformular").style.display = "block";
+  }
+
+  function beitragErstellen() {
+    const titel = document.getElementById("titel").value.trim();
+    const inhalt = document.getElementById("inhalt").value.trim();
+
+    if (!titel || !inhalt) {
+      alert("Bitte Titel und Inhalt ausfüllen.");
+      return;
+    }
+
+    const datum = new Date().toLocaleDateString("de-DE");
+
+    const artikel = document.createElement("article");
+    artikel.innerHTML = `
+      <h2>${titel}</h2>
+      <time>${datum}</time>
+      <p>${inhalt}</p>
+      <div class="kommentare">
+        <h3>Kommentare</h3>
+        <div class="kommentarliste"></div>
+        <textarea placeholder="Dein Kommentar..."></textarea>
+        <button class="kommentar-btn" onclick="kommentarHinzufuegen(this)">Kommentar absenden</button>
+      </div>
+    `;
+
+    document.getElementById("blog").prepend(artikel);
+
+    // Formular leeren und ausblenden
+    document.getElementById("titel").value = "";
+    document.getElementById("inhalt").value = "";
+    document.getElementById("beitragsformular").style.display = "none";
+  }
+
+  function kommentarHinzufuegen(button) {
+    const container = button.parentElement;
+    const textfeld = container.querySelector("textarea");
+    const kommentar = textfeld.value.trim();
+
+    if (kommentar === "") {
+      alert("Bitte gib einen Kommentar ein.");
+      return;
+    }
+
+    const kommentarliste = container.querySelector(".kommentarliste");
+    const neuesKommentarDiv = document.createElement("div");
+    neuesKommentarDiv.className = "kommentar";
+    neuesKommentarDiv.textContent = kommentar;
+    kommentarliste.appendChild(neuesKommentarDiv);
+
+    textfeld.value = "";
+  }
+</script>
+
+</body>
+</html>
+
+   
+     
 </section>
 <script>
   function kommentarHinzufuegen(button) {
