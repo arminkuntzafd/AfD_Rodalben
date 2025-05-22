@@ -138,6 +138,38 @@
   </section>
 
   <section id="blog">
+    
+   <script>
+  function zeigeBeitragsformular() {
+    document.getElementById("beitragsformular").style.display = "block";
+  }
+
+  function beitragVeröffentlichen() {
+    const titel = document.getElementById("titel").value.trim();
+    const inhalt = document.getElementById("inhalt").value.trim();
+
+    if (!titel || !inhalt) {
+      alert("Bitte Titel und Inhalt ausfüllen.");
+      return;
+    }
+
+    const datum = new Date().toLocaleDateString("de-DE");
+    const neuerArtikel = `
+      <article>
+        <h2>${titel}</h2>
+        <time>${datum}</time>
+        <p>${inhalt}</p>
+      </article>
+    `;
+
+    document.getElementById("neueBeitraege").innerHTML += neuerArtikel;
+
+    document.getElementById("titel").value = "";
+    document.getElementById("inhalt").value = "";
+    document.getElementById("beitragsformular").style.display = "none";
+  }
+</script>
+ 
     <article>
       <h2>Willkommen auf unserem Blog</h2>
       <time datetime="2025-05-22">22. Mai 2025</time>
