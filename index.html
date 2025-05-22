@@ -104,6 +104,47 @@
       font-size: 0.9em;
     }
   </style>
+</* Dropdown-Stil */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #005288;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+  flex-direction: column;
+}
+
+.dropdown-content button {
+  color: white;
+  padding: 10px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+.dropdown-content button:hover {
+  background-color: #0074b8;
+}
 </head>
 
   <body>
@@ -125,7 +166,7 @@
   <div class="dropdown">
     <button class="dropbtn">Kontakt ▾</button>
     <div class="dropdown-content">
-      <button onclick="zeige('email')">E-Mail</button>
+      <button onclick="zeige('kontakt')">E-Mail</button>
       <button onclick="zeige('lage')">Lage</button>
     </div>
   </div>
