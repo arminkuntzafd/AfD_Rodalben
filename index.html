@@ -139,10 +139,21 @@
 
   <section id="kontakt">
     <h2>Kontakt</h2>
-    <p>Du möchtest uns erreichen? Schreibe uns an <a href="mailto:kontakt@afd-rodalben.de">kontakt@afd-rodalben.de</a>.</p>
-  </section>
+  <form id="kontaktformular" action="mailto:kuntzarmin6@gmail.de" method="POST" enctype="text/plain">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
 
-  <section id="blog">
+    <label for="email">E-Mail:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="nachricht">Nachricht:</label><br>
+    <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br><br>
+
+    <button type="submit">Absenden</button>
+  </form>
+  </section>
+ 
+    <section id="blog">
       <article> 
       <h2>Willkommen auf unserem Blog</h2>
       <time datetime="2025-05-22">22. Mai 2025</time>
