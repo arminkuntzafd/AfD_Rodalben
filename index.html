@@ -25,7 +25,8 @@
     }
 
     /* Header fixiert */
-    header {
+    /* Header fixieren */
+header {
   position: fixed;
   top: 0;
   left: 0;
@@ -39,42 +40,42 @@
   z-index: 1000;
 }
 
-/* Logo */
+/* Logo links, Text rechts daneben */
 header img {
   height: 50px;
   margin-right: 1rem;
 }
 
-/* Textblock mit h1 und p */
 header div {
   display: flex;
-  
+  flex-direction: column;
+  justify-content: center;
+}
 
-    header h1 {
-      font-size: 1.5rem;
-    }
+/* Nav direkt unter dem Header */
+nav {
+  position: fixed;
+  top: 80px; /* exakt Höhe des Headers */
+  left: 0;
+  right: 0;
+  background-color: #005288;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+  z-index: 999;
+}
 
-    header p {
-      font-size: 0.9rem;
-    }
+/* Platz für fixierten Header + Nav schaffen */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding-top: 160px; /* 80px Header + ca. 80px Nav */
+  padding-bottom: 60px; /* Platz für Footer */
+  min-height: 100vh;
+}
 
-    /* Nav fixiert unter Header */
-    nav {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      right: 0;
-      height: 40px;
-      background-color: #005288;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 0 1rem;
-      z-index: 999;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-      flex-wrap: wrap;
-    }
 
     nav .dropdown, nav > button {
       position: relative;
