@@ -104,6 +104,72 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     width; 100%;
 
+    /* Grundstil: Margin und Padding raus */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body braucht genug Padding für fixierte Bereiche */
+body {
+  font-family: Arial, sans-serif;
+  padding-top: 60px;    /* Höhe Header + Nav */
+  padding-bottom: 50px; /* Höhe Footer */
+  min-height: 100vh;
+}
+
+/* Header: oben fixieren */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;       /* Beispielhöhe */
+  background-color: #003366;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 1000;
+}
+
+/* Nav: unter Header fixieren */
+nav {
+  position: fixed;
+  top: 40px;          /* direkt unter Header */
+  left: 0;
+  right: 0;
+  height: 20px;       /* Beispielhöhe */
+  background-color: #005288;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 999;
+}
+
+/* Footer: unten fixieren */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;       /* Beispielhöhe */
+  background-color: #003366;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Content-Bereich: genug Abstand für fixierte Leisten */
+main, section {
+  padding: 1rem;
+  margin-top: 60px;     /* Höhe Header + Nav */
+  margin-bottom: 50px;  /* Höhe Footer */
+}
+
     
     footer {
       text-align: center;
