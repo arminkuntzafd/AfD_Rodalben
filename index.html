@@ -60,12 +60,66 @@ nav {
   right: 0;
   background-color: #005288;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  padding: 1rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 1rem;
   gap: 1rem;
   z-index: 999;
 }
+
+/* Buttons in der Nav */
+nav button, .dropbtn {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+
+/* Dropdown Container */
+.dropdown {
+  position: relative;
+}
+
+/* Dropdown Inhalt */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #0074b8;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  flex-direction: column;
+  z-index: 1001;
+}
+
+.dropdown-content button,
+.dropdown-content a {
+  color: white;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* Hover aktiviert Dropdown */
+.dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+/* Hover-Stil */
+.dropdown-content button:hover,
+.dropdown-content a:hover {
+  background-color: #3399dd;
+}
+
 
 /* Platz für fixierten Header + Nav schaffen */
 body {
