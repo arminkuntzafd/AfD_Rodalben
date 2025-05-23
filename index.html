@@ -14,9 +14,9 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
     }
     header {
       background-color: #003366;
@@ -65,25 +65,26 @@
       flex-direction: column;
       z-index: 10;
     }
-    .dropdown-content button {
+    .dropdown-content button, .dropdown-content a {
       padding: 10px;
       background: none;
       border: none;
       color: white;
       text-align: left;
       cursor: pointer;
+      text-decoration: none;
     }
     .dropdown:hover .dropdown-content {
       display: flex;
     }
-    .dropdown-content button:hover {
+    .dropdown-content button:hover, .dropdown-content a:hover {
       background-color: #0074b8;
     }
     section {
       display: none;
       padding: 2rem;
-      max-width: 800px;
-      margin: 1rem auto;
+      max-width: 900px;
+      margin: 2rem auto;
       background: white;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -102,21 +103,12 @@
       color: #005288;
       text-decoration: underline;
     }
-      <iframe 
-  src="bundessatzung.html" 
-  width="100%" 
-  height="1800" 
-  style="border: none; background: lightblue;">
-</iframe>
-  
-  
   </style>
 </head>
-
 <body>
 
 <header>
-  <a href="index.html"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
+  <a href="#"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
   <div>
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
@@ -140,27 +132,24 @@
     <div class="dropdown-content">
       <button onclick="zeige('kreissatzung')">Kreissatzung</button>
       <button onclick="zeige('landessatzung')">Landessatzung</button>
-      <a href="bundessatzung.html" style="padding:10px; display:block; color:white; text-decoration:none;">Bundessatzung</a>
->
+      <button onclick="zeige('bundessatzung')">Bundessatzung</button>
     </div>
   </div>
-  
-<div class="dropdown">
+
+  <div class="dropdown">
     <button class="dropbtn">Verschiedenes ▾</button>
     <div class="dropdown-content">
-      <button onclick="zeige('mitgliedwerden')">Mitglied werden<</button>
-utton onc    </div>
+      <button onclick="zeige('mitgliedwerden')">Mitglied werden</button>
+    </div>
   </div>
-  
+
   <button onclick="zeige('blog')">Blog</button>
 </nav>
 
 <section id="start" class="active">
   <h2>Willkommen</h2>
   <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
-<img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%; height: auto;" />
-</section>
-
+  <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%; height: auto;" />
 </section>
 
 <section id="ueberuns">
@@ -183,7 +172,6 @@ utton onc    </div>
 
 <section id="lage">
   <h2>Unsere Lage</h2>
-  <p>Hier finden Sie uns:</p>
   <iframe
     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
     width="100%" height="400" style="border:0;" allowfullscreen loading="lazy">
@@ -200,14 +188,9 @@ utton onc    </div>
   <p><a href="https://alternative-rlp.de/wp-content/uploads/sites/9/2022/10/Satzung_Landesverband_RLP.pdf" target="_blank">Landessatzung als PDF öffnen</a></p>
 </section>
 
-<section id="verschiedenes">
-  <h2>Verschiedenes</h2>
-  <p>Hier findest du eine Auswahl an weiteren Themen, die uns wichtig sind oder die nicht in andere Kategorien passen.</p>
-  <ul>
-    <li>Termine für Infostände</li>
-    <li>Veranstaltungen & Bürgerdialoge</li>
-    <li>Sonstiges Material (Flyer, Plakate etc.)</li>
-  </ul>
+<section id="bundessatzung">
+  <h2>Bundessatzung</h2>
+  <iframe src="bundessatzung.html" width="100%" height="1800" style="border: none; background: #eef;"></iframe>
 </section>
 
 <section id="mitgliedwerden">
@@ -219,7 +202,7 @@ utton onc    </div>
     style="border: none;">
   </iframe>
 </section>
-  
+
 <section id="blog">
   <h2>Blog</h2>
   <p>Hier erscheinen bald Beiträge...</p>
@@ -234,6 +217,7 @@ utton onc    </div>
     document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
     const ziel = document.getElementById(id);
     if (ziel) ziel.classList.add("active");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
 
