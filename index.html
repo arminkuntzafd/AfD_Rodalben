@@ -27,218 +27,23 @@
       background-color: #003366;
       color: white;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
       padding: 0.5rem 1rem;
       z-index: 1000;
-    }
-    .header-top {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .header-top img {
-      height: 50px;
+      flex-wrap: wrap;
     }
     .header-left {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .header-bottom {
-      display: flex;
       align-items: center;
-      justify-content: space-between;
-    }
-    #header-temp {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #f5a623;
-      font-family: monospace;
-      user-select: none;
-      white-space: nowrap;
-    }
-    .search-box {
-      flex-grow: 1;
-      margin-right: 1rem;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 0.4rem;
-      font-size: 1rem;
-      border-radius: 4px;
-      border: none;
-    }
-    nav {
-      position: fixed;
-      top: 120px;
-      left: 0; right: 0;
-      background-color: #005288;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 0.5rem 1rem;
       gap: 1rem;
-      z-index: 999;
     }
-    nav button, .dropbtn {
-      background: none;
-      border: none;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      padding: 8px 12px;
-      font-size: 1rem;
-    }
-    .dropdown {
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #0074b8;
-      min-width: 160px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      flex-direction: column;
-      z-index: 1001;
-    }
-    .dropdown-content button,
-    .dropdown-content a {
-      color: white;
-      padding: 10px 16px;
-      background: none;
-      border: none;
-      text-align: left;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .dropdown:hover .dropdown-content {
-      display: flex;
-    }
-    .dropdown-content button:hover,
-    .dropdown-content a:hover {
-      background-color: #3399dd;
-    }
-    section {
-      display: none;
-      padding: 1rem 2rem;
-      max-width: 900px;
-      margin: 2rem auto;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    section.active {
-      display: block;
-    }
-    iframe {
-      width: 100%;
-      border: none;
-      background: #f0f8ff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    footer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
+    .header-left img {
       height: 50px;
-      background-color: #003366;
-      color: white;
+    }
+    .header-left .text {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 1rem;
-      z-index: 1000;
-      font-size: 0.9rem;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+      flex-direction: column;
     }
-    a {
-      color: #005288;
-      text-decoration: underline;
-    }
-    form label {
-      font-weight: bold;
-    }
-    form input, form textarea {
-      width: 100%;
-      padding: 0.3rem;
-      margin-top: 0.2rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    form button {
-      background-color: #005288;
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    form button:hover {
-      background-color: #0074b8;
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="header-top">
-    <a href="#"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
-    <div class="header-left">
-      <h1>AfD Rodalben</h1>
-      <p>Informationen & Aktuelles aus der Region</p>
-    </div>
-  </div>
-  <div class="header-bottom">
-    <div class="search-box">
-      <input type="text" placeholder="Suche...">
-    </div>
-    <div id="header-temp">Lade...</div>
-  </div>
-</header>
-
-<!-- ... der restliche Inhalt bleibt unverändert ... -->
-
-<script>
-  function zeige(id) {
-    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
-    const ziel = document.getElementById(id);
-    if (ziel) ziel.classList.add("active");
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  async function ladeTemperaturHeader() {
-    const latitude = 49.24;
-    const longitude = 7.64;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=Europe/Berlin`;
-    const tempDiv = document.getElementById("header-temp");
-    tempDiv.textContent = "Lade...";
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Fehler beim Abrufen der Wetterdaten");
-      const data = await response.json();
-      if (data.current_weather && typeof data.current_weather.temperature === "number") {
-        const temp = data.current_weather.temperature.toFixed(1);
-        tempDiv.textContent = temp + " °C";
-      } else {
-        tempDiv.textContent = "Keine Daten";
-      }
-    } catch (error) {
-      tempDiv.textContent = "Fehler";
-      console.error("Wetter-API Fehler:", error);
-    }
-  }
-
-  ladeTemperaturHeader();
-  setInterval(ladeTemperaturHeader, 60000);
-</script>
-
-</body>
-</html>
+    .header-right {
+      display: flex
