@@ -6,7 +6,6 @@
   <title>AfD Rodalben</title>
   <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
-    /* Reset */
     * {
       margin: 0;
       padding: 0;
@@ -16,20 +15,16 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
-      /* Abstand oben und unten für fixe Header, Nav und Footer */
-      padding-top: 160px;  /* Header (80) + Nav (40) */
+      padding-top: 160px; /* Platz für Header + Nav */
       padding-bottom: 50px; /* Footer */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* Header fixiert */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 80px;
       background-color: #003366;
       color: white;
@@ -37,26 +32,36 @@
       align-items: center;
       padding: 0 1rem;
       z-index: 1000;
+      /* Flexbox: Logo + Text links, Temperatur rechts */
+      justify-content: flex-start;
+      gap: 1rem;
     }
 
-    /* Logo links, Text rechts daneben */
     header img {
       height: 50px;
-      margin-right: 1rem;
     }
 
-    header div {
+    header .header-left {
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    /* Nav direkt unter dem Header */
+    /* Der Bereich für Temperatur soll rechts außen sein */
+    #header-temp {
+      margin-left: auto;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #f5a623; /* z.B. orange-gelb */
+      font-family: monospace;
+      user-select: none;
+      white-space: nowrap;
+    }
+
     nav {
       position: fixed;
-      top: 80px; /* exakt Höhe des Headers */
-      left: 0;
-      right: 0;
+      top: 80px;
+      left: 0; right: 0;
       background-color: #005288;
       display: flex;
       align-items: center;
@@ -67,7 +72,6 @@
       z-index: 999;
     }
 
-    /* Buttons in der Nav */
     nav button, .dropbtn {
       background: none;
       border: none;
@@ -78,9 +82,253 @@
       font-size: 1rem;
     }
 
-    /* Dropdown Container */
     .dropdown {
       position: relative;
     }
 
-    /
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0074b8;
+      min-width: 160px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      flex-direction: column;
+      z-index: 1001;
+    }
+
+    .dropdown-content button,
+    .dropdown-content a {
+      color: white;
+      padding: 10px 16px;
+      background: none;
+      border: none;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+    .dropdown-content button:hover,
+    .dropdown-content a:hover {
+      background-color: #3399dd;
+    }
+
+    section {
+      display: none;
+      padding: 1rem 2rem;
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    section.active {
+      display: block;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      background: #f0f8ff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 50px;
+      background-color: #003366;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+      z-index: 1000;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    }
+
+    a {
+      color: #005288;
+      text-decoration: underline;
+    }
+
+    form label {
+      font-weight: bold;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 0.3rem;
+      margin-top: 0.2rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    form button {
+      background-color: #005288;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #0074b8;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
+  <div class="header-left">
+    <h1>AfD Rodalben</h1>
+    <p>Informationen & Aktuelles aus der Region</p>
+  </div>
+  <div id="header-temp">Lade...</div>
+</header>
+
+<nav>
+  <button onclick="zeige('start')">Start</button>
+  <button onclick="zeige('ueberuns')">Über uns</button>
+
+  <div class="dropdown">
+    <button class="dropbtn">Kontakt ▾</button>
+    <div class="dropdown-content">
+      <button onclick="zeige('kontakt')">E-Mail</button>
+      <button onclick="zeige('lage')">Lage</button>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn">Satzungen ▾</button>
+    <div class="dropdown-content">
+      <button onclick="zeige('kreissatzung')">Kreissatzung</button>
+      <button onclick="zeige('landessatzung')">Landessatzung</button>
+      <button onclick="zeige('bundessatzung')">Bundessatzung</button>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn">Verschiedenes ▾</button>
+    <div class="dropdown-content">
+      <button onclick="zeige('mitgliedwerden')">Mitglied werden</button>
+    </div>
+  </div>
+
+  <button onclick="zeige('blog')">Blog</button>
+</nav>
+
+<main>
+  <section id="start" class="active">
+    <h2>Willkommen</h2>
+    <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
+    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%; height: auto;" />
+  </section>
+
+  <section id="ueberuns">
+    <h2>Über uns</h2>
+    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br />
+      <label for="email">E-Mail:</label><br />
+      <input type="email" id="email" name="email" required /><br />
+      <label for="nachricht">Nachricht:</label><br />
+      <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br />
+      <button type="submit">Absenden</button>
+    </form>
+  </section>
+
+  <section id="lage">
+    <h2>Unsere Lage</h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
+      width="100%" height="400" allowfullscreen loading="lazy" style="border:0;">
+    </iframe>
+  </section>
+
+  <section id="kreissatzung">
+    <h2>Kreissatzung</h2>
+    <iframe src="kreissatzung.html" height="1800"></iframe>
+  </section>
+
+  <section id="landessatzung">
+    <h2>Landessatzung</h2>
+    <iframe src="landessatzung.html" height="1800"></iframe>
+  </section>
+
+  <section id="bundessatzung">
+    <h2>Bundessatzung</h2>
+    <iframe src="bundessatzung.html" height="1800"></iframe>
+  </section>
+
+  <section id="mitgliedwerden">
+    <h2>Mitglied werden</h2>
+    <iframe src="https://www.afd.de/mitglied-werden/" height="800"></iframe>
+  </section>
+
+  <section id="blog">
+    <h2>Blog</h2>
+    <p>Hier erscheinen bald Beiträge...</p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
+</footer>
+
+<script>
+  function zeige(id) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    const ziel = document.getElementById(id);
+    if (ziel) ziel.classList.add("active");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function ladeTemperaturHeader() {
+    const latitude = 49.24;
+    const longitude = 7.64;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=Europe/Berlin`;
+
+    const tempDiv = document.getElementById("header-temp");
+    tempDiv.textContent = "Lade...";
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Fehler beim Abrufen der Wetterdaten");
+      const data = await response.json();
+      if (data.current_weather && typeof data.current_weather.temperature === "number") {
+        const temp = data.current_weather.temperature.toFixed(1);
+        tempDiv.textContent = temp + " °C";
+      } else {
+        tempDiv.textContent = "Keine Daten";
+      }
+    } catch (error) {
+      tempDiv.textContent = "Fehler";
+      console.error("Wetter-API Fehler:", error);
+    }
+  }
+
+  ladeTemperaturHeader();
+</script>
+
+</body>
+</html>
