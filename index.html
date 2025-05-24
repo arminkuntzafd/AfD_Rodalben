@@ -252,12 +252,44 @@ body {
     form button:hover {
       background-color: #0074b8;
     }
-  </style>
+  const params = {
+	"latitude": 49.24,
+	"longitude": 7.64,
+	"hourly": "temperature_2m",
+	"timezone": "Europe/Berlin"
+  };
+const url = "https://api.open-meteo.com/v1/forecast";
+const responses = await fetchWeatherApi(url, params);
+ const response = responses[0];
+// Attributes for timezone and location
+const utcOffsetSeconds = response.utcOffsetSeconds();
+const timezone = response.timezone();
+const timezoneAbbreviation = response.timezoneAbbreviation();
+const latitude = response.latitude();
+const longitude = response.longitude();
+const hourly = response.hourly()!;   
+ const weatherData = {
+	hourly: {
+		time: [...Array((Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval())].map(
+			(_, i) => new Date((Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) * 1000)
+		),
+		temperature2m: hourly.variables(0)!.valuesArray()!,
+	},
+};   
+    
+    
+    </style>
 </head>
 <body>
 
 <header>
   <a href="#"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
+  for (let i = 0; i < weatherData.hourly.time.length; i++) {
+	console.log(
+		weatherData.hourly.time[i].toISOString(),
+		weatherData.hourly.temperature2m[i]
+	);
+}
   <div>
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
