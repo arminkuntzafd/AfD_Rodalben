@@ -1,22 +1,137 @@
-<!-- KOMPLETTE index.html mit SPENDEN Section -->
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AfD Rodalben</title>
   <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
-    /* ... (alle bisherigen CSS-Stile bleiben unverändert, siehe vorherige Version) ... */
-    /* Aufgrund der Länge gekürzt, siehe vorherige Nachricht */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #005ea5;
+      color: white;
+      padding: 10px 20px;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    nav {
+      background: #003b70;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 10px;
+    }
+
+    nav > button,
+    .dropdown .dropbtn {
+      background: #003b70;
+      color: white;
+      border: none;
+      padding: 14px 16px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    nav button:hover,
+    .dropdown:hover .dropbtn {
+      background-color: #005ea5;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 180px;
+      z-index: 1;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .dropdown-content button,
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      background: white;
+      border: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .dropdown-content button:hover,
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+    }
+
+    footer {
+      background-color: #003b70;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background: #005ea5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <a href="#"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
-  <div class="header-left">
+  <div>
+    <img src="AfD_Logo_blau.png" alt="Logo" />
+  </div>
+  <div>
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
   </div>
@@ -59,7 +174,7 @@
   <section id="start" class="active">
     <h2>Willkommen</h2>
     <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
-    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%; height: auto;" />
+    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%;" />
   </section>
 
   <section id="ueberuns">
@@ -70,12 +185,12 @@
   <section id="kontakt">
     <h2>Kontakt</h2>
     <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
-      <label for="name">Name:</label><br />
-      <input type="text" id="name" name="name" required /><br />
-      <label for="email">E-Mail:</label><br />
-      <input type="email" id="email" name="email" required /><br />
-      <label for="nachricht">Nachricht:</label><br />
-      <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br />
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+      <label for="email">E-Mail:</label>
+      <input type="email" id="email" name="email" required />
+      <label for="nachricht">Nachricht:</label>
+      <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
       <button type="submit">Absenden</button>
     </form>
   </section>
@@ -84,46 +199,33 @@
     <h2>Unsere Lage</h2>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
-      width="100%" height="400" allowfullscreen loading="lazy" style="border:0;">
-    </iframe>
+      height="400" loading="lazy"></iframe>
   </section>
 
   <section id="kreissatzung">
     <h2>Kreissatzung</h2>
-    <iframe src="kreissatzung.html" height="1800"></iframe>
+    <iframe src="kreissatzung.html" height="800"></iframe>
   </section>
 
   <section id="landessatzung">
     <h2>Landessatzung</h2>
-    <iframe src="landessatzung.html" height="1800"></iframe>
+    <iframe src="landessatzung.html" height="800"></iframe>
   </section>
 
   <section id="bundessatzung">
     <h2>Bundessatzung</h2>
-    <iframe src="bundessatzung.html" height="1800"></iframe>
+    <iframe src="bundessatzung.html" height="800"></iframe>
   </section>
 
   <section id="spenden">
     <h2>Spenden</h2>
-    <p>
-      Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
-      Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.
-    </p>
-    <p><strong>Empfänger:</strong><br />
-      AfD Kreisverband Südwestpfalz
-    </p>
-    <p><strong>IBAN:</strong><br />
-      DE88 5486 2500 0002 1100 15
-    </p>
-    <p><strong>BIC:</strong><br />
-      GENODE61ROG
-    </p>
-    <p><strong>Verwendungszweck:</strong><br />
-      Spende Rodalben + vollständiger Name und Anschrift
-    </p>
-    <p>
-      Nur bei vollständigem Namen und Adresse können wir Ihnen eine Spendenquittung ausstellen.
-    </p>
+    <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
+      Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
+    <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
+    <p><strong>IBAN:</strong><br>DE88 5486 2500 0002 1100 15</p>
+    <p><strong>BIC:</strong><br>GENODE61ROG</p>
+    <p><strong>Verwendungszweck:</strong><br>Spende Rodalben + vollständiger Name und Anschrift</p>
+    <p>Nur bei vollständigem Namen und Adresse können wir Ihnen eine Spendenquittung ausstellen.</p>
     <p><strong>Herzlichen Dank für Ihre Unterstützung!</strong></p>
   </section>
 
@@ -139,33 +241,23 @@
 
 <script>
   function zeige(id) {
-    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    document.querySelectorAll("main section").forEach(sec => sec.classList.remove("active"));
     const ziel = document.getElementById(id);
     if (ziel) ziel.classList.add("active");
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function ladeTemperaturHeader() {
-    const latitude = 49.24;
-    const longitude = 7.64;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=Europe/Berlin`;
-
-    const tempDiv = document.getElementById("header-temp");
-    tempDiv.textContent = "Lade...";
+    const lat = 49.24, lon = 7.64;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe/Berlin`;
 
     try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Fehler beim Abrufen der Wetterdaten");
-      const data = await response.json();
-      if (data.current_weather && typeof data.current_weather.temperature === "number") {
-        const temp = data.current_weather.temperature.toFixed(1);
-        tempDiv.textContent = temp + " °C";
-      } else {
-        tempDiv.textContent = "Keine Daten";
-      }
-    } catch (error) {
-      tempDiv.textContent = "Fehler";
-      console.error("Wetter-API Fehler:", error);
+      const res = await fetch(url);
+      const data = await res.json();
+      const temp = data.current_weather?.temperature;
+      document.getElementById("header-temp").textContent = temp ? `${temp.toFixed(1)} °C` : "Keine Daten";
+    } catch {
+      document.getElementById("header-temp").textContent = "Fehler";
     }
   }
 
@@ -174,3 +266,4 @@
 
 </body>
 </html>
+
