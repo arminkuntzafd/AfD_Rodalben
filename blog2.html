@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfD Rodalben – Blog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #003b70;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .controls {
+      background: #eaeaea;
+      padding: 10px;
+      text-align: center;
+    }
+
+    input[type="text"], select {
+      padding: 8px;
+      width: 200px;
+      margin: 5px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 10px;
+    }
+
+    .post {
+      background: white;
+      margin-bottom: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 4px solid #005ea5;
+    }
+
+    .post h2 {
+      margin-top: 0;
+    }
+
+    .meta {
+      color: #888;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #003b70;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      input, select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Blog – AfD Rodalben</h1>
+  <p><a href="index.html" style="color: white; text-decoration: underline;">← Zurück zur Startseite</a></p>
+</header>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Suche nach Titel oder Inhalt..." />
+  <select id="categoryFilter">
+    <option value="">Alle Kategorien</option>
+    <option value="Presse">Presse</option>
+    <option value="Veranstaltung">Veranstaltung</option>
+    <option value="Wahl">Wahl</option>
+  </select>
+</div>
+
+<div class="container" id="blogContainer">
+  <!-- Blogposts werden hier eingefügt -->
+</div>
+
+<footer>
+  <p>&copy; 2025 AfD Rodalben</p>
+</footer>
+
+<script>
+  const posts = [
+    {
+      title: "Ergebnisse der Kommunalwahl 2024",
+      date: "2024-06-09",
+      category: "Wahl",
+      content: "Wir freuen uns über das Vertrauen der Bürger und danken allen Wählern. Die Ergebnisse zeigen, dass unsere Themen Anklang finden."
+    },
+    {
+      title: "Infostand in der Fußgängerzone",
+      date: "2024-05-20",
+      category: "Veranstaltung",
+      content: "Viele Bürger haben die Gelegenheit genutzt, sich zu informieren. Danke für den regen Austausch und die gute Stimmung!"
+    },
+    {
+      title: "Pressemitteilung zur Haushaltspolitik",
+      date: "2024-04-12",
+      category: "Presse",
+      content: "Die AfD Rodalben kritisiert die ausufernden Ausgaben der Stadt. Wir fordern mehr Haushaltsdisziplin und Bürgerbeteiligung."
+    }
+  ];
+
+  const container = document.getElementById("blogContainer");
+  const searchInput = document.getElementById("search");
+  const categoryFilter = document.getElementById("categoryFilter");
+
+  function renderPosts() {
+    const query = searchInput.value.toLowerCase();
+    const selectedCategory = categoryFilter.value;
+    container.innerHTML = "";
+
+    const filteredPosts = posts
+      .filter(post =>
+        (post.title.toLowerCase().includes(query) || post.content.toLowerCase().includes(query)) &&
+        (selectedCategory === "" || post.category === selectedCategory)
+      )
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    if (filteredPosts.length === 0) {
+      container.innerHTML = "<p>Keine Beiträge gefunden.</p>";
+      return;
+    }
+
+    filteredPosts.forEach(post => {
+      const div = document.createElement("div");
+      div.className = "post";
+      div.innerHTML = `
+        <h2>${post.title}</h2>
+        <div class="meta">${new Date(post.date).toLocaleDateString("de-DE")} – Kategorie: ${post.category}</div>
+        <p>${post.content}</p>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  searchInput.addEventListener("input", renderPosts);
+  categoryFilter.addEventListener("change", renderPosts);
+
+  renderPosts(); // Initiales Rendern
+</script>
+
+</body>
+</html>
