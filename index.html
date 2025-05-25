@@ -16,6 +16,11 @@
     }
 
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -29,6 +34,11 @@
     }
 
     nav {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      z-index: 999;
       background: #003b70;
       display: flex;
       flex-wrap: wrap;
@@ -85,7 +95,7 @@
     }
 
     main {
-      padding: 20px;
+      padding: 160px 20px 60px; /* Platz oben und unten für Header/Nav/Footer */
     }
 
     section {
@@ -102,11 +112,15 @@
     }
 
     footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       background-color: #003b70;
       color: white;
       text-align: center;
       padding: 10px;
-      margin-top: 40px;
+      z-index: 999;
     }
 
     form input,
@@ -124,11 +138,6 @@
       cursor: pointer;
     }
   </style>
-
-<
-</script>
-
-
 </head>
 <body>
 
@@ -166,17 +175,17 @@
     </div>
   </div>
 
-<button onclick="zeige('bilder')">Bilder</button>
+  <button onclick="zeige('bilder')">Bilder</button>
   
-<div class="dropdown">
-  <button class="dropbtn">Verschiedenes ▾</button>
-  <div class="dropdown-content">
-    <a href="https://www.afd.de/mitglied-werden/" target="_blank">Mitglied werden</a>
-    <a href="#" onclick="zeige('spenden'); return false;">Spenden</a>
-    <a href="#" onclick="zeige('impressum'); return false;">Impressum</a>
-    <a href="#" onclick="zeige('datenschutz'); return false;">Datenschutz</a>
+  <div class="dropdown">
+    <button class="dropbtn">Verschiedenes ▾</button>
+    <div class="dropdown-content">
+      <a href="https://www.afd.de/mitglied-werden/" target="_blank">Mitglied werden</a>
+      <a href="#" onclick="zeige('spenden'); return false;">Spenden</a>
+      <a href="#" onclick="zeige('impressum'); return false;">Impressum</a>
+      <a href="#" onclick="zeige('datenschutz'); return false;">Datenschutz</a>
+    </div>
   </div>
-</div>
 
   <button onclick="zeige('blog')">Blog</button>
 </nav>
@@ -190,7 +199,7 @@
 
   <section id="ueberuns">
     <h2>Über uns</h2>
-    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet.  Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
+    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
   </section>
 
   <section id="kontakt">
@@ -235,42 +244,40 @@
   </section>
   
   <section id="spenden">
-  <h2>Spenden</h2>
-  <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
+    <h2>Spenden</h2>
+    <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
     Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
-  <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
-  <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
+    <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
+    <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
     <p><strong>Verwendungszweck:</strong><br>Spende Rodalben + vollständiger Name und Anschrift</p>
-  <p>Nur bei vollständigem Namen und Adresse können wir Ihnen eine Spendenquittung ausstellen.</p>
-  <p><strong>Herzlichen Dank für Ihre Unterstützung!</strong></p>
-</section>
+    <p>Nur bei vollständigem Namen und Adresse können wir Ihnen eine Spendenquittung ausstellen.</p>
+    <p><strong>Herzlichen Dank für Ihre Unterstützung!</strong></p>
+  </section>
 
-<section id="impressum">
-  <h2>Impressum</h2>
-  <p><strong>AfD Rodalben – Ortsverband Südwestpfalz</strong><br />
-     Lemberger Str. 28<br />
-     66955 Pirmasens</p>
-  <p><strong>Vertreten durch:</strong> Dirk Bauer</p>
-  <p><strong>Kontakt:</strong><br />
-     E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
-  <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br />
-     Dirk Bauer</p>
-</section>
+  <section id="impressum">
+    <h2>Impressum</h2>
+    <p><strong>AfD Rodalben – Ortsverband Südwestpfalz</strong><br />
+    Lemberger Str. 28<br />
+    66955 Pirmasens</p>
+    <p><strong>Vertreten durch:</strong> Dirk Bauer</p>
+    <p><strong>Kontakt:</strong><br />
+    E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
+    <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br />
+    Dirk Bauer</p>
+  </section>
 
-<section id="datenschutz">
-  <h2>Datenschutzerklärung</h2>
-  <p><strong>1. Datenschutz auf einen Blick</strong><br />
-     Diese Website erhebt keine personenbezogenen Daten. Es erfolgt keine Analyse oder Weitergabe an Dritte.</p>
-
-  <p><strong>2. Verantwortliche Stelle</strong><br />
-     Dirk Bauer<br />
-     Lemberger Str. 28<br />
-     66955 Pirmasens<br />
-     E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
-
-  <p><strong>3. Ihre Rechte</strong><br />
-     Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten. Bei Fragen wenden Sie sich bitte an die oben genannte Adresse.</p>
-</section>
+  <section id="datenschutz">
+    <h2>Datenschutzerklärung</h2>
+    <p><strong>1. Datenschutz auf einen Blick</strong><br />
+    Diese Website erhebt keine personenbezogenen Daten. Es erfolgt keine Analyse oder Weitergabe an Dritte.</p>
+    <p><strong>2. Verantwortliche Stelle</strong><br />
+    Dirk Bauer<br />
+    Lemberger Str. 28<br />
+    66955 Pirmasens<br />
+    E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
+    <p><strong>3. Ihre Rechte</strong><br />
+    Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten. Bei Fragen wenden Sie sich bitte an die oben genannte Adresse.</p>
+  </section>
   
   <section id="blog">
     <a href="blog2.html">Blog</a>
@@ -315,13 +322,11 @@
 
       if (!emailPattern.test(emailValue)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-        event.preventDefault(); // verhindert das Absenden des Formulars
+        event.preventDefault();
       }
     });
   });
 </script>
 
-
-  
 </body>
 </html>
