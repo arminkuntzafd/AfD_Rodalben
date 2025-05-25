@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AfD Rodalben</title>
   <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
-      padding-top: 160px; /* Platz für Header + Nav */
-      padding-bottom: 50px; /* Footer */
+      padding-top: 160px;
+      padding-bottom: 70px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -32,14 +28,11 @@
       align-items: center;
       padding: 0 1rem;
       z-index: 1000;
-      /* Flexbox: Logo + Text links, Temperatur rechts */
       justify-content: flex-start;
       gap: 1rem;
     }
 
-    header img {
-      height: 50px;
-    }
+    header img { height: 50px; }
 
     header .header-left {
       display: flex;
@@ -47,12 +40,11 @@
       justify-content: center;
     }
 
-    /* Der Bereich für Temperatur soll rechts außen sein */
     #header-temp {
       margin-left: auto;
       font-size: 1.2rem;
       font-weight: bold;
-      color: #f5a623; /* z.B. orange-gelb */
+      color: #f5a623;
       font-family: monospace;
       user-select: none;
       white-space: nowrap;
@@ -82,9 +74,7 @@
       font-size: 1rem;
     }
 
-    .dropdown {
-      position: relative;
-    }
+    .dropdown { position: relative; }
 
     .dropdown-content {
       display: none;
@@ -98,8 +88,7 @@
       z-index: 1001;
     }
 
-    .dropdown-content button,
-    .dropdown-content a {
+    .dropdown-content button, .dropdown-content a {
       color: white;
       padding: 10px 16px;
       background: none;
@@ -114,8 +103,7 @@
       display: flex;
     }
 
-    .dropdown-content button:hover,
-    .dropdown-content a:hover {
+    .dropdown-content button:hover, .dropdown-content a:hover {
       background-color: #3399dd;
     }
 
@@ -144,26 +132,26 @@
     footer {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 50px;
+      height: 70px;
       background-color: #003366;
       color: white;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
       padding: 0 1rem;
       z-index: 1000;
       font-size: 0.9rem;
       box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     a {
-      color: #005288;
+      color: #ffffff;
       text-decoration: underline;
     }
 
-    form label {
-      font-weight: bold;
-    }
+    form label { font-weight: bold; }
 
     form input, form textarea {
       width: 100%;
@@ -222,13 +210,7 @@
     </div>
   </div>
 
-  <div class="dropdown">
-    <button class="dropbtn">Verschiedenes ▾</button>
-    <div class="dropdown-content">
-      <button onclick="zeige('mitgliedwerden')">Mitglied werden</button>
-    </div>
-  </div>
-
+  <button onclick="zeige('mitgliedwerden')">Mitglied werden</button>
   <button onclick="zeige('blog')">Blog</button>
 </nav>
 
@@ -261,7 +243,7 @@
     <h2>Unsere Lage</h2>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
-      width="100%" height="400" allowfullscreen loading="lazy" style="border:0;">
+      height="400" allowfullscreen loading="lazy">
     </iframe>
   </section>
 
@@ -282,6 +264,7 @@
 
   <section id="mitgliedwerden">
     <h2>Mitglied werden</h2>
+    <p>Du möchtest Teil unseres Teams werden? Fülle einfach das Formular aus oder besuche die zentrale Mitgliedsseite.</p>
     <iframe src="https://www.afd.de/mitglied-werden/" height="800"></iframe>
   </section>
 
@@ -293,6 +276,9 @@
 
 <footer>
   <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
+  <a href="#" onclick="zeige('mitgliedwerden')">Mitglied werden</a>
+  <a href="impressum.html">Impressum</a>
+  <a href="datenschutz.html">Datenschutz</a>
 </footer>
 
 <script>
