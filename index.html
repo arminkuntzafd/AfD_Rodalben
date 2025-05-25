@@ -4,335 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AfD Rodalben</title>
-  <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; padding-top: 140px; margin-bottom: 50px; }
 
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      background: #005ea5;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #005ea5;
-      color: white;
       padding: 10px 20px;
+      z-index: 1000;
     }
 
-    header img {
-      height: 50px;
-    }
+    header img { height: 50px; }
 
     nav {
       position: fixed;
-      top: 80px;
-      left: 0;
-      right: 0;
-      z-index: 999;
+      top: 80px; left: 0; right: 0;
       background: #003b70;
+      z-index: 999;
       display: flex;
-      flex-wrap: wrap;
       padding: 0 10px;
     }
 
-    nav > button,
-    .dropdown .dropbtn {
-      background: #003b70;
-      color: white;
-      border: none;
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav > ul > li {
+      margin-right: 20px;
+    }
+
+    nav a, nav button {
+      display: block;
       padding: 14px 16px;
+      color: white;
+      text-decoration: none;
+      background: none;
+      border: none;
       cursor: pointer;
       font-size: 16px;
     }
 
-    nav button:hover,
-    .dropdown:hover .dropbtn {
-      background-color: #005ea5;
-    }
-
-    .dropdown {
-      position: relative;
-      display: inline-block;
+    nav a:hover, nav button:hover {
+      background: #005ea5;
     }
 
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #f9f9f9;
-      min-width: 180px;
-      z-index: 1001;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .dropdown:hover .dropdown-content,
-    .dropdown:focus-within .dropdown-content {
-      display: block;
-    }
-
-    .dropdown-content button,
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background: white;
-      border: none;
-      width: 100%;
-      text-align: left;
-    }
-
-    .dropdown-content button:hover,
-    .dropdown-content a:hover {
-      background-color: #ddd;
-    }
-
-    main {
-      padding: 160px 20px 40px; /* Platz für fixed header/nav */
-    }
-
-    section {
-      display: none;
-    }
-
-    section.active {
-      display: block;
-    }
-
-    iframe {
-      width: 100%;
-      border: none;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #003b70;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      z-index: 1000;
-    }
-
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
-
-    form button {
-      padding: 10px 20px;
-      background: #005ea5;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div>
-    <a href="#" onclick="zeige('start'); return false;">
-      <img src="AfD_Logo_blau.png" alt="Logo" />
-    </a>
-  </div>
-  <div>
-    <h1>AfD Rodalben</h1>
-    <p>Informationen & Aktuelles aus der Region</p>
-  </div>
-  <div id="header-temp">Lade...</div>
-</header>
-
-<nav>
-  <button onclick="zeige('start')">Start</button>
-  <button onclick="zeige('ueberuns')">Über uns</button>
-
-  <div class="dropdown">
-    <button class="dropbtn">Kontakt ▾</button>
-    <div class="dropdown-content">
-      <button onclick="zeige('kontakt')">E-Mail</button>
-      <button onclick="zeige('lage')">Lage</button>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Satzungen ▾</button>
-    <div class="dropdown-content">
-      <button onclick="zeige('kreissatzung')">Kreissatzung</button>
-      <button onclick="zeige('landessatzung')">Landessatzung</button>
-      <button onclick="zeige('bundessatzung')">Bundessatzung</button>
-    </div>
-  </div>
-
-  <button onclick="zeige('bilder')">Bilder</button>
-
-  <div class="dropdown">
-    <button class="dropbtn">Verschiedenes ▾</button>
-    <div class="dropdown-content">
-      <a href="https://www.afd.de/mitglied-werden/" target="_blank">Mitglied werden</a>
-      <a href="#" onclick="zeige('spenden'); return false;">Spenden</a>
-      <a href="#" onclick="zeige('impressum'); return false;">Impressum</a>
-      <a href="#" onclick="zeige('datenschutz'); return false;">Datenschutz</a>
-    </div>
-  </div>
-
-  <button onclick="zeige('blog')">Blog</button>
-</nav>
-
-<main>
-  <section id="start" class="active">
-    <h2>Willkommen</h2>
-    <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
-    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%;" />
-  </section>
-
-  <section id="ueberuns">
-    <h2>Über uns</h2>
-    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
-  </section>
-
-  <section id="kontakt">
-    <h2>Kontakt</h2>
-    <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-      <label for="email">E-Mail:</label>
-      <input type="email" id="email" name="email" required />
-      <label for="nachricht">Nachricht:</label>
-      <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
-      <button type="submit">Absenden</button>
-    </form>
-  </section>
-
-  <section id="lage">
-    <h2>Unsere Lage</h2>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
-      height="400" loading="lazy"></iframe>
-  </section>
-
-  <section id="kreissatzung">
-    <h2>Kreissatzung</h2>
-    <iframe src="kreissatzung.html" height="800"></iframe>
-  </section>
-
-  <section id="landessatzung">
-    <h2>Landessatzung</h2>
-    <iframe src="landessatzung.html" height="800"></iframe>
-  </section>
-
-  <section id="bundessatzung">
-    <h2>Bundessatzung</h2>
-    <iframe src="bundessatzung.html" height="800"></iframe>
-  </section>
-
-  <section id="bilder">
-    <img src="Rolaben.jpg" alt="Infostand Rodalben" style="max-width: 100%;" />
-    <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" style="max-width: 100%;" />
-    <img src="plakatieren.jpg" alt="plakatieren" style="max-width: 100%;" />
-  </section>
-
-  <section id="spenden">
-    <h2>Spenden</h2>
-    <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
-      Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
-    <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
-    <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
-    <p><strong>Verwendungszweck:</strong><br>Spende Rodalben + vollständiger Name und Anschrift</p>
-    <p>Nur bei vollständigem Namen und Adresse können wir Ihnen eine Spendenquittung ausstellen.</p>
-    <p><strong>Herzlichen Dank für Ihre Unterstützung!</strong></p>
-  </section>
-
-  <section id="impressum">
-    <h2>Impressum</h2>
-    <p><strong>AfD Rodalben – Ortsverband Südwestpfalz</strong><br />
-      Lemberger Str. 28<br />
-      66955 Pirmasens</p>
-    <p><strong>Vertreten durch:</strong> Dirk Bauer</p>
-    <p><strong>Kontakt:</strong><br />
-      E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
-    <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br />
-      Dirk Bauer</p>
-  </section>
-
-  <section id="datenschutz">
-    <h2>Datenschutzerklärung</h2>
-    <p><strong>1. Datenschutz auf einen Blick</strong><br />
-      Diese Website erhebt keine personenbezogenen Daten. Es erfolgt keine Analyse oder Weitergabe an Dritte.</p>
-
-    <p><strong>2. Verantwortliche Stelle</strong><br />
-      Dirk Bauer<br />
-      Lemberger Str. 28<br />
-      66955 Pirmasens<br />
-      E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
-
-    <p><strong>3. Ihre Rechte</strong><br />
-      Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten. Bei Fragen wenden Sie sich bitte an die oben genannte Adresse.</p>
-  </section>
-
-  <section id="blog">
-    <a href="blog2.html">Blog</a>
-  </section>
-</main>
-
-<footer>
-  <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
-</footer>
-
-<script>
-  function zeige(id) {
-    document.querySelectorAll("main section").forEach(sec => sec.classList.remove("active"));
-    const ziel = document.getElementById(id);
-    if (ziel) ziel.classList.add("active");
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  async function ladeTemperaturHeader() {
-    const lat = 49.24, lon = 7.64;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=Europe/Berlin`;
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      const temp = data.current_weather?.temperature;
-      document.getElementById("header-temp").textContent = temp ? `${temp.toFixed(1)} °C` : "Keine Daten";
-    } catch {
-      document.getElementById("header-temp").textContent = "Fehler";
-    }
-  }
-
-  ladeTemperaturHeader();
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
-    const emailInput = document.getElementById("email");
-
-    form.addEventListener("submit", function (event) {
-      const emailValue = emailInput.value.trim();
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailPattern.test(emailValue)) {
-        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-        event.preventDefault();
-      }
-    });
-  });
-</script>
-
-</body>
-</html>
+      background-color: white;
+      min-wi
