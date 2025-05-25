@@ -65,4 +65,192 @@
       display: none;
       position: absolute;
       background-color: white;
-      min-wi
+      min-width: 180px;
+      top: 100%;
+      left: 0;
+      z-index: 1001;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section { display: none; }
+    section.active { display: block; }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0; right: 0;
+      background: #003b70;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    iframe { width: 100%; border: none; }
+
+    form input, form textarea {
+      width: 100%; padding: 8px; margin-bottom: 10px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background: #005ea5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="#" onclick="zeige('start'); return false;">
+    <img src="AfD_Logo_blau.png" alt="Logo" />
+  </a>
+  <h1>AfD Rodalben</h1>
+  <div id="header-temp">Lade...</div>
+</header>
+
+<nav>
+  <ul>
+    <li><button onclick="zeige('start')">Start</button></li>
+    <li><button onclick="zeige('ueberuns')">Über uns</button></li>
+
+    <li class="dropdown">
+      <button>Kontakt ▼</button>
+      <div class="dropdown-content">
+        <a href="#" onclick="zeige('kontakt')">E-Mail</a>
+        <a href="#" onclick="zeige('lage')">Lage</a>
+      </div>
+    </li>
+
+    <li class="dropdown">
+      <button>Satzungen ▼</button>
+      <div class="dropdown-content">
+        <a href="#" onclick="zeige('kreissatzung')">Kreissatzung</a>
+        <a href="#" onclick="zeige('landessatzung')">Landessatzung</a>
+        <a href="#" onclick="zeige('bundessatzung')">Bundessatzung</a>
+      </div>
+    </li>
+
+    <li><button onclick="zeige('bilder')">Bilder</button></li>
+
+    <li class="dropdown">
+      <button>Verschiedenes ▼</button>
+      <div class="dropdown-content">
+        <a href="https://www.afd.de/mitglied-werden/" target="_blank">Mitglied werden</a>
+        <a href="#" onclick="zeige('spenden')">Spenden</a>
+        <a href="#" onclick="zeige('impressum')">Impressum</a>
+        <a href="#" onclick="zeige('datenschutz')">Datenschutz</a>
+      </div>
+    </li>
+
+    <li><button onclick="zeige('blog')">Blog</button></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="start" class="active">
+    <h2>Willkommen</h2>
+    <p>Neuigkeiten und Beiträge aus Rodalben.</p>
+    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width:100%" />
+  </section>
+
+  <section id="ueberuns">
+    <h2>Über uns</h2>
+    <p>AfD Rodalben, gegründet 2022, für bürgernahe Politik.</p>
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="E-Mail" required>
+      <textarea name="nachricht" rows="5" placeholder="Nachricht" required></textarea>
+      <button type="submit">Absenden</button>
+    </form>
+  </section>
+
+  <section id="lage">
+    <h2>Unsere Lage</h2>
+    <iframe height="400" src="https://www.google.com/maps/embed?..."></iframe>
+  </section>
+
+  <section id="kreissatzung"><h2>Kreissatzung</h2><iframe src="kreissatzung.html" height="800"></iframe></section>
+  <section id="landessatzung"><h2>Landessatzung</h2><iframe src="landessatzung.html" height="800"></iframe></section>
+  <section id="bundessatzung"><h2>Bundessatzung</h2><iframe src="bundessatzung.html" height="800"></iframe></section>
+
+  <section id="bilder">
+    <img src="Rolaben.jpg" alt="Infostand" style="max-width:100%" />
+    <img src="DirkBauerkandidiert.png" alt="Kandidatur" style="max-width:100%" />
+    <img src="plakatieren.jpg" alt="Plakatieren" style="max-width:100%" />
+  </section>
+
+  <section id="spenden">
+    <h2>Spenden</h2>
+    <p>Unterstützen Sie unsere Arbeit mit einer Spende:</p>
+    <p>IBAN: DE92542500100085015881<br>Verwendungszweck: Spende Rodalben + Name</p>
+  </section>
+
+  <section id="impressum">
+    <h2>Impressum</h2>
+    <p>AfD Rodalben – Lemberger Str. 28, 66955 Pirmasens</p>
+    <p>Verantwortlich: Dirk Bauer</p>
+  </section>
+
+  <section id="datenschutz">
+    <h2>Datenschutz</h2>
+    <p>Diese Seite erhebt keine personenbezogenen Daten.</p>
+  </section>
+
+  <section id="blog">
+    <a href="blog2.html">Zum Blog</a>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 AfD Rodalben</p>
+</footer>
+
+<script>
+  function zeige(id) {
+    document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id)?.classList.add("active");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function ladeTemperaturHeader() {
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=49.24&longitude=7.64&current_weather=true&timezone=Europe/Berlin";
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      document.getElementById("header-temp").textContent =
+        data.current_weather?.temperature + " °C" || "Keine Daten";
+    } catch {
+      document.getElementById("header-temp").textContent = "Fehler";
+    }
+  }
+
+  ladeTemperaturHeader();
+</script>
+
+</body>
+</html>
