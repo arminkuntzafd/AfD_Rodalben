@@ -6,13 +6,17 @@
   <title>AfD Rodalben</title>
   <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
       padding-top: 160px;
-      padding-bottom: 70px;
+      padding-bottom: 50px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -32,7 +36,9 @@
       gap: 1rem;
     }
 
-    header img { height: 50px; }
+    header img {
+      height: 50px;
+    }
 
     header .header-left {
       display: flex;
@@ -64,7 +70,7 @@
       z-index: 999;
     }
 
-    nav button, .dropbtn {
+    nav button, .dropbtn, nav a {
       background: none;
       border: none;
       color: white;
@@ -72,9 +78,12 @@
       cursor: pointer;
       padding: 8px 12px;
       font-size: 1rem;
+      text-decoration: none;
     }
 
-    .dropdown { position: relative; }
+    .dropdown {
+      position: relative;
+    }
 
     .dropdown-content {
       display: none;
@@ -88,7 +97,8 @@
       z-index: 1001;
     }
 
-    .dropdown-content button, .dropdown-content a {
+    .dropdown-content button,
+    .dropdown-content a {
       color: white;
       padding: 10px 16px;
       background: none;
@@ -103,7 +113,8 @@
       display: flex;
     }
 
-    .dropdown-content button:hover, .dropdown-content a:hover {
+    .dropdown-content button:hover,
+    .dropdown-content a:hover {
       background-color: #3399dd;
     }
 
@@ -132,26 +143,21 @@
     footer {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 70px;
+      height: 50px;
       background-color: #003366;
       color: white;
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: center;
       padding: 0 1rem;
       z-index: 1000;
       font-size: 0.9rem;
       box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-      flex-wrap: wrap;
-      gap: 1rem;
     }
 
-    a {
-      color: #ffffff;
-      text-decoration: underline;
+    form label {
+      font-weight: bold;
     }
-
-    form label { font-weight: bold; }
 
     form input, form textarea {
       width: 100%;
@@ -210,7 +216,14 @@
     </div>
   </div>
 
-  <button onclick="zeige('mitgliedwerden')">Mitglied werden</button>
+  <div class="dropdown">
+    <button class="dropbtn">Verschiedenes ▾</button>
+    <div class="dropdown-content">
+      <a href="https://www.afd.de/mitglied-werden/" target="_blank">Mitglied werden</a>
+      <a href="spenden.html" target="_blank">Spenden</a>
+    </div>
+  </div>
+
   <button onclick="zeige('blog')">Blog</button>
 </nav>
 
@@ -243,7 +256,7 @@
     <h2>Unsere Lage</h2>
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
-      height="400" allowfullscreen loading="lazy">
+      width="100%" height="400" allowfullscreen loading="lazy" style="border:0;">
     </iframe>
   </section>
 
@@ -262,12 +275,6 @@
     <iframe src="bundessatzung.html" height="1800"></iframe>
   </section>
 
-  <section id="mitgliedwerden">
-    <h2>Mitglied werden</h2>
-    <p>Du möchtest Teil unseres Teams werden? Fülle einfach das Formular aus oder besuche die zentrale Mitgliedsseite.</p>
-    <iframe src="https://www.afd.de/mitglied-werden/" height="800"></iframe>
-  </section>
-
   <section id="blog">
     <h2>Blog</h2>
     <p>Hier erscheinen bald Beiträge...</p>
@@ -276,9 +283,6 @@
 
 <footer>
   <p>&copy; 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
-  <a href="#" onclick="zeige('mitgliedwerden')">Mitglied werden</a>
-  <a href="impressum.html">Impressum</a>
-  <a href="datenschutz.html">Datenschutz</a>
 </footer>
 
 <script>
