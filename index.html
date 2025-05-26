@@ -55,7 +55,6 @@
             margin: 0;
             font-size: 0.9em;
             white-space: nowrap;
-            text-align: right; /* Text für Temperatur rechtsbündig */
         }
 
         /* Flex Container für Logo und Titel */
@@ -67,7 +66,8 @@
         header > div:last-of-type {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: center; /* Zentriert den Text im Header */
+            text-align: center; /* Textzentrierung für mehrere Zeilen */
         }
 
 
@@ -485,8 +485,8 @@
         <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
         <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
         <p><strong>BIC:</strong><br>MALADE51SWP</p>
-        <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben</p><br>
-        <p>Die Anschrift benötigen wir zwecks Zusendung einer Steuerbescheinigung.</p>
+        <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben <strong>[Name] [Anschrift]</strong></p>
+        <p>Die Angabe von Name und Anschrift ist **erforderlich** für die Zusendung einer Spendenquittung.</p>
     </section>
 
     <section id="impressum">
@@ -599,7 +599,8 @@
             const temp = data.current_weather?.temperature;
             document.getElementById("header-temp").textContent =
                 (temp !== undefined ? temp.toFixed(1) : "N/A") + " °C";
-        } catch {
+        } catch (error) {
+            console.error("Fehler beim Laden der Temperatur:", error);
             document.getElementById("header-temp").textContent = "Fehler";
         }
     }
