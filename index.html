@@ -1,283 +1,648 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AfD Rodalben</title>
-  <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AfD Rodalben</title>
+    <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
+    <style>
+        /* Allgemeine Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      padding-top: 110px;
-      background: #f9f9f9;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            /* Platz für fixierten Header (60px) + Nav (50px) = 110px */
+            padding-top: 110px;
+            /* Platz für fixierten Footer (50px) */
+            padding-bottom: 50px;
+            background: #f9f9f9;
+            color: #333;
+        }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: #005ea5;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 1000;
-    }
+        /* Header Bereich */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #005ea5; /* Blau der AfD */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    header .logo-title {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+        header img {
+            height: 50px;
+            margin-right: 15px;
+        }
 
-    header img {
-      height: 50px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            white-space: nowrap;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 1.5em;
-    }
+        header p {
+            margin: 0;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
 
-    header p {
-      margin: 0;
-      font-size: 0.9em;
-    }
+        /* Flex Container für Logo und Titel */
+        header > div:first-of-type {
+            display: flex;
+            align-items: center;
+        }
+        /* Container für Titel und Temperatur */
+        header > div:last-of-type {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Zentriert den Text im Header */
+            text-align: center; /* Textzentrierung für mehrere Zeilen */
+        }
 
-    .header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 4px;
-    }
 
-    #suchfeld {
-      padding: 4px 6px;
-      font-size: 13px;
-      border: none;
-      border-radius: 4px;
-      width: 120px;
-    }
+        /* Navigation (Hauptmenü) */
+        nav {
+            position: fixed;
+            top: 60px; /* Direkt unter dem Header */
+            left: 0;
+            right: 0;
+            background: #003b70; /* Dunkelblau der Nav */
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 10px;
+            z-index: 999;
+            height: 50px; /* Feste Höhe für die Navigationsleiste */
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-    #uhrzeit,
-    #temperatur {
-      font-family: monospace;
-      font-size: 13px;
-      white-space: nowrap;
-    }
+        nav > button,
+        .dropdown > button.dropbtn {
+            background: #003b70;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            height: 50px; /* Gleiche Höhe wie die Navigationsleiste */
+            display: flex;
+            align-items: center;
+            text-decoration: none; /* Wichtig für Links */
+        }
 
-    nav {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background: #003b70;
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0 10px;
-      z-index: 999;
-      height: 50px;
-      align-items: center;
-    }
+        nav > button:hover,
+        .dropdown:hover > button.dropbtn {
+            background-color: #005ea5; /* Hellblau für Hover-Effekt */
+        }
 
-    nav > button,
-    .dropdown > button.dropbtn {
-      background: #003b70;
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      cursor: pointer;
-      font-size: 16px;
-      height: 50px;
-    }
+        /* Dropdown (Untermenüs) */
+        .dropdown {
+            position: relative;
+            user-select: none;
+        }
 
-    nav > button:hover,
-    .dropdown:hover > button.dropbtn {
-      background-color: #005ea5;
-    }
+        .dropdown-content {
+            display: none; /* Standardmäßig ausgeblendet */
+            position: absolute;
+            background-color: #003b70; /* **BLAUER HINTERGRUND FÜR UNTERMENÜS** */
+            min-width: 180px;
+            top: 50px; /* Direkt unter dem Dropdown-Button */
+            left: 0;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-top: 1px solid #005ea5; /* Optional: Trennlinie oben */
+        }
 
-    .dropdown {
-      position: relative;
-    }
+        .dropdown-content button,
+        .dropdown-content a {
+            color: white; /* **WEISSER TEXT AUF BLAUEM HINTERGRUND** */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background: #003b70; /* **BLAUER HINTERGRUND FÜR EINZELNE LINKS** */
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+            white-space: nowrap; /* Verhindert Umbruch bei langen Menüpunkten */
+        }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 180px;
-      top: 50px;
-      left: 0;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1001;
-    }
+        .dropdown-content button:hover,
+        .dropdown-content a:hover {
+            background-color: #005ea5; /* **HELLBLAU FÜR HOVER IM UNTERMENÜ** */
+        }
 
-    .dropdown-content button,
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background: white;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      font-size: 15px;
-    }
+        /* Dropdown sichtbar bei Hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
-    .dropdown-content button:hover,
-    .dropdown-content a:hover {
-      background-color: #ddd;
-    }
+        /* Hauptinhaltsbereich */
+        main {
+            max-width: 1000px;
+            margin: 20px auto; /* Etwas Abstand oben/unten und zentriert */
+            padding: 20px;
+            background: white;
+            min-height: calc(100vh - 110px - 50px - 40px); /* 40px für margin-top/bottom des main */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px; /* Leicht abgerundete Ecken */
+        }
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
+        section {
+            display: none;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
 
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-      background: white;
-      min-height: 80vh;
-    }
+        section.active {
+            display: block;
+        }
 
-    section {
-      display: none;
-    }
+        section h2 {
+            color: #005ea5; /* Titel der Sektionen in AfD-Blau */
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #eee;
+        }
 
-    section.active {
-      display: block;
-    }
+        iframe {
+            width: 100%;
+            border: none;
+            min-height: 400px;
+            border-radius: 8px;
+            overflow: hidden; /* Für abgerundete Ecken des iframes */
+        }
 
-    iframe {
-      width: 100%;
-      border: none;
-    }
+        /* Formular Styling */
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
 
-    footer {
-      background-color: #003b70;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      margin-top: 40px;
-    }
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+        form button {
+            padding: 10px 20px;
+            background: #005ea5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
 
-    form button {
-      padding: 10px 20px;
-      background: #005ea5;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 1em;
-      border-radius: 4px;
-    }
-  </style>
+        form button:hover {
+            background: #003b70;
+        }
+
+        /* Footer Bereich */
+        footer {
+            background-color: #003b70;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed; /* Footer bleibt fixiert */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Bilder in Sektionen */
+        section img {
+            display: block; /* Damit margin: auto funktioniert */
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Blog Styling */
+        section#blog article {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        section#blog h3 {
+            color: #003b70;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        section#blog small {
+            display: block;
+            color: #777;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+        }
+        
+        section#blog a {
+            display: inline-block;
+            background: #005ea5;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        section#blog a:hover {
+            background: #003b70;
+        }
+
+
+        /* Responsives Design */
+        @media (max-width: 768px) {
+            body {
+                /* Auf kleineren Bildschirmen ist Header/Nav statisch, daher weniger padding-top */
+                padding-top: 10px;
+            }
+
+            header {
+                position: static; /* Header ist nicht mehr fixiert */
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+                text-align: center;
+            }
+
+            header img {
+                margin-bottom: 5px;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header p {
+                font-size: 0.8em;
+                text-align: center; /* Temperatur zentral unter dem Titel */
+            }
+            
+            header > div:last-of-type {
+                align-items: center; /* Zentriert den Inhalt auf kleinen Bildschirmen */
+            }
+
+            nav {
+                position: static; /* Nav ist nicht mehr fixiert */
+                flex-direction: column;
+                height: auto;
+                padding: 0;
+            }
+
+            nav > button,
+            .dropdown > button.dropbtn {
+                width: 100%;
+                text-align: left;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                height: auto;
+                padding: 10px 16px;
+            }
+
+            nav > button:last-of-type,
+            .dropdown:last-of-type > button.dropbtn {
+                border-bottom: none;
+            }
+
+            .dropdown-content {
+                position: static; /* Dropdown-Inhalt fließt normal im Dokument */
+                box-shadow: none;
+                border-top: none;
+                min-width: unset;
+                border-radius: 0;
+            }
+
+            .dropdown-content button,
+            .dropdown-content a {
+                padding-left: 30px; /* Einrückung für Untermenüpunkte */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .dropdown-content button:last-of-type,
+            .dropdown-content a:last-of-type {
+                border-bottom: none;
+            }
+
+            main {
+                margin: 10px auto;
+                padding: 15px;
+                min-height: calc(100vh - 50px - 20px); /* Nur Footer + etwas Puffer abziehen */
+            }
+
+            footer {
+                /* Footer bleibt fixed auf Mobile */
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-title">
-    <a href="#" onclick="zeige('start'); return false;">
-      <img src="AfD_Logo_blau.png" alt="Logo" />
-    </a>
     <div>
-      <h1>AfD Rodalben</h1>
-      <p>Informationen & Aktuelles aus der Region</p>
+        <a href="#" onclick="zeige('start'); return false;">
+            <img src="AfD_Logo_blau.png" alt="Logo" />
+        </a>
     </div>
-  </div>
-
-  <div class="header-right">
-    <input type="text" id="suchfeld" placeholder="Suche..." />
-    <div id="uhrzeit">--:--:--</div>
-    <div id="temperatur">-- °C</div>
-  </div>
+    <div>
+        <h1>AfD Rodalben</h1>
+        <p id="header-temp">Lade...</p>
+    </div>
 </header>
 
-<!-- NAVIGATION -->
 <nav>
-  <button onclick="zeige('start')">Start</button>
-  <button onclick="zeige('ueberuns')">Über uns</button>
-  <div class="dropdown">
-    <button class="dropbtn">Kontakt ▾</button>
-    <div class="dropdown-content">
-      <button onclick="zeige('kontakt')">E-Mail</button>
-      <button onclick="zeige('lage')">Lage</button>
+    <button onclick="zeige('start')">Start</button>
+    <button onclick="zeige('ueberuns')">Über uns</button>
+
+    <div class="dropdown">
+        <button class="dropbtn">Kontakt ▾</button>
+        <div class="dropdown-content">
+            <button onclick="zeige('kontakt')">E-Mail</button>
+            <button onclick="zeige('lage')">Lage</button>
+        </div>
     </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Satzungen ▾</button>
-    <div class="dropdown-content">
-      <button onclick="zeige('kreissatzung')">Kreissatzung</button>
-      <button onclick="zeige('landessatzung')">Landessatzung</button>
-      <button onclick="zeige('bundessatzung')">Bundessatzung</button>
+
+    <div class="dropdown">
+        <button class="dropbtn">Satzungen ▾</button>
+        <div class="dropdown-content">
+            <button onclick="zeige('kreissatzung')">Kreissatzung</button>
+            <button onclick="zeige('landessatzung')">Landessatzung</button>
+            <button onclick="zeige('bundessatzung')">Bundessatzung</button>
+        </div>
     </div>
-  </div>
-  <button onclick="zeige('bilder')">Bilder</button>
-  <div class="dropdown">
-    <button class="dropbtn">Verschiedenes ▾</button>
-    <div class="dropdown-content">
-      <a href="https://www.afd.de/mitglied-werden/" target="_blank">Mitglied werden</a>
-      <button onclick="zeige('spenden')">Spenden</button>
-      <button onclick="zeige('impressum')">Impressum</button>
-      <button onclick="zeige('datenschutz')">Datenschutz</button>
+
+    <button onclick="zeige('bilder')">Bilder</button>
+    
+    <div class="dropdown">
+        <button class="dropbtn">Verschiedenes ▾</button>
+        <div class="dropdown-content">
+            <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener noreferrer">Mitglied werden</a>
+            <button onclick="zeige('spenden')">Spenden</button>
+            <button onclick="zeige('impressum')">Impressum</button>
+            <button onclick="zeige('datenschutz')">Datenschutz</button>
+        </div>
     </div>
-  </div>
-  <button onclick="zeige('blog')">Blog</button>
+
+    <button onclick="zeige('blog')">Blog</button>
 </nav>
 
 <main>
-  <!-- SECTIONS ... wie bisher (start, kontakt, etc.) -->
+    <section id="start" class="active">
+        <h2>Willkommen</h2>
+        <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
+        <img src="Rathaus.jpg" alt="Rathaus Rodalben" />
+    </section>
+
+    <section id="ueberuns">
+        <h2>Über uns</h2>
+        <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
+    </section>
+
+    <section id="kontakt">
+        <h2>Kontakt</h2>
+        <form id="contactForm" action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+            <label for="email">E-Mail:</label>
+            <input type="email" id="email" name="email" required />
+            <label for="nachricht">Nachricht:</label>
+            <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
+            <button type="submit">Absenden</button>
+        </form>
+    </section>
+
+    <section id="lage">
+        <h2>Unsere Lage</h2>
+        <iframe src="https://maps.google.com/maps?q=Rodalben&t=&z=13&ie=UTF8&iwloc=&output=embed" height="400" loading="lazy"></iframe>
+    </section>
+
+    <section id="kreissatzung">
+        <h2>Kreissatzung</h2>
+        <iframe src="kreissatzung.html" height="800"></iframe>
+    </section>
+
+    <section id="landessatzung">
+        <h2>Landessatzung</h2>
+        <iframe src="landessatzung.html" height="800"></iframe>
+    </section>
+
+    <section id="bundessatzung">
+        <h2>Bundessatzung</h2>
+        <iframe src="bundessatzung.html" height="800"></iframe>
+    </section>
+
+    <section id="bilder">
+        <h2>Bilder</h2>
+        <img src="Rolaben.jpg" alt="Infostand Rodalben" />
+        <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" />
+        <img src="plakatieren.jpg" alt="Plakatieren" />
+    </section>
+    
+    <section id="spenden">
+        <h2>Spenden</h2>
+        <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
+        <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
+        <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
+        <p><strong>BIC:</strong><br>MALADE51SWP</p>
+        <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben <strong>[Name] [Anschrift]</strong></p>
+        <p>Die Angabe von Name und Anschrift ist **erforderlich** für die Zusendung einer Spendenquittung.</p>
+    </section>
+
+    <section id="impressum">
+        <h2>Impressum</h2>
+        <p>Angaben gemäß § 5 TMG:</p>
+        <p><strong>AfD Rodalben</strong><br>
+            Lemberger Str. 28<br>
+            66955 Pirmasens</p>
+        <p>Vertreten durch:<br>
+            Dirk Bauer</p>
+        <p>Kontakt:<br>
+            Telefon: <a href="tel:+4963312871877">+49 6331 2871877</a><br>
+            E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
+        <p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>
+            Dirk Bauer<br>
+            Lemberger Str. 28<br>
+            66955 Pirmasens</p>
+        <p>Haftungsausschluss:<br>
+            Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+    </section>
+
+    <section id="datenschutz">
+        <h2>Datenschutzerklärung</h2>
+        <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte Sie in Bezug auf Ihre Daten haben.</p>
+        
+        <h3>1. Verantwortlicher</h3>
+        <p>AfD Rodalben<br>Lemberger STr. 28<br>
+        66955 Pirmasens<br>
+        E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
+        
+        <h3>2. Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck von deren Verwendung</h3>
+        <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese freiwillig, zum Beispiel im Kontaktformular, mitteilen. Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfragen und zur Kontaktaufnahme.</p>
+        
+        <h3>3. Weitergabe von Daten</h3>
+        <p>Eine Weitergabe Ihrer Daten an Dritte erfolgt nur, wenn dies zum Zweck der Vertragsabwicklung notwendig ist oder Sie vorher ausdrücklich eingewilligt haben.</p>
+        
+        <h3>4. Cookies</h3>
+        <p>Unsere Website verwendet keine Cookies, die personenbezogene Daten speichern.</p>
+        
+        <h3>5. Ihre Rechte</h3>
+        <p>Sie haben das Recht auf Auskunft über die bei uns gespeicherten Daten, deren Berichtigung, Löschung sowie das Recht auf Einschränkung der Verarbeitung. Sie können der Verarbeitung jederzeit widersprechen und haben das Recht auf Datenübertragbarkeit.</p>
+        
+        <h3>6. Kontakt</h3>
+        <p>Wenn Sie Fragen zum Datenschutz haben, wenden Sie sich bitte an die oben genannte Adresse.</p>
+        
+        <h3>7. Änderung der Datenschutzerklärung</h3>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht.</p>
+    </section>
+
+    <section id="blog">
+        <h2>Blog – AfD Rodalben</h2>
+        <article>
+            <h3>Stellungnahme zur Kommunalwahl 2024</h3>
+            <small>Veröffentlicht am 12. Mai 2024</small>
+            <p>Wir bedanken uns für das Vertrauen, das uns entgegengebracht wurde, und werden uns weiterhin mit Nachdruck für Rodalben einsetzen. Unsere Kandidaten stehen für bürgernahe Politik, Transparenz und eine starke Region.</p>
+        </article>
+
+        <article>
+            <h3>Infostand auf dem Wochenmarkt</h3>
+            <small>Veröffentlicht am 28. April 2024</small>
+            <p>Vielen Dank an alle Besucher unseres Infostandes! Die Gespräche waren konstruktiv und wichtig für unsere zukünftige Arbeit. Wir freuen uns auf die nächsten Begegnungen vor Ort.</p>
+        </article>
+
+        <article>
+            <h3>AfD Rodalben gegründet</h3>
+            <small>Veröffentlicht am 10. März 2022</small>
+            <p>Mit der Gründung des Ortsverbandes Rodalben möchten wir die politische Landschaft in unserer Region aktiv mitgestalten. Wir laden alle Interessierten herzlich ein, mitzumachen!</p>
+        </article>
+        <a href="blog2.html">Alle Blogbeiträge ansehen</a>
+    </section>
 </main>
 
 <footer>
-  <p>&copy; 2025 AfD Rodalben</p>
+    <p>© 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
 </footer>
 
-<!-- SECTION-AUSWAHL-SKRIPT -->
 <script>
-  function zeige(id) {
-    const sections = document.querySelectorAll('main section');
-    sections.forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) target.classList.add('active');
-    window.scrollTo(0,0);
-  }
+    // Funktion zum Anzeigen der Sektionen
+    function zeige(id) {
+        const sections = document.querySelectorAll('main section');
+        sections.forEach(s => s.classList.remove('active'));
+        const target = document.getElementById(id);
+        if (target) {
+            target.classList.add('active');
+            // Scrollt zum oberen Rand der Sektion,
+            // unter Berücksichtigung des festen Headers/Nav.
+            // Auf mobilen Geräten, wo Header/Nav statisch ist, ist der Offset 0.
+            let offset = 0;
+            const header = document.querySelector('header');
+            const nav = document.querySelector('nav');
+            if (header && window.getComputedStyle(header).position === 'fixed') {
+                offset += header.offsetHeight;
+            }
+            if (nav && window.getComputedStyle(nav).position === 'fixed') {
+                offset += nav.offsetHeight;
+            }
+            window.scrollTo({
+                top: target.offsetTop - offset,
+                behavior: 'smooth'
+            });
+        }
+    }
 
-  function updateUhrzeit() {
-    const jetzt = new Date();
-    const uhrzeit = jetzt.toLocaleTimeString('de-DE');
-    document.getElementById('uhrzeit').textContent = uhrzeit;
-  }
+    // Funktion zum Laden der Temperatur für den Header
+    async function ladeTemperaturHeader() {
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.24&longitude=7.64&current_weather=true&timezone=Europe/Berlin";
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const temp = data.current_weather?.temperature;
+            document.getElementById("header-temp").textContent =
+                (temp !== undefined ? temp.toFixed(1) : "N/A") + " °C";
+        } catch (error) {
+            console.error("Fehler beim Laden der Temperatur:", error);
+            document.getElementById("header-temp").textContent = "Fehler";
+        }
+    }
 
-  setInterval(updateUhrzeit, 1000);
-  updateUhrzeit();
+    // Dieser Event Listener wird ausgeführt, sobald das DOM vollständig geladen ist.
+    document.addEventListener("DOMContentLoaded", function () {
+        // E-Mail-Validierung für das Kontaktformular
+        const contactForm = document.getElementById("contactForm");
+        const emailInput = document.getElementById("email");
 
-  function ladeTemperatur() {
-    // Temperatur kann über externe API geladen werden (hier nur Platzhalter)
-    document.getElementById('temperatur').textContent = "21 °C";
-  }
+        if (contactForm && emailInput) {
+            contactForm.addEventListener("submit", function (event) {
+                const emailValue = emailInput.value.trim();
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  ladeTemperatur();
+                if (!emailPattern.test(emailValue)) {
+                    alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+                    event.preventDefault(); // Verhindert das Absenden des Formulars
+                }
+            });
+        }
+
+        // Initiales Anzeigen der Startseite beim Laden der Seite
+        const activeSection = document.querySelector('main section.active');
+        if (!activeSection) {
+            zeige('start');
+        }
+
+        // Temperatur beim Laden der Seite laden
+        ladeTemperaturHeader();
+    });
+</script>
+
+<script>
+    (function(d, w, c) {
+        w.ChatraID = 'B4ZtcWzNX3odoYq7F'; // Deine Chatra ID
+        var s = d.createElement('script');
+        w[c] = w[c] || function() { (w[c].q = w[c].q || []).push(arguments); };
+        s.async = true;
+        s.src = 'https://call.chatra.io/chatra.js';
+        if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
 </script>
 
 </body>
