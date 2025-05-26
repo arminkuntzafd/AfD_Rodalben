@@ -4,70 +4,97 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AfD Rodalben</title>
-  <link rel="icon" href="AfD_Logo_blau.png" type="image/png" />
+  <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      padding-top: 110px; /* Platz für fixierten Header+Nav */
+      background: #f9f9f9;
     }
+
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #005ea5;
-      color: white;
-      padding: 10px 20px;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
+      height: 60px;
+      background: #005ea5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
       z-index: 1000;
     }
+
     header img {
       height: 50px;
-      cursor: pointer;
     }
+
+    header h1 {
+      margin: 0 15px;
+      font-size: 1.5em;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.9em;
+    }
+
     nav {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
       background: #003b70;
       display: flex;
       flex-wrap: wrap;
       padding: 0 10px;
-      position: fixed;
-      top: 70px; /* Höhe Header + Padding */
-      left: 0;
-      right: 0;
       z-index: 999;
+      height: 50px;
+      align-items: center;
     }
-    nav button, nav a {
+
+    nav > button,
+    .dropdown > button.dropbtn {
       background: #003b70;
       color: white;
       border: none;
-      padding: 14px 16px;
+      padding: 12px 16px;
       cursor: pointer;
       font-size: 16px;
-      text-decoration: none;
-      position: relative;
+      line-height: 1;
+      height: 50px;
     }
-    nav button:hover, nav a:hover {
+
+    nav > button:hover,
+    .dropdown:hover > button.dropbtn {
       background-color: #005ea5;
     }
+
     .dropdown {
       position: relative;
+      user-select: none;
     }
+
     .dropdown-content {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
       min-width: 180px;
-      z-index: 10000;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      top: 100%;
+      top: 50px;
       left: 0;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1001;
     }
-    .dropdown-content button, .dropdown-content a {
+
+    .dropdown-content button,
+    .dropdown-content a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
@@ -77,28 +104,40 @@
       width: 100%;
       text-align: left;
       cursor: pointer;
+      font-size: 15px;
     }
-    .dropdown-content button:hover, .dropdown-content a:hover {
+
+    .dropdown-content button:hover,
+    .dropdown-content a:hover {
       background-color: #ddd;
     }
-    .dropdown.open .dropdown-content {
+
+    /* Dropdown sichtbar bei Hover */
+    .dropdown:hover .dropdown-content {
       display: block;
     }
+
     main {
-      padding: 150px 20px 60px;
-      max-width: 960px;
-      margin: 0 auto;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      min-height: 80vh;
     }
+
     section {
       display: none;
     }
+
     section.active {
       display: block;
     }
+
     iframe {
       width: 100%;
       border: none;
     }
+
     footer {
       background-color: #003b70;
       color: white;
@@ -106,17 +145,25 @@
       padding: 10px;
       margin-top: 40px;
     }
-    form input, form textarea {
+
+    form input,
+    form textarea {
       width: 100%;
       padding: 8px;
       margin-bottom: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
+
     form button {
       padding: 10px 20px;
       background: #005ea5;
       color: white;
       border: none;
       cursor: pointer;
+      font-size: 1em;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -124,11 +171,13 @@
 
 <header>
   <div>
-    <img src="AfD_Logo_blau.png" alt="Logo" onclick="zeige('start')" />
+    <a href="#" onclick="zeige('start'); return false;">
+      <img src="AfD_Logo_blau.png" alt="Logo" />
+    </a>
   </div>
   <div>
     <h1>AfD Rodalben</h1>
-    <p>Informationen &amp; Aktuelles aus der Region</p>
+    <p>Informationen & Aktuelles aus der Region</p>
   </div>
 </header>
 
@@ -137,7 +186,7 @@
   <button onclick="zeige('ueberuns')">Über uns</button>
 
   <div class="dropdown">
-    <button class="dropbtn" onclick="toggleDropdown(event)">Kontakt ▾</button>
+    <button class="dropbtn">Kontakt ▾</button>
     <div class="dropdown-content">
       <button onclick="zeige('kontakt')">E-Mail</button>
       <button onclick="zeige('lage')">Lage</button>
@@ -145,7 +194,7 @@
   </div>
 
   <div class="dropdown">
-    <button class="dropbtn" onclick="toggleDropdown(event)">Satzungen ▾</button>
+    <button class="dropbtn">Satzungen ▾</button>
     <div class="dropdown-content">
       <button onclick="zeige('kreissatzung')">Kreissatzung</button>
       <button onclick="zeige('landessatzung')">Landessatzung</button>
@@ -154,14 +203,14 @@
   </div>
 
   <button onclick="zeige('bilder')">Bilder</button>
-
+  
   <div class="dropdown">
-    <button class="dropbtn" onclick="toggleDropdown(event)">Verschiedenes ▾</button>
+    <button class="dropbtn">Verschiedenes ▾</button>
     <div class="dropdown-content">
-      <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener">Mitglied werden</a>
-      <a href="#" onclick="zeige('spenden'); closeAllDropdowns(); return false;">Spenden</a>
-      <a href="#" onclick="zeige('impressum'); closeAllDropdowns(); return false;">Impressum</a>
-      <a href="#" onclick="zeige('datenschutz'); closeAllDropdowns(); return false;">Datenschutz</a>
+      <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener noreferrer">Mitglied werden</a>
+      <button onclick="zeige('spenden')">Spenden</button>
+      <button onclick="zeige('impressum')">Impressum</button>
+      <button onclick="zeige('datenschutz')">Datenschutz</button>
     </div>
   </div>
 
@@ -177,7 +226,7 @@
 
   <section id="ueberuns">
     <h2>Über uns</h2>
-    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet.  Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
+    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
   </section>
 
   <section id="kontakt">
@@ -216,33 +265,51 @@
   </section>
 
   <section id="bilder">
+    <h2>Bilder</h2>
     <img src="Rolaben.jpg" alt="Infostand Rodalben" style="max-width: 100%;" />
     <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" style="max-width: 100%;" />
-    <img src="plakatieren.jpg" alt="plakatieren" style="max-width: 100%;" />
+    <img src="plakatieren.jpg" alt="Plakatieren" style="max-width: 100%;" />
   </section>
-
+  
   <section id="spenden">
     <h2>Spenden</h2>
-    <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Kontaktieren Sie uns gerne für weitere Informationen.</p>
+    <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
+      Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
+    <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
+    <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
   </section>
 
   <section id="impressum">
     <h2>Impressum</h2>
-    <p>AfD Rodalben<br />
-      Musterstraße 1<br />
-      12345 Rodalben<br />
-      E-Mail: info@afd-rodalben.de<br />
-      Telefon: 01234 567890</p>
+    <p>Angaben gemäß § 5 TMG:</p>
+    <p>AfD Rodalben<br>Am Beispielweg 1<br>66976 Rodalben</p>
+    <p>Kontakt: <a href="mailto:kuntzarmin6@gmail.com">kuntzarmin6@gmail.com</a></p>
   </section>
 
   <section id="datenschutz">
     <h2>Datenschutz</h2>
-    <p>Hier finden Sie unsere Datenschutzerklärung.</p>
+    <p>Informationen zum Datenschutz findest du hier...</p>
   </section>
 
   <section id="blog">
-    <h2>Blog</h2>
-    <p>Hier erscheinen aktuelle Beiträge, Stellungnahmen und Neuigkeiten.</p>
+    <h2>Blog – AfD Rodalben</h2>
+    <article>
+      <h3>Stellungnahme zur Kommunalwahl 2024</h3>
+      <small>Veröffentlicht am 12. Mai 2024</small>
+      <p>Wir bedanken uns für das Vertrauen, das uns entgegengebracht wurde, und werden uns weiterhin mit Nachdruck für Rodalben einsetzen. Unsere Kandidaten stehen für bürgernahe Politik, Transparenz und eine starke Region.</p>
+    </article>
+
+    <article>
+      <h3>Infostand auf dem Wochenmarkt</h3>
+      <small>Veröffentlicht am 28. April 2024</small>
+      <p>Vielen Dank an alle Besucher unseres Infostandes! Die Gespräche waren konstruktiv und wichtig für unsere zukünftige Arbeit. Wir freuen uns auf die nächsten Begegnungen vor Ort.</p>
+    </article>
+
+    <article>
+      <h3>AfD Rodalben gegründet</h3>
+      <small>Veröffentlicht am 10. März 2022</small>
+      <p>Mit der Gründung des Ortsverbandes Rodalben möchten wir die politische Landschaft in unserer Region aktiv mitgestalten. Wir laden alle Interessierten herzlich ein, mitzumachen!</p>
+    </article>
   </section>
 </main>
 
@@ -252,43 +319,18 @@
 
 <script>
   function zeige(id) {
-    const sektionen = document.querySelectorAll("main section");
-    sektionen.forEach(sec => {
-      sec.classList.toggle("active", sec.id === id);
-    });
-    closeAllDropdowns();
-    window.scrollTo(0, 0);
+    const sections = document.querySelectorAll('main section');
+    sections.forEach(s => s.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    window.scrollTo(0,0);
   }
-
-  function toggleDropdown(event) {
-    event.stopPropagation();
-    const dropdown = event.currentTarget.parentElement;
-    const isOpen = dropdown.classList.contains('open');
-    closeAllDropdowns();
-    if (!isOpen) {
-      dropdown.classList.add('open');
-    }
-  }
-
-  function closeAllDropdowns() {
-    document.querySelectorAll('.dropdown.open').forEach(dd => {
-      dd.classList.remove('open');
-    });
-  }
-
-  document.body.addEventListener('click', () => {
-    closeAllDropdowns();
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    zeige('start');
-  });
 </script>
 
-<!-- Chatra Widget -->
+<!-- Chatra Script -->
 <script>
   (function(d, w, c) {
-    w.ChatraID = 'DEINE_CHATRA_ID'; // Ersetze mit deiner echten Chatra-ID
+    w.ChatraID = 'DEINE_CHATRA_ID';
     var s = d.createElement('script');
     w[c] = w[c] || function() {
       (w[c].q = w[c].q || []).push(arguments);
