@@ -2,19 +2,17 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AfD Rodalben</title>
-  <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
+  <link rel="icon" href="AfD_Logo_blau.png" type="image/png" />
   <style>
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
     }
-
     header {
       display: flex;
       align-items: center;
@@ -28,56 +26,48 @@
       right: 0;
       z-index: 1000;
     }
-
     header img {
       height: 50px;
+      cursor: pointer;
     }
-
     nav {
       background: #003b70;
       display: flex;
       flex-wrap: wrap;
       padding: 0 10px;
       position: fixed;
-      top: 70px; /* Höhe Header (50px + Padding) */
+      top: 70px; /* Höhe Header + Padding */
       left: 0;
       right: 0;
       z-index: 999;
     }
-
-    nav > button,
-    .dropdown .dropbtn {
+    nav button, nav a {
       background: #003b70;
       color: white;
       border: none;
       padding: 14px 16px;
       cursor: pointer;
       font-size: 16px;
+      text-decoration: none;
       position: relative;
     }
-
-    nav button:hover,
-    .dropdown:hover .dropbtn {
+    nav button:hover, nav a:hover {
       background-color: #005ea5;
     }
-
     .dropdown {
       position: relative;
     }
-
     .dropdown-content {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
       min-width: 180px;
       z-index: 10000;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       top: 100%;
       left: 0;
     }
-
-    .dropdown-content button,
-    .dropdown-content a {
+    .dropdown-content button, .dropdown-content a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
@@ -88,36 +78,27 @@
       text-align: left;
       cursor: pointer;
     }
-
-    .dropdown-content button:hover,
-    .dropdown-content a:hover {
+    .dropdown-content button:hover, .dropdown-content a:hover {
       background-color: #ddd;
     }
-
-    /* Wichtig für Dropdown-Funktion */
-    .dropdown:hover .dropdown-content {
+    .dropdown.open .dropdown-content {
       display: block;
     }
-
     main {
-      padding: 150px 20px 60px; /* genug Abstand wegen fixed header und nav */
+      padding: 150px 20px 60px;
       max-width: 960px;
       margin: 0 auto;
     }
-
     section {
       display: none;
     }
-
     section.active {
       display: block;
     }
-
     iframe {
       width: 100%;
       border: none;
     }
-
     footer {
       background-color: #003b70;
       color: white;
@@ -125,14 +106,11 @@
       padding: 10px;
       margin-top: 40px;
     }
-
-    form input,
-    form textarea {
+    form input, form textarea {
       width: 100%;
       padding: 8px;
       margin-bottom: 10px;
     }
-
     form button {
       padding: 10px 20px;
       background: #005ea5;
@@ -146,13 +124,11 @@
 
 <header>
   <div>
-    <a href="#" onclick="zeige('start'); return false;">
-      <img src="AfD_Logo_blau.png" alt="Logo" />
-    </a>
+    <img src="AfD_Logo_blau.png" alt="Logo" onclick="zeige('start')" />
   </div>
   <div>
     <h1>AfD Rodalben</h1>
-    <p>Informationen & Aktuelles aus der Region</p>
+    <p>Informationen &amp; Aktuelles aus der Region</p>
   </div>
   <div id="header-temp">Lade...</div>
 </header>
@@ -162,7 +138,7 @@
   <button onclick="zeige('ueberuns')">Über uns</button>
 
   <div class="dropdown">
-    <button class="dropbtn">Kontakt ▾</button>
+    <button class="dropbtn" onclick="toggleDropdown(event)">Kontakt ▾</button>
     <div class="dropdown-content">
       <button onclick="zeige('kontakt')">E-Mail</button>
       <button onclick="zeige('lage')">Lage</button>
@@ -170,7 +146,7 @@
   </div>
 
   <div class="dropdown">
-    <button class="dropbtn">Satzungen ▾</button>
+    <button class="dropbtn" onclick="toggleDropdown(event)">Satzungen ▾</button>
     <div class="dropdown-content">
       <button onclick="zeige('kreissatzung')">Kreissatzung</button>
       <button onclick="zeige('landessatzung')">Landessatzung</button>
@@ -181,12 +157,12 @@
   <button onclick="zeige('bilder')">Bilder</button>
 
   <div class="dropdown">
-    <button class="dropbtn">Verschiedenes ▾</button>
+    <button class="dropbtn" onclick="toggleDropdown(event)">Verschiedenes ▾</button>
     <div class="dropdown-content">
       <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener">Mitglied werden</a>
-      <a href="#" onclick="zeige('spenden'); return false;">Spenden</a>
-      <a href="#" onclick="zeige('impressum'); return false;">Impressum</a>
-      <a href="#" onclick="zeige('datenschutz'); return false;">Datenschutz</a>
+      <a href="#" onclick="zeige('spenden'); closeAllDropdowns(); return false;">Spenden</a>
+      <a href="#" onclick="zeige('impressum'); closeAllDropdowns(); return false;">Impressum</a>
+      <a href="#" onclick="zeige('datenschutz'); closeAllDropdowns(); return false;">Datenschutz</a>
     </div>
   </div>
 
@@ -245,7 +221,7 @@
     <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" style="max-width: 100%;" />
     <img src="plakatieren.jpg" alt="plakatieren" style="max-width: 100%;" />
   </section>
-  
+
   <section id="spenden">
     <h2>Spenden</h2>
     <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Kontaktieren Sie uns gerne für weitere Informationen.</p>
@@ -253,11 +229,11 @@
 
   <section id="impressum">
     <h2>Impressum</h2>
-    <p>AfD Rodalben<br/>
-    Musterstraße 1<br/>
-    12345 Rodalben<br/>
-    E-Mail: info@afd-rodalben.de<br/>
-    Telefon: 01234 567890</p>
+    <p>AfD Rodalben<br />
+      Musterstraße 1<br />
+      12345 Rodalben<br />
+      E-Mail: info@afd-rodalben.de<br />
+      Telefon: 01234 567890</p>
   </section>
 
   <section id="datenschutz">
@@ -268,7 +244,6 @@
   <section id="blog">
     <h2>Blog</h2>
     <p>Hier erscheinen aktuelle Beiträge, Stellungnahmen und Neuigkeiten.</p>
-    <!-- Blog-Inhalte oder Links zu Blogposts hier -->
   </section>
 </main>
 
@@ -278,17 +253,42 @@
 
 <script>
   function zeige(id) {
+    // Sektionen aktivieren/deaktivieren
     const sektionen = document.querySelectorAll("main section");
     sektionen.forEach(sec => {
-      if (sec.id === id) {
-        sec.classList.add("active");
-      } else {
-        sec.classList.remove("active");
-      }
+      sec.classList.toggle("active", sec.id === id);
     });
-    // Scroll to top when changing section
+    // Alle Dropdowns schließen
+    closeAllDropdowns();
+    // Scroll nach oben
     window.scrollTo(0, 0);
   }
+
+  function toggleDropdown(event) {
+    event.stopPropagation(); // Verhindert dass das Klick-Event an body geht
+    const dropdown = event.currentTarget.parentElement;
+    const isOpen = dropdown.classList.contains('open');
+    closeAllDropdowns();
+    if (!isOpen) {
+      dropdown.classList.add('open');
+    }
+  }
+
+  function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown.open').forEach(dd => {
+      dd.classList.remove('open');
+    });
+  }
+
+  // Dropdowns schließen, wenn irgendwo anders geklickt wird
+  document.body.addEventListener('click', () => {
+    closeAllDropdowns();
+  });
+
+  // Wenn die Seite geladen ist, Start-Sektion anzeigen
+  document.addEventListener('DOMContentLoaded', () => {
+    zeige('start');
+  });
 </script>
 
 <!-- Chatra Widget -->
