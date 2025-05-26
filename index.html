@@ -15,10 +15,10 @@
 
         body {
             font-family: Arial, sans-serif;
-            /* Platz für fixierten Header (60px) + Nav (50px) = 110px */
-            padding-top: 110px;
+            /* Platz für fixierten Header (80px) + Nav (50px) = 130px */
+            padding-top: 130px; 
             /* Platz für fixierten Footer (50px) */
-            padding-bottom: 50px;
+            padding-bottom: 50px; 
             background: #f9f9f9;
             color: #333;
         }
@@ -29,52 +29,81 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 60px;
+            height: 80px; /* Höhe angepasst für zwei Textzeilen */
             background: #005ea5; /* Blau der AfD */
             color: white;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            align-items: center; /* Vertikal zentriert für die gesamte Header-Leiste */
+            justify-content: space-between; /* Abstand zwischen Logo-Titel und Info-Block */
             padding: 0 20px;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        header img {
-            height: 50px;
-            margin-right: 15px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.8em;
-            white-space: nowrap;
-        }
-
-        header p {
-            margin: 0;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-
-        /* Flex Container für Logo und Titel */
-        header > div:first-of-type {
+        .logo-area {
             display: flex;
             align-items: center;
         }
-        /* Container für Titel und Temperatur */
-        header > div:last-of-type {
+
+        .logo-area img {
+            height: 60px; /* Angepasste Logo-Größe */
+            margin-right: 15px;
+        }
+
+        .main-title-container {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Zentriert den Text im Header */
+            align-items: center; /* Zentriert horizontal */
+            justify-content: center; /* Zentriert vertikal */
             text-align: center; /* Textzentrierung für mehrere Zeilen */
+            /* Flex-Grow, um den Titel-Bereich den meisten Platz einnehmen zu lassen */
+            flex-grow: 1; 
+            /* Optional: Max-Breite, falls der Titel zu lang wird */
+            max-width: 600px; 
+        }
+
+        .main-title-container h1 {
+            margin: 0;
+            font-size: 1.8em;
+            white-space: nowrap; /* Verhindert Umbruch des Titels */
+        }
+
+        .main-title-container p {
+            margin: 0;
+            font-size: 0.9em;
+            white-space: nowrap; /* Verhindert Umbruch des Untertitels */
+        }
+
+        .header-info-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Rechtsbündig für Suchfeld, Uhrzeit, Temperatur */
+            justify-content: center;
+            gap: 5px; /* Abstand zwischen den Elementen */
+            margin-left: 20px; /* Abstand zum Titelbereich */
+        }
+
+        #suchfeld {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            width: 140px;
+        }
+
+        #uhrzeit,
+        #temperatur {
+            font-family: monospace;
+            font-size: 14px;
+            color: white;
+            white-space: nowrap;
         }
 
 
         /* Navigation (Hauptmenü) */
         nav {
             position: fixed;
-            top: 60px; /* Direkt unter dem Header */
+            top: 80px; /* Direkt unter dem Header */
             left: 0;
             right: 0;
             background: #003b70; /* Dunkelblau der Nav */
@@ -156,7 +185,7 @@
             margin: 20px auto; /* Etwas Abstand oben/unten und zentriert */
             padding: 20px;
             background: white;
-            min-height: calc(100vh - 110px - 50px - 40px); /* 40px für margin-top/bottom des main */
+            min-height: calc(100vh - 130px - 50px - 40px); /* 40px für margin-top/bottom des main */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px; /* Leicht abgerundete Ecken */
         }
@@ -304,23 +333,31 @@
                 height: auto;
                 padding: 10px;
                 text-align: center;
+                align-items: center; /* Zentriert alles im Header bei kleinen Bildschirmen */
             }
 
-            header img {
+            .logo-area {
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
+
+            .logo-area img {
+                margin-right: 0;
                 margin-bottom: 5px;
             }
 
-            header h1 {
-                font-size: 1.5em;
+            .main-title-container {
+                align-items: center;
+                text-align: center;
+                flex-grow: unset; /* Setzt flex-grow zurück */
+                max-width: unset; /* Entfernt die Breitenbegrenzung */
+                margin-left: 0;
+                margin-right: 0;
             }
 
-            header p {
-                font-size: 0.8em;
-                text-align: center; /* Temperatur zentral unter dem Titel */
-            }
-            
-            header > div:last-of-type {
-                align-items: center; /* Zentriert den Inhalt auf kleinen Bildschirmen */
+            .header-info-right {
+                align-items: center;
+                margin-left: 0; /* Entfernt die Auto-Margins */
             }
 
             nav {
@@ -380,14 +417,19 @@
 <body>
 
 <header>
-    <div>
+    <div class="logo-area">
         <a href="#" onclick="zeige('start'); return false;">
             <img src="AfD_Logo_blau.png" alt="Logo" />
         </a>
     </div>
-    <div>
+    <div class="main-title-container">
         <h1>AfD Rodalben</h1>
-        <p id="header-temp">Lade...</p>
+        <p>Informationen & Aktuelles aus der Region</p>
+    </div>
+    <div class="header-info-right">
+        <input type="text" id="suchfeld" placeholder="Suche...">
+        <div id="uhrzeit">--:--:--</div>
+        <div id="temperatur">-- °C</div>
     </div>
 </header>
 
@@ -590,18 +632,26 @@
         }
     }
 
+    // Funktion zum Aktualisieren der Uhrzeit
+    function updateUhrzeit() {
+        const jetzt = new Date();
+        const zeit = jetzt.toLocaleTimeString("de-DE", { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById("uhrzeit").textContent = zeit;
+    }
+
     // Funktion zum Laden der Temperatur für den Header
     async function ladeTemperaturHeader() {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.24&longitude=7.64&current_weather=true&timezone=Europe/Berlin";
+        // Koordinaten für Rodalben (ungefähre Werte)
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.20&longitude=7.65&current_weather=true&timezone=Europe/Berlin";
         try {
             const res = await fetch(url);
             const data = await res.json();
             const temp = data.current_weather?.temperature;
-            document.getElementById("header-temp").textContent =
+            document.getElementById("temperatur").textContent = 
                 (temp !== undefined ? temp.toFixed(1) : "N/A") + " °C";
         } catch (error) {
             console.error("Fehler beim Laden der Temperatur:", error);
-            document.getElementById("header-temp").textContent = "Fehler";
+            document.getElementById("temperatur").textContent = "Fehler";
         }
     }
 
@@ -629,8 +679,10 @@
             zeige('start');
         }
 
-        // Temperatur beim Laden der Seite laden
+        // Temperatur und Uhrzeit beim Laden der Seite laden und aktualisieren
         ladeTemperaturHeader();
+        updateUhrzeit(); // Initialer Aufruf
+        setInterval(updateUhrzeit, 1000); // Jede Sekunde aktualisieren
     });
 </script>
 
