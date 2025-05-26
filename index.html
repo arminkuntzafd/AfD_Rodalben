@@ -130,7 +130,6 @@
     <h1>AfD Rodalben</h1>
     <p>Informationen &amp; Aktuelles aus der Region</p>
   </div>
-  <div id="header-temp">Lade...</div>
 </header>
 
 <nav>
@@ -253,19 +252,16 @@
 
 <script>
   function zeige(id) {
-    // Sektionen aktivieren/deaktivieren
     const sektionen = document.querySelectorAll("main section");
     sektionen.forEach(sec => {
       sec.classList.toggle("active", sec.id === id);
     });
-    // Alle Dropdowns schließen
     closeAllDropdowns();
-    // Scroll nach oben
     window.scrollTo(0, 0);
   }
 
   function toggleDropdown(event) {
-    event.stopPropagation(); // Verhindert dass das Klick-Event an body geht
+    event.stopPropagation();
     const dropdown = event.currentTarget.parentElement;
     const isOpen = dropdown.classList.contains('open');
     closeAllDropdowns();
@@ -280,12 +276,10 @@
     });
   }
 
-  // Dropdowns schließen, wenn irgendwo anders geklickt wird
   document.body.addEventListener('click', () => {
     closeAllDropdowns();
   });
 
-  // Wenn die Seite geladen ist, Start-Sektion anzeigen
   document.addEventListener('DOMContentLoaded', () => {
     zeige('start');
   });
@@ -294,7 +288,7 @@
 <!-- Chatra Widget -->
 <script>
   (function(d, w, c) {
-    w.ChatraID = 'DEINE_CHATRA_ID'; // Ersetze DEINE_CHATRA_ID mit deiner echten Chatra-ID
+    w.ChatraID = 'DEINE_CHATRA_ID'; // Ersetze mit deiner echten Chatra-ID
     var s = d.createElement('script');
     w[c] = w[c] || function() {
       (w[c].q = w[c].q || []).push(arguments);
