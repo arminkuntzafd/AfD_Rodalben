@@ -48,13 +48,13 @@
         header h1 {
             margin: 0;
             font-size: 1.8em;
-            white-space: nowrap;
+            white-space: nowrap; /* Verhindert Umbruch des Titels */
         }
 
         header p {
             margin: 0;
             font-size: 0.9em;
-            white-space: nowrap;
+            white-space: nowrap; /* Verhindert Umbruch des Textes */
         }
 
         /* Flex Container für Logo und Titel */
@@ -62,12 +62,14 @@
             display: flex;
             align-items: center;
         }
-        /* Container für Titel und Temperatur */
+        /* Container für Titel und Temperatur (jetzt zentriert) */
         header > div:last-of-type {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Zentriert den Text im Header */
-            text-align: center; /* Textzentrierung für mehrere Zeilen */
+            align-items: center; /* Zentriert horizontal */
+            justify-content: center; /* Zentriert vertikal */
+            text-align: center; /* Stellt sicher, dass mehrzeiliger Text auch zentriert ist */
+            flex-grow: 1; /* Lässt diesen div den verfügbaren Platz einnehmen */
         }
 
 
@@ -483,7 +485,7 @@
         <h2>Spenden</h2>
         <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
         <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
-        <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
+        <p><strong>IBAN:</strong><            <br>DE92542500100085015881</p>
         <p><strong>BIC:</strong><br>MALADE51SWP</p>
         <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben <strong>[Name] [Anschrift]</strong></p>
         <p>Die Angabe von Name und Anschrift ist **erforderlich** für die Zusendung einer Spendenquittung.</p>
@@ -592,7 +594,8 @@
 
     // Funktion zum Laden der Temperatur für den Header
     async function ladeTemperaturHeader() {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.24&longitude=7.64&current_weather=true&timezone=Europe/Berlin";
+        // Koordinaten für Rodalben (ungefähre Werte)
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.20&longitude=7.65&current_weather=true&timezone=Europe/Berlin";
         try {
             const res = await fetch(url);
             const data = await res.json();
@@ -647,3 +650,10 @@
 
 </body>
 </html>
+
+ Quellen
+
+
+
+
+
