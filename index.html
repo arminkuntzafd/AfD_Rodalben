@@ -77,10 +77,11 @@
         .header-info-right {
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Rechtsbündig für Suchfeld, Uhrzeit, Temperatur */
+            align-items: flex-end; /* Rechtsbündig für Suchfeld, Datum, Uhrzeit, Temperatur */
             justify-content: center;
             gap: 5px; /* Abstand zwischen den Elementen */
             margin-left: 20px; /* Abstand zum Titelbereich */
+            text-align: right; /* Text innerhalb dieses Containers rechtsbündig */
         }
 
         #suchfeld {
@@ -91,6 +92,7 @@
             width: 140px;
         }
 
+        #datum,
         #uhrzeit,
         #temperatur {
             font-family: monospace;
@@ -358,6 +360,7 @@
             .header-info-right {
                 align-items: center;
                 margin-left: 0; /* Entfernt die Auto-Margins */
+                text-align: center; /* Zentriert den Text im Info-Bereich */
             }
 
             nav {
@@ -428,6 +431,7 @@
     </div>
     <div class="header-info-right">
         <input type="text" id="suchfeld" placeholder="Suche...">
+        <div id="datum">--.--.----</div>
         <div id="uhrzeit">--:--:--</div>
         <div id="temperatur">-- °C</div>
     </div>
@@ -639,6 +643,14 @@
         document.getElementById("uhrzeit").textContent = zeit;
     }
 
+    // Funktion zum Aktualisieren des Datums
+    function updateDatum() {
+        const jetzt = new Date();
+        const optionen = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+        const datum = jetzt.toLocaleDateString("de-DE", optionen);
+        document.getElementById("datum").textContent = datum;
+    }
+
     // Funktion zum Laden der Temperatur für den Header
     async function ladeTemperaturHeader() {
         // Koordinaten für Rodalben (ungefähre Werte)
@@ -679,10 +691,16 @@
             zeige('start');
         }
 
-        // Temperatur und Uhrzeit beim Laden der Seite laden und aktualisieren
-        ladeTemperaturHeader();
+        // Datum, Uhrzeit und Temperatur beim Laden der Seite laden und aktualisieren
+        updateDatum(); // Initialer Aufruf
+        setInterval(updateDatum, 60000); // Datum jede Minute aktualisieren (falls der Tag wechselt)
+        
         updateUhrzeit(); // Initialer Aufruf
-        setInterval(updateUhrzeit, 1000); // Jede Sekunde aktualisieren
+        setInterval(updateUhrzeit, 1000); // Uhrzeit jede Sekunde aktualisieren
+
+        ladeTemperaturHeader(); // Initialer Aufruf
+        // Temperatur aktualisiert sich normalerweise nicht so oft, 
+        // daher kein setInterval hier, außer du möchtest eine häufigere Aktualisierung.
     });
 </script>
 
