@@ -15,10 +15,10 @@
 
         body {
             font-family: Arial, sans-serif;
-            /* Platz für fixierten Header (80px) + Nav (50px) = 130px */
-            padding-top: 130px; 
+            /* Platz für fixierten Header (80px) + News-Marquee (ca. 30px) + Nav (50px) = 160px */
+            padding-top: 160px; /* ANGEPASST: +30px für den Marquee */
             /* Platz für fixierten Footer (50px) */
-            padding-bottom: 50px; 
+            padding-bottom: 50px;
             background: #f9f9f9;
             color: #333;
         }
@@ -29,13 +29,13 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 80px; /* Höhe angepasst für zwei Textzeilen */
+            height: 110px; /* ANGEPASST: Höhe erhöht, um Marquee aufzunehmen (80px + ca. 30px Marquee) */
             background: #005ea5; /* Blau der AfD */
             color: white;
             display: flex;
-            align-items: center; /* Vertikal zentriert für die gesamte Header-Leiste */
+            align-items: flex-start; /* ANGEPASST: Elemente am oberen Rand ausrichten */
             justify-content: space-between; /* Abstand zwischen den Blöcken */
-            padding: 0 20px;
+            padding: 10px 20px; /* ANGEPASST: Padding für etwas Luft oben/unten */
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -43,11 +43,22 @@
         .logo-area {
             display: flex;
             align-items: center;
+            flex-shrink: 0; /* Wichtig: Verhindert Schrumpfen */
         }
 
         .logo-area img {
             height: 60px; /* Angepasste Logo-Größe */
             margin-right: 15px;
+        }
+
+        /* NEUE KLASSEN FÜR HEADER-STRUKTUR */
+        .header-center-content {
+            display: flex;
+            flex-direction: column; /* Stapelt Titel und Such-/Marquee-Bereich vertikal */
+            align-items: center; /* Zentriert horizontal */
+            flex-grow: 1; /* Lässt diesen Bereich den meisten Platz einnehmen */
+            max-width: 600px; /* Optional: Breitenbegrenzung beibehalten */
+            margin: 0 20px; /* Horizontaler Abstand */
         }
 
         .main-title-container {
@@ -56,10 +67,7 @@
             align-items: center; /* Zentriert horizontal */
             justify-content: center; /* Zentriert vertikal */
             text-align: center; /* Textzentrierung für mehrere Zeilen */
-            /* Flex-Grow, um den Titel-Bereich den meisten Platz einnehmen zu lassen */
-            flex-grow: 1; 
-            /* Optional: Max-Breite, falls der Titel zu lang wird */
-            max-width: 600px; 
+            margin-bottom: 5px; /* Abstand zum Suchfeld/Marquee */
         }
 
         .main-title-container h1 {
@@ -74,14 +82,38 @@
             white-space: nowrap; /* Verhindert Umbruch des Untertitels */
         }
 
+        /* NEUER WRAPPER FÜR SUCHLEISTE UND MARQUEE */
+        .search-and-marquee {
+            display: flex;
+            flex-direction: column; /* Stapelt Suchfeld und Marquee vertikal */
+            align-items: center; /* Zentriert Suchfeld und Marquee */
+            width: 100%; /* Nimmt die volle Breite des .header-center-content an */
+            max-width: 400px; /* Optional: Maximale Breite für visuelle Kohärenz */
+        }
+
         #suchfeld {
             padding: 5px;
             font-size: 14px;
             border-radius: 4px;
             border: none;
-            width: 160px; /* Etwas breiter für bessere Optik */
-            margin: 0 20px; /* Abstand zu den anderen Blöcken */
+            width: 100%; /* Passt sich der Breite des search-and-marquee an */
+            margin-bottom: 5px; /* Abstand zum Marquee */
             flex-shrink: 0; /* Verhindert, dass das Suchfeld schrumpft */
+        }
+
+        /* STYLE FÜR DEN NEUEN MARQUEE-CONTAINER IM HEADER */
+        .news-marquee-container {
+            background: #003b70;
+            color: white;
+            padding: 3px 5px; /* Leicht reduziertes Padding */
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%; /* Nimmt volle Breite des Eltern-Wrappers an */
+            border-radius: 4px; /* Optional: leicht abgerundete Ecken */
+            line-height: 1.5; /* Bessere Lesbarkeit bei kleiner Höhe */
+            height: 25px; /* Feste Höhe für den Marquee */
+            display: flex; /* Für vertikale Zentrierung des Marquee-Textes */
+            align-items: center; /* Vertikal zentriert den Text */
         }
 
         .header-info-right {
@@ -107,7 +139,7 @@
         /* Navigation (Hauptmenü) */
         nav {
             position: fixed;
-            top: 80px; /* Direkt unter dem Header */
+            top: 110px; /* ANGEPASST: Direkt unter dem Header (80px Header + 30px Marquee = 110px) */
             left: 0;
             right: 0;
             background: #003b70; /* Dunkelblau der Nav */
@@ -189,7 +221,8 @@
             margin: 20px auto; /* Etwas Abstand oben/unten und zentriert */
             padding: 20px;
             background: white;
-            min-height: calc(100vh - 130px - 50px - 40px); /* 40px für margin-top/bottom des main */
+            /* ANGEPASST: min-height berücksichtigt neuen padding-top */
+            min-height: calc(100vh - 160px - 50px - 40px); /* 40px für margin-top/bottom des main */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px; /* Leicht abgerundete Ecken */
         }
@@ -327,8 +360,8 @@
         /* Responsives Design */
         @media (max-width: 768px) {
             body {
-                /* Auf kleineren Bildschirmen ist Header/Nav statisch, daher weniger padding-top */
-                padding-top: 10px;
+                /* Padding-Top wird wieder 10px, da Header, Marquee und Nav statisch werden */
+                padding-top: 10px; /* ANGEPASST */
             }
 
             header {
@@ -350,6 +383,12 @@
                 margin-bottom: 5px;
             }
 
+            .header-center-content {
+                width: 100%; /* Nimmt volle Breite ein */
+                max-width: unset; /* Keine maximale Breite mehr */
+                margin: 0; /* Entfernt horizontale Margins */
+            }
+
             .main-title-container {
                 align-items: center;
                 text-align: center;
@@ -359,9 +398,19 @@
                 margin-right: 0;
             }
 
-            #suchfeld {
+            .search-and-marquee {
+                width: 90%; /* ANGEPASST: etwas Platz an den Seiten */
                 margin: 10px 0; /* Abstand oben/unten bei kleinen Bildschirmen */
-                width: 80%; /* Breiter bei kleinen Bildschirmen */
+            }
+
+            #suchfeld {
+                margin-bottom: 5px; /* Abstand zum Marquee */
+            }
+
+            .news-marquee-container {
+                height: 25px; /* Behält feste Höhe bei */
+                width: 100%; /* Nimmt volle Breite des search-and-marquee an */
+                margin-top: 5px; /* Etwas Abstand zum Suchfeld */
             }
 
             .header-info-right {
@@ -432,11 +481,18 @@
             <img src="AfD_Logo_blau.png" alt="Logo" />
         </a>
     </div>
-    <div class="main-title-container">
-        <h1>AfD Rodalben</h1>
-        <p>Informationen & Aktuelles aus der Region</p>
+    <div class="header-center-content"> <div class="main-title-container">
+            <h1>AfD Rodalben</h1>
+            <p>Informationen & Aktuelles aus der Region</p>
+        </div>
+        <div class="search-and-marquee"> <input type="text" id="suchfeld" placeholder="Suche...">
+            <div class="news-marquee-container">
+                <marquee behavior="scroll" direction="left" scrollamount="4">
+                    📢 Aktuell: Kommunalwahl 2024 – Jetzt Briefwahl beantragen! 🔹 Infostand am Samstag auf dem Marktplatz 🔹 Spenden helfen uns weiter – Danke!
+                </marquee>
+            </div>
+        </div>
     </div>
-    <input type="text" id="suchfeld" placeholder="Suche...">
     <div class="header-info-right">
         <div id="datum">--.--.----</div>
         <div id="uhrzeit">--:--:--</div>
@@ -617,4 +673,94 @@
         const target = document.getElementById(id);
         if (target) {
             target.classList.add('active');
-            target.style.display = 'block'; // Sicherstellen, dass die aktivierte S
+            target.style.display = 'block'; // Sicherstellen, dass die aktivierte Sektion sichtbar ist
+
+            // Scroll zum oberen Rand der Hauptsektion, wenn nicht ganz oben
+            const mainElement = document.querySelector('main');
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const scrollOffset = headerHeight + navHeight + 20; // Header + Nav + etwas Puffer
+
+            // Nur scrollen, wenn der Target-Bereich außerhalb des Viewports ist
+            if (target.getBoundingClientRect().top < scrollOffset) {
+                window.scrollTo({
+                    top: mainElement.offsetTop - scrollOffset,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    // Datum, Uhrzeit und Wetter-Funktionen (wie gehabt)
+    function updateDateTime() {
+        const now = new Date();
+        const optionsDate = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        document.getElementById('datum').textContent = now.toLocaleDateString('de-DE', optionsDate);
+
+        const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById('uhrzeit').textContent = now.toLocaleTimeString('de-DE', optionsTime);
+    }
+
+    // Wetter-Funktion (Annahme: Du hast eine API-Key und diese Funktion implementiert)
+    // Da kein API-Key oder konkrete Implementierung für die Wetter-API gegeben ist,
+    // bleibt dieser Teil vorerst rudimentär.
+    async function updateWeather() {
+        // Hier müsste der Code für den API-Aufruf stehen.
+        // Beispiel-API (fiktiv, ersetzt durch deine tatsächliche Wetter-API):
+        // const apiKey = 'DEIN_API_KEY';
+        // const city = 'Pirmasens';
+        // const weatherUrl = `https://api.example.com/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+        // try {
+        //     const response = await fetch(weatherUrl);
+        //     const data = await response.json();
+        //     const temperature = data.main.temp.toFixed(0);
+        //     document.getElementById('temperatur').textContent = `${temperature} °C`;
+        // } catch (error) {
+        //     console.error('Wetterdaten konnten nicht geladen werden:', error);
+        //     document.getElementById('temperatur').textContent = '-- °C'; // Fehler anzeigen
+        // }
+        // Da wir keine echte API haben, simulieren wir die Temperatur
+        document.getElementById('temperatur').textContent = '22 °C';
+    }
+
+
+    // Suchfunktion
+    document.addEventListener('DOMContentLoaded', () => {
+        updateDateTime();
+        setInterval(updateDateTime, 1000); // Aktualisiert Datum/Uhrzeit jede Sekunde
+        updateWeather(); // Holt die Wetterdaten einmalig beim Laden
+        setInterval(updateWeather, 3600000); // Aktualisiert Wetter jede Stunde
+
+        const suchfeld = document.getElementById('suchfeld');
+        suchfeld.addEventListener('input', () => {
+            const suchtext = suchfeld.value.toLowerCase();
+            const alleSektionen = document.querySelectorAll('main section');
+            let found = false;
+
+            alleSektionen.forEach(sektion => {
+                const sektionInhalt = sektion.textContent.toLowerCase();
+                if (sektionInhalt.includes(suchtext) && suchtext.length > 0) {
+                    sektion.style.display = 'block'; // Zeigt passende Sektionen an
+                    sektion.classList.add('active'); // Markiert sie als aktiv
+                    found = true;
+                } else {
+                    sektion.style.display = 'none'; // Versteckt nicht passende Sektionen
+                    sektion.classList.remove('active');
+                }
+            });
+
+            // Wenn Suchfeld leer ist, zeige nur die Startseite
+            if (suchtext.length === 0) {
+                zeige('start');
+            } else if (!found) {
+                // Optional: Zeige eine "Nichts gefunden"-Nachricht
+                // Erstmal einfach alle ausblenden
+                // oder eine dedizierte Sektion für Suchergebnisse erstellen
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
