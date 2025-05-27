@@ -727,39 +727,8 @@
         }
     }
 
-    // Function to dynamically adjust body padding-top
-    function adjustBodyPadding() {
-        const fixedContainer = document.querySelector('.fixed-elements-container');
-        if (fixedContainer && window.getComputedStyle(fixedContainer).position === 'fixed') {
-            document.body.style.paddingTop = `${fixedContainer.offsetHeight}px`;
-        } else {
-            // For smaller screens where fixed-elements-container is static
-            document.body.style.paddingTop = '10px'; // Reset to a small default padding
-        }
-    }
+    //
 
-    // This event listener executes once the DOM is fully loaded.
-    document.addEventListener("DOMContentLoaded", function () {
-        // Initial adjustment of body padding
-        adjustBodyPadding();
-        // Adjust again on window resize to handle responsiveness
-        window.addEventListener('resize', adjustBodyPadding);
-
-        // Email validation for the contact form
-        const contactForm = document.getElementById("contactForm");
-        const emailInput = document.getElementById("email");
-
-        if (contactForm && emailInput) {
-            contactForm.addEventListener("submit", function (event) {
-                const emailValue = emailInput.value.trim();
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                if (!emailPattern.test(emailValue)) {
-                    alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-                    event.preventDefault(); // Prevents form submission
-                }
-            });
-        }
 
         // Initial display of the start page
         const activeSection = document.querySelector('main section.active');
@@ -778,16 +747,6 @@
     });
 </script>
 
-<script>
-    (function(d, w, c) {
-        w.ChatraID = 'B4ZtcWzNX3odoYq7F'; // Your Chatra ID
-        var s = d.createElement('script');
-        w[c] = w[c] || function() { (w[c].q = w[c].q || []).push(arguments); };
-        s.async = true;
-        s.src = 'https://call.chatra.io/chatra.js';
-        if (d.head) d.head.appendChild(s);
-    })(document, window, 'Chatra');
-</script>
 
 </body>
 </html>
