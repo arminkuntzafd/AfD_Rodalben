@@ -486,12 +486,10 @@
         <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
         <img src="Rathaus.jpg" alt="Rathaus Rodalben" />
     </section>
-
     <section id="ueberuns">
         <h2>Über uns</h2>
         <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
     </section>
-
     <section id="kontakt">
         <h2>Kontakt</h2>
         <form id="contactForm" action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
@@ -504,34 +502,28 @@
             <button type="submit">Absenden</button>
         </form>
     </section>
-
     <section id="lage">
         <h2>Unsere Lage</h2>
         <iframe src="https://maps.google.com/maps?q=Rodalben&t=&z=13&ie=UTF8&iwloc=&output=embed" height="400" loading="lazy"></iframe>
     </section>
-
     <section id="kreissatzung">
         <h2>Kreissatzung</h2>
         <iframe src="kreissatzung.html" height="800"></iframe>
     </section>
-
     <section id="landessatzung">
         <h2>Landessatzung</h2>
         <iframe src="landessatzung.html" height="800"></iframe>
     </section>
-
     <section id="bundessatzung">
         <h2>Bundessatzung</h2>
         <iframe src="bundessatzung.html" height="800"></iframe>
     </section>
-
     <section id="bilder">
         <h2>Bilder</h2>
         <img src="Rolaben.jpg" alt="Infostand Rodalben" />
         <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" />
         <img src="plakatieren.jpg" alt="Plakatieren" />
     </section>
-    
     <section id="spenden">
         <h2>Spenden</h2>
         <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
@@ -541,7 +533,6 @@
         <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben <strong>[Name] [Anschrift]</strong></p>
         <p>Die Angabe von Name und Anschrift ist **erforderlich** für die Zusendung einer Spendenquittung.</p>
     </section>
-
     <section id="impressum">
         <h2>Impressum</h2>
         <p>Angaben gemäß § 5 TMG:</p>
@@ -560,7 +551,6 @@
         <p>Haftungsausschluss:<br>
             Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
     </section>
-
     <section id="datenschutz">
         <h2>Datenschutzerklärung</h2>
         <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte Sie in Bezug auf Ihre Daten haben.</p>
@@ -588,7 +578,6 @@
         <h3>7. Änderung der Datenschutzerklärung</h3>
         <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht.</p>
     </section>
-
     <section id="blog">
         <h2>Blog – AfD Rodalben</h2>
         <article>
@@ -610,7 +599,7 @@
         </article>
         <a href="blog2.html">Alle Blogbeiträge ansehen</a>
     </section>
-</main>
+    </main>
 
 <footer>
     <p>© 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
@@ -628,148 +617,4 @@
         const target = document.getElementById(id);
         if (target) {
             target.classList.add('active');
-            target.style.display = 'block'; // Sicherstellen, dass die aktivierte Sektion sichtbar ist
-            // Scrollt zum oberen Rand der Sektion,
-            // unter Berücksichtigung des festen Headers/Nav.
-            // Auf mobilen Geräten, wo Header/Nav statisch ist, ist der Offset 0.
-            let offset = 0;
-            const header = document.querySelector('header');
-            const nav = document.querySelector('nav');
-            if (header && window.getComputedStyle(header).position === 'fixed') {
-                offset += header.offsetHeight;
-            }
-            if (nav && window.getComputedStyle(nav).position === 'fixed') {
-                offset += nav.offsetHeight;
-            }
-            window.scrollTo({
-                top: target.offsetTop - offset,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    // Funktion zum Aktualisieren der Uhrzeit
-    function updateUhrzeit() {
-        const jetzt = new Date();
-        const zeit = jetzt.toLocaleTimeString("de-DE", { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        document.getElementById("uhrzeit").textContent = zeit;
-    }
-
-    // Funktion zum Aktualisieren des Datums
-    function updateDatum() {
-        const jetzt = new Date();
-        const optionen = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
-        const datum = jetzt.toLocaleDateString("de-DE", optionen);
-        document.getElementById("datum").textContent = datum;
-    }
-
-    // Funktion zum Laden der Temperatur für den Header
-    async function ladeTemperaturHeader() {
-        // Koordinaten für Rodalben (ungefähre Werte)
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.20&longitude=7.65&current_weather=true&timezone=Europe/Berlin";
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            const temp = data.current_weather?.temperature;
-            document.getElementById("temperatur").textContent = 
-                (temp !== undefined ? temp.toFixed(1) : "N/A") + " °C";
-        } catch (error) {
-            console.error("Fehler beim Laden der Temperatur:", error);
-            document.getElementById("temperatur").textContent = "Fehler";
-        }
-    }
-
-    // NEUE FUNKTION: Suche auf der Webseite
-    function sucheAufDerSeite() {
-        const suchbegriff = document.getElementById("suchfeld").value.toLowerCase().trim(); // .trim() entfernt Leerzeichen an den Enden
-        const sections = document.querySelectorAll('main section');
-        let resultsFound = false;
-
-        sections.forEach(section => {
-            const sectionId = section.id;
-            const sectionContent = section.textContent.toLowerCase();
-            const sectionTitle = section.querySelector('h2') ? section.querySelector('h2').textContent.toLowerCase() : '';
-
-            // Spezielle Behandlung für Sektionen mit iframes, da ihr Inhalt nicht direkt durchsucht werden kann.
-            // Hier durchsuchen wir den Titel oder den umgebenden Text der Sektion.
-            const isIframeSection = ['lage', 'kreissatzung', 'landessatzung', 'bundessatzung'].includes(sectionId);
-
-            if (suchbegriff === "") {
-                // Wenn Suchfeld leer ist, alle Sektionen ausblenden, damit 'start' wieder einzig aktiv sein kann
-                section.style.display = 'none';
-                section.classList.remove('active');
-            } else if (sectionContent.includes(suchbegriff) || sectionTitle.includes(suchbegriff)) {
-                section.style.display = 'block'; // Sektion anzeigen
-                section.classList.add('active'); // Sektion als aktiv markieren (für CSS-Styling, falls vorhanden)
-                resultsFound = true;
-            } else {
-                section.style.display = 'none'; // Sektion ausblenden
-                section.classList.remove('active');
-            }
-        });
-
-        // Wenn Suchfeld leer ist, oder keine Ergebnisse gefunden wurden, zeige die Startseite
-        if (suchbegriff === "") {
-            zeige('start');
-        } else if (!resultsFound) {
-            // Optional: Hier könnte man eine Nachricht anzeigen, wenn keine Ergebnisse gefunden wurden
-            // alert("Keine Ergebnisse für '" + suchbegriff + "' gefunden."); 
-        }
-    }
-
-
-    // Dieser Event Listener wird ausgeführt, sobald das DOM vollständig geladen ist.
-    document.addEventListener("DOMContentLoaded", function () {
-        // E-Mail-Validierung für das Kontaktformular
-        const contactForm = document.getElementById("contactForm");
-        const emailInput = document.getElementById("email");
-
-        if (contactForm && emailInput) {
-            contactForm.addEventListener("submit", function (event) {
-                const emailValue = emailInput.value.trim();
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                if (!emailPattern.test(emailValue)) {
-                    alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-                    event.preventDefault(); // Verhindert das Absenden des Formulars
-                }
-            });
-        }
-
-        // Initiales Anzeigen der Startseite beim Laden der Seite
-        // Nur wenn keine Sektion explizit aktiv ist, zeige 'start'
-        if (!document.querySelector('main section.active')) {
-            zeige('start');
-        }
-
-        // Datum, Uhrzeit und Temperatur beim Laden der Seite laden und aktualisieren
-        updateDatum(); // Initialer Aufruf
-        setInterval(updateDatum, 60000); // Datum jede Minute aktualisieren (falls der Tag wechselt)
-        
-        updateUhrzeit(); // Initialer Aufruf
-        setInterval(updateUhrzeit, 1000); // Uhrzeit jede Sekunde aktualisieren
-
-        // Lade Temperatur nur einmal oder nach Bedarf, nicht in einem Intervall
-        ladeTemperaturHeader(); 
-
-        // Event-Listener für die Suche hinzufügen
-        const suchfeld = document.getElementById("suchfeld");
-        if (suchfeld) {
-            suchfeld.addEventListener('input', sucheAufDerSeite);
-        }
-    });
-</script>
-
-<script>
-    (function(d, w, c) {
-        w.ChatraID = 'B4ZtcWzNX3odoYq7F'; // Deine Chatra ID
-        var s = d.createElement('script');
-        w[c] = w[c] || function() { (w[c].q = w[c].q || []).push(arguments); };
-        s.async = true;
-        s.src = 'https://call.chatra.io/chatra.js';
-        if (d.head) d.head.appendChild(s);
-    })(document, window, 'Chatra');
-</script>
-
-</body>
-</html>
+            target.style.display = 'block'; // Sicherstellen, dass die aktivierte S
