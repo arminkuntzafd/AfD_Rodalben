@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -16,10 +15,10 @@
 
         body {
             font-family: Arial, sans-serif;
-            /* Platz für fixierten Header (80px) + News-Marquee (ca. 30px) + Nav (50px) = 160px */
-            padding-top: 160px; /* ANGEPASST: +30px für den Marquee */
+            /* Platz für fixierten Header (80px) + Nav (50px) = 130px */
+            padding-top: 130px; 
             /* Platz für fixierten Footer (50px) */
-            padding-bottom: 50px;
+            padding-bottom: 50px; 
             background: #f9f9f9;
             color: #333;
         }
@@ -30,13 +29,13 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 110px; /* ANGEPASST: Höhe erhöht, um Marquee aufzunehmen (80px + ca. 30px Marquee) */
+            height: 80px; /* Höhe angepasst für zwei Textzeilen */
             background: #005ea5; /* Blau der AfD */
             color: white;
             display: flex;
-            align-items: flex-start; /* ANGEPASST: Elemente am oberen Rand ausrichten */
+            align-items: center; /* Vertikal zentriert für die gesamte Header-Leiste */
             justify-content: space-between; /* Abstand zwischen den Blöcken */
-            padding: 10px 20px; /* ANGEPASST: Padding für etwas Luft oben/unten */
+            padding: 0 20px;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -44,22 +43,11 @@
         .logo-area {
             display: flex;
             align-items: center;
-            flex-shrink: 0; /* Wichtig: Verhindert Schrumpfen */
         }
 
         .logo-area img {
             height: 60px; /* Angepasste Logo-Größe */
             margin-right: 15px;
-        }
-
-        /* NEUE KLASSEN FÜR HEADER-STRUKTUR */
-        .header-center-content {
-            display: flex;
-            flex-direction: column; /* Stapelt Titel und Such-/Marquee-Bereich vertikal */
-            align-items: center; /* Zentriert horizontal */
-            flex-grow: 1; /* Lässt diesen Bereich den meisten Platz einnehmen */
-            max-width: 600px; /* Optional: Breitenbegrenzung beibehalten */
-            margin: 0 20px; /* Horizontaler Abstand */
         }
 
         .main-title-container {
@@ -68,7 +56,10 @@
             align-items: center; /* Zentriert horizontal */
             justify-content: center; /* Zentriert vertikal */
             text-align: center; /* Textzentrierung für mehrere Zeilen */
-            margin-bottom: 5px; /* Abstand zum Suchfeld/Marquee */
+            /* Flex-Grow, um den Titel-Bereich den meisten Platz einnehmen zu lassen */
+            flex-grow: 1; 
+            /* Optional: Max-Breite, falls der Titel zu lang wird */
+            max-width: 600px; 
         }
 
         .main-title-container h1 {
@@ -83,38 +74,14 @@
             white-space: nowrap; /* Verhindert Umbruch des Untertitels */
         }
 
-        /* NEUER WRAPPER FÜR SUCHLEISTE UND MARQUEE */
-        .search-and-marquee {
-            display: flex;
-            flex-direction: column; /* Stapelt Suchfeld und Marquee vertikal */
-            align-items: center; /* Zentriert Suchfeld und Marquee */
-            width: 100%; /* Nimmt die volle Breite des .header-center-content an */
-            max-width: 400px; /* Optional: Maximale Breite für visuelle Kohärenz */
-        }
-
         #suchfeld {
             padding: 5px;
             font-size: 14px;
             border-radius: 4px;
             border: none;
-            width: 100%; /* Passt sich der Breite des search-and-marquee an */
-            margin-bottom: 5px; /* Abstand zum Marquee */
+            width: 160px; /* Etwas breiter für bessere Optik */
+            margin: 0 20px; /* Abstand zu den anderen Blöcken */
             flex-shrink: 0; /* Verhindert, dass das Suchfeld schrumpft */
-        }
-
-        /* STYLE FÜR DEN NEUEN MARQUEE-CONTAINER IM HEADER */
-        .news-marquee-container {
-            background: #003b70;
-            color: white;
-            padding: 3px 5px; /* Leicht reduziertes Padding */
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%; /* Nimmt volle Breite des Eltern-Wrappers an */
-            border-radius: 4px; /* Optional: leicht abgerundete Ecken */
-            line-height: 1.5; /* Bessere Lesbarkeit bei kleiner Höhe */
-            height: 25px; /* Feste Höhe für den Marquee */
-            display: flex; /* Für vertikale Zentrierung des Marquee-Textes */
-            align-items: center; /* Vertikal zentriert den Text */
         }
 
         .header-info-right {
@@ -140,7 +107,7 @@
         /* Navigation (Hauptmenü) */
         nav {
             position: fixed;
-            top: 110px; /* ANGEPASST: Direkt unter dem Header (80px Header + 30px Marquee = 110px) */
+            top: 80px; /* Direkt unter dem Header */
             left: 0;
             right: 0;
             background: #003b70; /* Dunkelblau der Nav */
@@ -222,8 +189,7 @@
             margin: 20px auto; /* Etwas Abstand oben/unten und zentriert */
             padding: 20px;
             background: white;
-            /* ANGEPASST: min-height berücksichtigt neuen padding-top */
-            min-height: calc(100vh - 160px - 50px - 40px); /* 40px für margin-top/bottom des main */
+            min-height: calc(100vh - 130px - 50px - 40px); /* 40px für margin-top/bottom des main */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px; /* Leicht abgerundete Ecken */
         }
@@ -361,8 +327,8 @@
         /* Responsives Design */
         @media (max-width: 768px) {
             body {
-                /* Padding-Top wird wieder 10px, da Header, Marquee und Nav statisch werden */
-                padding-top: 10px; /* ANGEPASST */
+                /* Auf kleineren Bildschirmen ist Header/Nav statisch, daher weniger padding-top */
+                padding-top: 10px;
             }
 
             header {
@@ -384,12 +350,6 @@
                 margin-bottom: 5px;
             }
 
-            .header-center-content {
-                width: 100%; /* Nimmt volle Breite ein */
-                max-width: unset; /* Keine maximale Breite mehr */
-                margin: 0; /* Entfernt horizontale Margins */
-            }
-
             .main-title-container {
                 align-items: center;
                 text-align: center;
@@ -399,19 +359,9 @@
                 margin-right: 0;
             }
 
-            .search-and-marquee {
-                width: 90%; /* ANGEPASST: etwas Platz an den Seiten */
-                margin: 10px 0; /* Abstand oben/unten bei kleinen Bildschirmen */
-            }
-
             #suchfeld {
-                margin-bottom: 5px; /* Abstand zum Marquee */
-            }
-
-            .news-marquee-container {
-                height: 25px; /* Behält feste Höhe bei */
-                width: 100%; /* Nimmt volle Breite des search-and-marquee an */
-                margin-top: 5px; /* Etwas Abstand zum Suchfeld */
+                margin: 10px 0; /* Abstand oben/unten bei kleinen Bildschirmen */
+                width: 80%; /* Breiter bei kleinen Bildschirmen */
             }
 
             .header-info-right {
@@ -482,20 +432,11 @@
             <img src="AfD_Logo_blau.png" alt="Logo" />
         </a>
     </div>
-    <div class="header-center-content"> 
-        <div class="main-title-container">
-            <h1>AfD Rodalben</h1>
-            <p>Informationen & Aktuelles aus der Region</p>
-        </div>
-        <div class="search-and-marquee"> 
-            <input type="text" id="suchfeld" placeholder="Suche...">
-            <div class="news-marquee-container">
-                <marquee behavior="scroll" direction="left" scrollamount="4">
-                    📢 Wirtschaftsnachrichten: EU geht gegen Shein vor 🔹 Chinas E-Autoriese BYD greift Europa an 🔹 Supermärkte wollen bei Preissenkungen nachziehen 🔹 Deutsche Wirtschaft wächst stärker als erwartet 🔹 Thyssenkrupp plant radikalen Umbau
-                </marquee>
-            </div>
-        </div>
+    <div class="main-title-container">
+        <h1>AfD Rodalben</h1>
+        <p>Informationen & Aktuelles aus der Region</p>
     </div>
+    <input type="text" id="suchfeld" placeholder="Suche...">
     <div class="header-info-right">
         <div id="datum">--.--.----</div>
         <div id="uhrzeit">--:--:--</div>
@@ -545,10 +486,12 @@
         <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
         <img src="Rathaus.jpg" alt="Rathaus Rodalben" />
     </section>
+
     <section id="ueberuns">
         <h2>Über uns</h2>
         <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
     </section>
+
     <section id="kontakt">
         <h2>Kontakt</h2>
         <form id="contactForm" action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
@@ -561,28 +504,34 @@
             <button type="submit">Absenden</button>
         </form>
     </section>
+
     <section id="lage">
         <h2>Unsere Lage</h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.819717145749!2d7.60832341570775!3d49.20173618392127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47963d3f9b2d3e41%3A0x47e708f2f2f2f2f2!2sRodalben%2C%20Germany!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" height="400" loading="lazy" allowfullscreen></iframe>
+        <iframe src="https://maps.google.com/maps?q=Rodalben&t=&z=13&ie=UTF8&iwloc=&output=embed" height="400" loading="lazy"></iframe>
     </section>
+
     <section id="kreissatzung">
         <h2>Kreissatzung</h2>
         <iframe src="kreissatzung.html" height="800"></iframe>
     </section>
+
     <section id="landessatzung">
         <h2>Landessatzung</h2>
         <iframe src="landessatzung.html" height="800"></iframe>
     </section>
+
     <section id="bundessatzung">
         <h2>Bundessatzung</h2>
         <iframe src="bundessatzung.html" height="800"></iframe>
     </section>
+
     <section id="bilder">
         <h2>Bilder</h2>
         <img src="Rolaben.jpg" alt="Infostand Rodalben" />
         <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" />
         <img src="plakatieren.jpg" alt="Plakatieren" />
     </section>
+    
     <section id="spenden">
         <h2>Spenden</h2>
         <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
@@ -592,6 +541,7 @@
         <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben <strong>[Name] [Anschrift]</strong></p>
         <p>Die Angabe von Name und Anschrift ist **erforderlich** für die Zusendung einer Spendenquittung.</p>
     </section>
+
     <section id="impressum">
         <h2>Impressum</h2>
         <p>Angaben gemäß § 5 TMG:</p>
@@ -610,6 +560,7 @@
         <p>Haftungsausschluss:<br>
             Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
     </section>
+
     <section id="datenschutz">
         <h2>Datenschutzerklärung</h2>
         <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte Sie in Bezug auf Ihre Daten haben.</p>
@@ -637,6 +588,7 @@
         <h3>7. Änderung der Datenschutzerklärung</h3>
         <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht.</p>
     </section>
+
     <section id="blog">
         <h2>Blog – AfD Rodalben</h2>
         <article>
@@ -668,106 +620,106 @@
     // Funktion zum Anzeigen der Sektionen
     function zeige(id) {
         const sections = document.querySelectorAll('main section');
-        sections.forEach(s => {
-            s.classList.remove('active');
-            s.style.display = 'none'; // Ensure all are hidden before displaying the target
-        });
-
+        sections.forEach(s => s.classList.remove('active'));
         const target = document.getElementById(id);
         if (target) {
             target.classList.add('active');
-            target.style.display = 'block'; // Make sure the activated section is visible
-
-            // Scroll zum oberen Rand der Hauptsektion, wenn nicht ganz oben
-            const mainElement = document.querySelector('main');
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const navHeight = document.querySelector('nav').offsetHeight;
-            const scrollOffset = headerHeight + navHeight + 20; // Header + Nav + etwas Puffer
-
-            // Nur scrollen, wenn der Target-Bereich außerhalb des Viewports ist
-            if (target.getBoundingClientRect().top < scrollOffset) {
-                window.scrollTo({
-                    top: mainElement.offsetTop - scrollOffset,
-                    behavior: 'smooth'
-                });
+            // Scrollt zum oberen Rand der Sektion,
+            // unter Berücksichtigung des festen Headers/Nav.
+            // Auf mobilen Geräten, wo Header/Nav statisch ist, ist der Offset 0.
+            let offset = 0;
+            const header = document.querySelector('header');
+            const nav = document.querySelector('nav');
+            if (header && window.getComputedStyle(header).position === 'fixed') {
+                offset += header.offsetHeight;
             }
+            if (nav && window.getComputedStyle(nav).position === 'fixed') {
+                offset += nav.offsetHeight;
+            }
+            window.scrollTo({
+                top: target.offsetTop - offset,
+                behavior: 'smooth'
+            });
         }
     }
 
-    // Datum, Uhrzeit und Wetter-Funktionen (wie gehabt)
-    function updateDateTime() {
-        const now = new Date();
-        const optionsDate = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        document.getElementById('datum').textContent = now.toLocaleDateString('de-DE', optionsDate);
-
-        const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        document.getElementById('uhrzeit').textContent = now.toLocaleTimeString('de-DE', optionsTime);
+    // Funktion zum Aktualisieren der Uhrzeit
+    function updateUhrzeit() {
+        const jetzt = new Date();
+        const zeit = jetzt.toLocaleTimeString("de-DE", { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById("uhrzeit").textContent = zeit;
     }
 
-    // Wetter-Funktion (Annahme: Du hast eine API-Key und diese Funktion implementiert)
-    async function updateWeather() {
-        // Here you would integrate your actual weather API call.
-        // For example, using OpenWeatherMap:
-        // const apiKey = 'YOUR_API_KEY'; // Replace with your actual API key
-        // const city = 'Pirmasens'; // Or the location for Rodalben
-        // const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-        // try {
-        //     const response = await fetch(weatherUrl);
-        //     if (!response.ok) {
-        //         throw new Error(`HTTP error! status: ${response.status}`);
-        //     }
-        //     const data = await response.json();
-        //     const temperature = data.main.temp.toFixed(0);
-        //     document.getElementById('temperatur').textContent = `${temperature} °C`;
-        // } catch (error) {
-        //     console.error('Wetterdaten konnten nicht geladen werden:', error);
-        //     document.getElementById('temperatur').textContent = '-- °C'; // Display error
-        // }
-
-        // Since no actual API is provided, simulate a temperature:
-        document.getElementById('temperatur').textContent = '22 °C';
+    // Funktion zum Aktualisieren des Datums
+    function updateDatum() {
+        const jetzt = new Date();
+        const optionen = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+        const datum = jetzt.toLocaleDateString("de-DE", optionen);
+        document.getElementById("datum").textContent = datum;
     }
 
+    // Funktion zum Laden der Temperatur für den Header
+    async function ladeTemperaturHeader() {
+        // Koordinaten für Rodalben (ungefähre Werte)
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.20&longitude=7.65&current_weather=true&timezone=Europe/Berlin";
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const temp = data.current_weather?.temperature;
+            document.getElementById("temperatur").textContent = 
+                (temp !== undefined ? temp.toFixed(1) : "N/A") + " °C";
+        } catch (error) {
+            console.error("Fehler beim Laden der Temperatur:", error);
+            document.getElementById("temperatur").textContent = "Fehler";
+        }
+    }
 
-    // Suchfunktion
-    document.addEventListener('DOMContentLoaded', () => {
-        updateDateTime();
-        setInterval(updateDateTime, 1000); // Updates date/time every second
-        updateWeather(); // Fetches weather data once on load
-        setInterval(updateWeather, 3600000); // Updates weather every hour (3600000 ms = 1 hour)
+    // Dieser Event Listener wird ausgeführt, sobald das DOM vollständig geladen ist.
+    document.addEventListener("DOMContentLoaded", function () {
+        // E-Mail-Validierung für das Kontaktformular
+        const contactForm = document.getElementById("contactForm");
+        const emailInput = document.getElementById("email");
 
-        const suchfeld = document.getElementById('suchfeld');
-        suchfeld.addEventListener('input', () => {
-            const suchtext = suchfeld.value.toLowerCase();
-            const alleSektionen = document.querySelectorAll('main section');
-            let found = false;
+        if (contactForm && emailInput) {
+            contactForm.addEventListener("submit", function (event) {
+                const emailValue = emailInput.value.trim();
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            alleSektionen.forEach(sektion => {
-                const sektionInhalt = sektion.textContent.toLowerCase();
-                if (suchtext.length > 0 && sektionInhalt.includes(suchtext)) {
-                    sektion.style.display = 'block'; // Shows matching sections
-                    sektion.classList.add('active'); // Marks them as active
-                    found = true;
-                } else {
-                    sektion.style.display = 'none'; // Hides non-matching sections
-                    sektion.classList.remove('active');
+                if (!emailPattern.test(emailValue)) {
+                    alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+                    event.preventDefault(); // Verhindert das Absenden des Formulars
                 }
             });
+        }
 
-            // If search field is empty, show only the start page
-            if (suchtext.length === 0) {
-                zeige('start'); // Re-activates the start section specifically
-            } else if (!found) {
-                // Optional: Display a "No results found" message
-                // You could dynamically create a paragraph here or show a pre-hidden one.
-                // For now, it will simply show no sections if nothing matches.
-            }
-        });
+        // Initiales Anzeigen der Startseite beim Laden der Seite
+        const activeSection = document.querySelector('main section.active');
+        if (!activeSection) {
+            zeige('start');
+        }
 
-        // Ensure the start section is shown on initial load
-        zeige('start');
+        // Datum, Uhrzeit und Temperatur beim Laden der Seite laden und aktualisieren
+        updateDatum(); // Initialer Aufruf
+        setInterval(updateDatum, 60000); // Datum jede Minute aktualisieren (falls der Tag wechselt)
+        
+        updateUhrzeit(); // Initialer Aufruf
+        setInterval(updateUhrzeit, 1000); // Uhrzeit jede Sekunde aktualisieren
+
+        ladeTemperaturHeader(); // Initialer Aufruf
+        // Temperatur aktualisiert sich normalerweise nicht so oft, 
+        // daher kein setInterval hier, außer du möchtest eine häufigere Aktualisierung.
     });
+</script>
+
+<script>
+    (function(d, w, c) {
+        w.ChatraID = 'B4ZtcWzNX3odoYq7F'; // Deine Chatra ID
+        var s = d.createElement('script');
+        w[c] = w[c] || function() { (w[c].q = w[c].q || []).push(arguments); };
+        s.async = true;
+        s.src = 'https://call.chatra.io/chatra.js';
+        if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
 </script>
 
 </body>
