@@ -2,87 +2,225 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AfD Rodalben – Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AfD Rodalben</title>
+  <link rel="icon" type="image/png" href="AfD_Logo_blau.png" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      padding-top: 110px;
       background: #f9f9f9;
     }
 
     header {
-      background: #003b70;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #005ea5;
       color: white;
-      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    header .logo-container {
+      position: absolute;
+      left: 20px;
+    }
+
+    header .text-container {
       text-align: center;
     }
 
-    .post {
-      background: white;
-      margin: 20px auto;
-      max-width: 700px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border-left: 5px solid #005ea5;
+    header img {
+      height: 50px;
     }
 
-    .post h2 {
-      margin-top: 0;
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
     }
 
-    .post p {
-      color: #333;
-    }
-
-    .date {
-      color: #777;
+    header p {
+      margin: 0;
       font-size: 0.9em;
-      margin-bottom: 10px;
+    }
+
+    nav {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #003b70;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 10px;
+      z-index: 999;
+      height: 50px;
+      align-items: center;
+    }
+
+    nav > button,
+    .dropdown > button.dropbtn {
+      background: #003b70;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      height: 50px;
+    }
+
+    nav > button:hover,
+    .dropdown:hover > button.dropbtn {
+      background-color: #005ea5;
+    }
+
+    .dropdown {
+      position: relative;
+      user-select: none;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 180px;
+      top: 50px;
+      left: 0;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1001;
+    }
+
+    .dropdown-content button,
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      background: white;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .dropdown-content button:hover,
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      min-height: 80vh;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
     }
 
     footer {
-      text-align: center;
-      padding: 20px;
-      color: #fff;
       background-color: #003b70;
+      color: white;
+      text-align: center;
+      padding: 10px;
       margin-top: 40px;
     }
 
-    a {
-      color: #005ea5;
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background: #005ea5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Blog – AfD Rodalben</h1>
-  <p><a href="index.html" style="color: white; text-decoration: underline;">← Zurück zur Hauptseite</a></p>
+  <div class="logo-container">
+    <a href="#" onclick="zeige('start'); return false;">
+      <img src="AfD_Logo_blau.png" alt="Logo" />
+    </a>
+  </div>
+  <div class="text-container">
+    <h1>AfD Rodalben</h1>
+    <p>Informationen & Aktuelles aus der Region</p>
+  </div>
 </header>
 
-<div class="post">
-  <h2>Stellungnahme zur Kommunalwahl 2024</h2>
-  <div class="date">Veröffentlicht am 12. Mai 2024</div>
-  <p>Wir bedanken uns für das Vertrauen, das uns entgegengebracht wurde, und werden uns weiterhin mit Nachdruck für Rodalben einsetzen. Unsere Kandidaten stehen für bürgernahe Politik, Transparenz und eine starke Region.</p>
-</div>
+<nav>
+  <button onclick="zeige('start')">Start</button>
+  <button onclick="zeige('ueberuns')">Über uns</button>
+  <div class="dropdown">
+    <button class="dropbtn">Kontakt ▾</button>
+    <div class="dropdown-content">
+      <button onclick="zeige('kontakt')">E-Mail</button>
+      <button onclick="zeige('lage')">Lage</button>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Satzungen ▾</button>
+    <div class="dropdown-content">
+      <button onclick="zeige('kreissatzung')">Kreissatzung</button>
+      <button onclick="zeige('landessatzung')">Landessatzung</button>
+      <button onclick="zeige('bundessatzung')">Bundessatzung</button>
+    </div>
+  </div>
+  <button onclick="zeige('bilder')">Bilder</button>
+  <div class="dropdown">
+    <button class="dropbtn">Verschiedenes ▾</button>
+    <div class="dropdown-content">
+      <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener noreferrer">Mitglied werden</a>
+      <button onclick="zeige('spenden')">Spenden</button>
+      <button onclick="zeige('impressum')">Impressum</button>
+      <button onclick="zeige('datenschutz')">Datenschutz</button>
+    </div>
+  </div>
+  <button onclick="zeige('blog')">Blog</button>
+</nav>
 
-<div class="post">
-  <h2>Infostand auf dem Wochenmarkt</h2>
-  <div class="date">Veröffentlicht am 28. April 2024</div>
-  <p>Vielen Dank an alle Besucher unseres Infostandes! Die Gespräche waren konstruktiv und wichtig für unsere zukünftige Arbeit. Wir freuen uns auf die nächsten Begegnungen vor Ort.</p>
-</div>
-
-<div class="post">
-  <h2>AfD Rodalben gegründet</h2>
-  <div class="date">Veröffentlicht am 10. März 2022</div>
-  <p>Mit der Gründung des Ortsverbandes Rodalben möchten wir die politische Landschaft in unserer Region aktiv mitgestalten. Wir laden alle Interessierten herzlich ein, mitzumachen!</p>
-</div>
-
-<footer>
-  <p>&copy; 2025 AfD Rodalben</p>
-</footer>
-
-</body>
-</html>
+<main>
+  <section id="start" class="active">
+    <h2>Willkommen</h2>
+    <p>Hier findest
