@@ -187,18 +187,26 @@
 </head>
 <body>
 
-<header style="position: relative;">
-  <div> <!-- Logo links -->
-    <a href="#" onclick="zeige('start'); return false;">
-      <img src="AfD_Logo_blau.png" alt="Logo" />
+<header style="position: fixed; top: 0; left: 0; right: 0; height: 60px; background: #005ea5; color: white; padding: 0 20px; z-index: 1000;">
+  <div style="display: flex; align-items: center; height: 100%;">
+    <!-- Logo links -->
+    <a href="#" onclick="zeige('start'); return false;" style="flex-shrink: 0;">
+      <img src="AfD_Logo_blau.png" alt="Logo" style="height: 50px; width: auto; display: block;" />
     </a>
+
+    <!-- Text zentriert -->
+    <div style="flex-grow: 1; text-align: center;">
+      <h1 style="margin: 0; font-size: 1.5em;">AfD Rodalben</h1>
+      <p style="margin: 0; font-size: 0.9em;">Informationen & Aktuelles aus der Region</p>
+    </div>
+
+    <!-- Temperatur rechts unten -->
+    <div style="position: absolute; right: 20px; bottom: 5px; font-size: 0.9em; color: #ffffffcc;">
+      21 °C
+    </div>
   </div>
-  <div> <!-- Textblock zentriert -->
-    <h1>AfD Rodalben</h1>
-    <p>Informationen & Aktuelles aus der Region</p>
-  </div>
-  <div class="header-temperature">21 °C</div>
 </header>
+
 
 
 <nav>
