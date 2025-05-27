@@ -13,42 +13,43 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      padding-top: 110px; /* Platz für fixierten Header+Nav */
+      padding-top: 110px;
       background: #f9f9f9;
     }
 
- header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: #005ea5;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* <- wichtig: kein space-between */
-  padding: 0 20px;
-  z-index: 1000;
-}
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #005ea5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+
+    header .logo-container {
+      position: absolute;
+      left: 20px;
+    }
 
 
-<header>
-  <div> <!-- Logo links -->
-    <a href="#"><img src="AfD_Logo_blau.png" alt="Logo" /></a>
-  </div>
-  <div> <!-- Textblock zentrieren -->
-    <h1>AfD Rodalben</h1>
-    <p>Informationen & Aktuelles aus der Region</p>
-  </div>
-</header>
+
     
+    header .text-container {
+      text-align: center;
+    }
+
     header img {
       height: 25px;
     }
 
     header h1 {
-      margin: 0 15px;
+      margin: 0;
       font-size: 1.5em;
     }
 
@@ -57,14 +58,6 @@
       font-size: 0.9em;
     }
 
-header div:nth-child(2) {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-    
     nav {
       position: fixed;
       top: 60px;
@@ -131,7 +124,6 @@ header div:nth-child(2) {
       background-color: #ddd;
     }
 
-    /* Dropdown sichtbar bei Hover */
     .dropdown:hover .dropdown-content {
       display: block;
     }
@@ -189,12 +181,12 @@ header div:nth-child(2) {
 <body>
 
 <header>
-  <div>
+  <div class="logo-container">
     <a href="#" onclick="zeige('start'); return false;">
       <img src="AfD_Logo_blau.png" alt="Logo" />
     </a>
   </div>
-  <div>
+  <div class="text-container">
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
   </div>
@@ -203,7 +195,6 @@ header div:nth-child(2) {
 <nav>
   <button onclick="zeige('start')">Start</button>
   <button onclick="zeige('ueberuns')">Über uns</button>
-
   <div class="dropdown">
     <button class="dropbtn">Kontakt ▾</button>
     <div class="dropdown-content">
@@ -211,7 +202,6 @@ header div:nth-child(2) {
       <button onclick="zeige('lage')">Lage</button>
     </div>
   </div>
-
   <div class="dropdown">
     <button class="dropbtn">Satzungen ▾</button>
     <div class="dropdown-content">
@@ -220,9 +210,7 @@ header div:nth-child(2) {
       <button onclick="zeige('bundessatzung')">Bundessatzung</button>
     </div>
   </div>
-
   <button onclick="zeige('bilder')">Bilder</button>
-  
   <div class="dropdown">
     <button class="dropbtn">Verschiedenes ▾</button>
     <div class="dropdown-content">
@@ -232,171 +220,10 @@ header div:nth-child(2) {
       <button onclick="zeige('datenschutz')">Datenschutz</button>
     </div>
   </div>
-
   <button onclick="zeige('blog')">Blog</button>
 </nav>
 
 <main>
   <section id="start" class="active">
     <h2>Willkommen</h2>
-    <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
-    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%;" />
-  </section>
-
-  <section id="ueberuns">
-    <h2>Über uns</h2>
-    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
-  </section>
-
-  <section id="kontakt">
-    <h2>Kontakt</h2>
-    <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-      <label for="email">E-Mail:</label>
-      <input type="email" id="email" name="email" required />
-      <label for="nachricht">Nachricht:</label>
-      <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
-      <button type="submit">Absenden</button>
-    </form>
-  </section>
-
-  <section id="lage">
-    <h2>Unsere Lage</h2>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
-      height="400" loading="lazy"></iframe>
-  </section>
-
-  <section id="kreissatzung">
-    <h2>Kreissatzung</h2>
-    <iframe src="kreissatzung.html" height="800"></iframe>
-  </section>
-
-  <section id="landessatzung">
-    <h2>Landessatzung</h2>
-    <iframe src="landessatzung.html" height="800"></iframe>
-  </section>
-
-  <section id="bundessatzung">
-    <h2>Bundessatzung</h2>
-    <iframe src="bundessatzung.html" height="800"></iframe>
-  </section>
-
-  <section id="bilder">
-    <h2>Bilder</h2>
-    <img src="Rolaben.jpg" alt="Infostand Rodalben" style="max-width: 100%;" />
-    <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" style="max-width: 100%;" />
-    <img src="plakatieren.jpg" alt="Plakatieren" style="max-width: 100%;" />
-  </section>
-  
-  <section id="spenden">
-    <h2>Spenden</h2>
-    <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun.
-      Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
-    <p><strong>Lemberger Str. 28<br>66955 Pirmasens
-     Email afd-swp.de/a></p>
-  </section>
-
-<section id="impressum">
-  <h2>Impressum</h2>
-  <p>Angaben gemäß § 5 TMG:</p>
-  <p><strong>AfD Rodalben</strong><br>
-     Lemberger Str. 28<br>
-     66955 Pirmasens</p>
-  <p>Vertreten durch:<br>
-     Dirk Bauer</p>
-  <p>Kontakt:<br>
-     Telefon: <a href="tel:+4963312871877</a><br>
-     E-Mail: <a href="mailto:afd-swp.de"a></p>
-  <p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>
-     Dirk Bauer<br>
-     Lemberger Str. 28<br>
-     66955 Pirmasens</p>
-  <p>Haftungsausschluss:<br>
-     Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
-</section>
-
-  
- <section id="datenschutz">
-  <h2>Datenschutzerklärung</h2>
-  <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte Sie in Bezug auf Ihre Daten haben.</p>
-  
-  <h3>1. Verantwortlicher</h3>
-  <p>AfD Rodalben<br>Lemberger STr. 28<br>
-  66955 Pirmasens<br>
-  E-Mail: <a href="mailto:afd-swp.de">afd-swp.de</a></p>
-  
-  <h3>2. Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck von deren Verwendung</h3>
-  <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese freiwillig, zum Beispiel im Kontaktformular, mitteilen. Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfragen und zur Kontaktaufnahme.</p>
-  
-  <h3>3. Weitergabe von Daten</h3>
-  <p>Eine Weitergabe Ihrer Daten an Dritte erfolgt nur, wenn dies zum Zweck der Vertragsabwicklung notwendig ist oder Sie vorher ausdrücklich eingewilligt haben.</p>
-  
-  <h3>4. Cookies</h3>
-  <p>Unsere Website verwendet keine Cookies, die personenbezogene Daten speichern.</p>
-  
-  <h3>5. Ihre Rechte</h3>
-  <p>Sie haben das Recht auf Auskunft über die bei uns gespeicherten Daten, deren Berichtigung, Löschung sowie das Recht auf Einschränkung der Verarbeitung. Sie können der Verarbeitung jederzeit widersprechen und haben das Recht auf Datenübertragbarkeit.</p>
-  
-  <h3>6. Kontakt</h3>
-  <p>Wenn Sie Fragen zum Datenschutz haben, wenden Sie sich bitte an die oben genannte Adresse.</p>
-  
-  <h3>7. Änderung der Datenschutzerklärung</h3>
-  <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht.</p>
-</section>
-
-  </section>
-
-  <section id="blog">
-    <h2>Blog – AfD Rodalben</h2>
-    <article>
-      <h3>Stellungnahme zur Kommunalwahl 2024</h3>
-      <small>Veröffentlicht am 12. Mai 2024</small>
-      <p>Wir bedanken uns für das Vertrauen, das uns entgegengebracht wurde, und werden uns weiterhin mit Nachdruck für Rodalben einsetzen. Unsere Kandidaten stehen für bürgernahe Politik, Transparenz und eine starke Region.</p>
-    </article>
-
-    <article>
-      <h3>Infostand auf dem Wochenmarkt</h3>
-      <small>Veröffentlicht am 28. April 2024</small>
-      <p>Vielen Dank an alle Besucher unseres Infostandes! Die Gespräche waren konstruktiv und wichtig für unsere zukünftige Arbeit. Wir freuen uns auf die nächsten Begegnungen vor Ort.</p>
-    </article>
-
-    <article>
-      <h3>AfD Rodalben gegründet</h3>
-      <small>Veröffentlicht am 10. März 2022</small>
-      <p>Mit der Gründung des Ortsverbandes Rodalben möchten wir die politische Landschaft in unserer Region aktiv mitgestalten. Wir laden alle Interessierten herzlich ein, mitzumachen!</p>
-    </article>
-  </section>
-</main>
-
-<footer>
-  <p>&copy; 2025 AfD Rodalben</p>
-</footer>
-
-<script>
-  function zeige(id) {
-    const sections = document.querySelectorAll('main section');
-    sections.forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) target.classList.add('active');
-    window.scrollTo(0,0);
-  }
-</script>
-
-<!-- Chatra Script -->
-<script>
-  (function(d, w, c) {
-    w.ChatraID = 'B4ZtcWzNX3odoYq7F'
-    var s = d.createElement('script');
-    w[c] = w[c] || function() {
-      (w[c].q = w[c].q || []).push(arguments);
-    };
-    s.async = true;
-    s.src = 'https://call.chatra.io/chatra.js';
-    if (d.head) d.head.appendChild(s);
-  })(document, window, 'Chatra');
-</script>
-
-</body>
-</html>
+    <p>Hier findest
