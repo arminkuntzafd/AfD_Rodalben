@@ -15,29 +15,31 @@
 
         body {
             font-family: Arial, sans-serif;
-            /* Padding für fixierten Header + News Ticker + Nav */
-            /* Header (top-row ~60px + search ~30px) + News Ticker (30px) + Nav (50px) = ~170px */
-            padding-top: 170px;
-            /* Platz für fixierten Footer (50px) */
-            padding-bottom: 50px;
+            /* Padding-top will be dynamically set by JavaScript */
+            padding-top: 200px; /* Default large padding to prevent initial overlap */
+            padding-bottom: 50px; /* Platz für fixierten Footer */
             background: #f9f9f9;
             color: #333;
         }
 
-        /* Header Bereich */
-        header {
+        /* Fixed Container for Header, News Ticker, and Navigation */
+        .fixed-elements-container {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: auto; /* Auto height to fit content */
+            z-index: 1000; /* High z-index to stay on top */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header Bereich */
+        header {
             background: #005ea5; /* Blau der AfD */
             color: white;
-            display: flex;
-            flex-direction: column; /* Stack items vertically */
             padding: 10px 20px;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column; /* Stack header content vertically */
+            width: 100%;
         }
 
         .header-top-row {
@@ -116,20 +118,15 @@
 
         /* News Ticker */
         .news-ticker-container {
-            position: fixed;
-            /* dynamic top based on header height */
-            top: 100px; /* This will be set by JS dynamically */
-            left: 0;
-            right: 0;
             height: 30px; /* Höhe des Laufbands */
             background-color: #003b70; /* Dunkelblau, passend zur Nav */
             color: white;
             overflow: hidden;
-            z-index: 999; /* Zwischen Header und Nav */
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             padding: 0 10px;
+            width: 100%; /* Ensure it takes full width of its parent */
         }
 
         .news-ticker-content {
@@ -144,19 +141,14 @@
 
         /* Navigation (Hauptmenü) */
         nav {
-            position: fixed;
-            /* dynamic top based on header + news ticker height */
-            top: 130px; /* This will be set by JS dynamically */
-            left: 0;
-            right: 0;
             background: #003b70; /* Dunkelblau der Nav */
             display: flex;
             flex-wrap: wrap;
             padding: 0 10px;
-            z-index: 999;
             height: 50px; /* Feste Höhe für die Navigationsleiste */
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%; /* Ensure it takes full width of its parent */
         }
 
         nav > button,
@@ -228,7 +220,7 @@
             margin: 20px auto;
             padding: 20px;
             background: white;
-            min-height: calc(100vh - 170px - 50px - 40px); /* Adjust based on new padding-top */
+            min-height: calc(100vh - 200px - 50px - 40px); /* Adjusted to default padding-top */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
         }
@@ -365,16 +357,22 @@
 
         /* Responsives Design */
         @media (max-width: 768px) {
+            .fixed-elements-container {
+                position: static; /* No longer fixed on small screens */
+                box-shadow: none;
+            }
+
             body {
                 padding-top: 10px; /* Less padding as header/nav are static */
             }
 
             header {
-                position: static;
+                flex-direction: column;
                 height: auto;
                 padding: 10px;
                 text-align: center;
                 align-items: center;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Keep header shadow */
             }
 
             .header-top-row {
@@ -393,28 +391,24 @@
             .main-title-container {
                 margin-left: 0;
                 margin-right: 0;
-                order: unset;
             }
 
             #suchfeld {
                 width: 90%;
                 margin: 10px 0;
-                order: unset;
             }
 
             .header-info-right {
                 align-items: center;
                 margin-left: 0;
                 text-align: center;
-                order: unset;
             }
 
             .news-ticker-container {
-                position: static;
                 height: auto;
                 padding: 5px 10px;
                 margin-bottom: 10px;
-                top: auto; /* Reset static position */
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Keep news ticker shadow */
             }
 
             .news-ticker-content {
@@ -424,11 +418,10 @@
             }
 
             nav {
-                position: static;
                 flex-direction: column;
                 height: auto;
                 padding: 0;
-                top: auto; /* Reset static position */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Keep nav shadow */
             }
 
             nav > button,
@@ -479,69 +472,71 @@
 </head>
 <body>
 
-<header>
-    <div class="header-top-row">
-        <div class="logo-area">
-            <a href="#" onclick="zeige('start'); return false;">
-                <img src="AfD_Logo_blau.png" alt="Logo" />
-            </a>
+<div class="fixed-elements-container">
+    <header>
+        <div class="header-top-row">
+            <div class="logo-area">
+                <a href="#" onclick="zeige('start'); return false;">
+                    <img src="AfD_Logo_blau.png" alt="Logo" />
+                </a>
+            </div>
+            <div class="main-title-container">
+                <h1>AfD Rodalben</h1>
+                <p>Informationen & Aktuelles aus der Region</p>
+            </div>
+            <div class="header-info-right">
+                <div id="datum">--.--.----</div>
+                <div id="uhrzeit">--:--:--</div>
+                <div id="temperatur">-- °C</div>
+            </div>
         </div>
-        <div class="main-title-container">
-            <h1>AfD Rodalben</h1>
-            <p>Informationen & Aktuelles aus der Region</p>
-        </div>
-        <div class="header-info-right">
-            <div id="datum">--.--.----</div>
-            <div id="uhrzeit">--:--:--</div>
-            <div id="temperatur">-- °C</div>
-        </div>
-    </div>
-    <input type="text" id="suchfeld" placeholder="Suche...">
-</header>
+        <input type="text" id="suchfeld" placeholder="Suche...">
+    </header>
 
-<div class="news-ticker-container">
-    <div class="news-ticker-content">
-        <span>🔥 Aktuell: Besuchen Sie unseren Infostand am kommenden Samstag auf dem Marktplatz!</span>
-        <span>📢 Wichtig: Die nächste Mitgliederversammlung findet am 15. Juni statt.</span>
-        <span>💡 Neu: Unser Programm zur Kommunalwahl 2024 ist jetzt online!</span>
+    <div class="news-ticker-container">
+        <div class="news-ticker-content">
+            <span>🔥 Aktuell: Besuchen Sie unseren Infostand am kommenden Samstag auf dem Marktplatz!</span>
+            <span>📢 Wichtig: Die nächste Mitgliederversammlung findet am 15. Juni statt.</span>
+            <span>💡 Neu: Unser Programm zur Kommunalwahl 2024 ist jetzt online!</span>
+        </div>
     </div>
+
+    <nav>
+        <button onclick="zeige('start')">Start</button>
+        <button onclick="zeige('ueberuns')">Über uns</button>
+
+        <div class="dropdown">
+            <button class="dropbtn">Kontakt ▾</button>
+            <div class="dropdown-content">
+                <button onclick="zeige('kontakt')">E-Mail</button>
+                <button onclick="zeige('lage')">Lage</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Satzungen ▾</button>
+            <div class="dropdown-content">
+                <button onclick="zeige('kreissatzung')">Kreissatzung</button>
+                <button onclick="zeige('landessatzung')">Landessatzung</button>
+                <button onclick="zeige('bundessatzung')">Bundessatzung</button>
+            </div>
+        </div>
+
+        <button onclick="zeige('bilder')">Bilder</button>
+
+        <div class="dropdown">
+            <button class="dropbtn">Verschiedenes ▾</button>
+            <div class="dropdown-content">
+                <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener noreferrer">Mitglied werden</a>
+                <button onclick="zeige('spenden')">Spenden</button>
+                <button onclick="zeige('impressum')">Impressum</button>
+                <button onclick="zeige('datenschutz')">Datenschutz</button>
+            </div>
+        </div>
+
+        <button onclick="zeige('blog')">Blog</button>
+    </nav>
 </div>
-
-<nav>
-    <button onclick="zeige('start')">Start</button>
-    <button onclick="zeige('ueberuns')">Über uns</button>
-
-    <div class="dropdown">
-        <button class="dropbtn">Kontakt ▾</button>
-        <div class="dropdown-content">
-            <button onclick="zeige('kontakt')">E-Mail</button>
-            <button onclick="zeige('lage')">Lage</button>
-        </div>
-    </div>
-
-    <div class="dropdown">
-        <button class="dropbtn">Satzungen ▾</button>
-        <div class="dropdown-content">
-            <button onclick="zeige('kreissatzung')">Kreissatzung</button>
-            <button onclick="zeige('landessatzung')">Landessatzung</button>
-            <button onclick="zeige('bundessatzung')">Bundessatzung</button>
-        </div>
-    </div>
-
-    <button onclick="zeige('bilder')">Bilder</button>
-
-    <div class="dropdown">
-        <button class="dropbtn">Verschiedenes ▾</button>
-        <div class="dropdown-content">
-            <a href="https://www.afd.de/mitglied-werden/" target="_blank" rel="noopener noreferrer">Mitglied werden</a>
-            <button onclick="zeige('spenden')">Spenden</button>
-            <button onclick="zeige('impressum')">Impressum</button>
-            <button onclick="zeige('datenschutz')">Datenschutz</button>
-        </div>
-    </div>
-
-    <button onclick="zeige('blog')">Blog</button>
-</nav>
 
 <main>
     <section id="start" class="active">
@@ -552,274 +547,4 @@
 
     <section id="ueberuns">
         <h2>Über uns</h2>
-        <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
-    </section>
-
-    <section id="kontakt">
-        <h2>Kontakt</h2>
-        <form id="contactForm" action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required />
-            <label for="email">E-Mail:</label>
-            <input type="email" id="email" name="email" required />
-            <label for="nachricht">Nachricht:</label>
-            <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
-            <button type="submit">Absenden</button>
-        </form>
-    </section>
-
-    <section id="lage">
-        <h2>Unsere Lage</h2>
-        <iframe src="https://maps.google.com/maps?q=Rodalben&t=&z=13&ie=UTF8&iwloc=&output=embed" height="400" loading="lazy"></iframe>
-    </section>
-
-    <section id="kreissatzung">
-        <h2>Kreissatzung</h2>
-        <iframe src="kreissatzung.html" height="800"></iframe>
-    </section>
-
-    <section id="landessatzung">
-        <h2>Landessatzung</h2>
-        <iframe src="landessatzung.html" height="800"></iframe>
-    </section>
-
-    <section id="bundessatzung">
-        <h2>Bundessatzung</h2>
-        <iframe src="bundessatzung.html" height="800"></iframe>
-    </section>
-
-    <section id="bilder">
-        <h2>Bilder</h2>
-        <img src="Rolaben.jpg" alt="Infostand Rodalben" />
-        <img src="DirkBauerkandidiert.png" alt="Dirk Bauer kandidiert" />
-        <img src="plakatieren.jpg" alt="Plakatieren" />
-    </section>
-
-    <section id="spenden">
-        <h2>Spenden</h2>
-        <p>Wenn Sie unsere Arbeit unterstützen möchten, können Sie dies mit einer Spende tun. Jeder Beitrag hilft uns, unsere politische Arbeit in der Region voranzubringen.</p>
-        <p><strong>Empfänger:</strong><br>AfD Kreisverband Südwestpfalz</p>
-        <p><strong>IBAN:</strong><br>DE92542500100085015881</p>
-        <p><strong>BIC:</strong><br>MALADE51SWP</p>
-        <p><strong>Verwendungszweck:</strong><br>Spende AfD Rodalben <strong>[Name] [Anschrift]</strong></p>
-        <p>Die Angabe von Name und Anschrift ist **erforderlich** für die Zusendung einer Spendenquittung.</p>
-    </section>
-
-    <section id="impressum">
-        <h2>Impressum</h2>
-        <p>Angaben gemäß § 5 TMG:</p>
-        <p><strong>AfD Rodalben</strong><br>
-            Lemberger Str. 28<br>
-            66955 Pirmasens</p>
-        <p>Vertreten durch:<br>
-            Dirk Bauer</p>
-        <p>Kontakt:<br>
-            Telefon: <a href="tel:+4963312871877">+49 6331 2871877</a><br>
-            E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
-        <p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>
-            Dirk Bauer<br>
-            Lemberger Str. 28<br>
-            66955 Pirmasens</p>
-        <p>Haftungsausschluss:<br>
-            Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
-    </section>
-
-    <section id="datenschutz">
-        <h2>Datenschutzerklärung</h2>
-        <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten wir erheben, wie wir sie verwenden und welche Rechte Sie in Bezug auf Ihre Daten haben.</p>
-
-        <h3>1. Verantwortlicher</h3>
-        <p>AfD Rodalben<br>Lemberger STr. 28<br>
-        66955 Pirmasens<br>
-        E-Mail: <a href="mailto:post@afd-swp.de">post@afd-swp.de</a></p>
-
-        <h3>2. Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck von deren Verwendung</h3>
-        <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese freiwillig, zum Beispiel im Kontaktformular, mitteilen. Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfragen und zur Kontaktaufnahme.</p>
-
-        <h3>3. Weitergabe von Daten</h3>
-        <p>Eine Weitergabe Ihrer Daten an Dritte erfolgt nur, wenn dies zum Zweck der Vertragsabwicklung notwendig ist oder Sie vorher ausdrücklich eingewilligt haben.</p>
-
-        <h3>4. Cookies</h3>
-        <p>Unsere Website verwendet keine Cookies, die personenbezogene Daten speichern.</p>
-
-        <h3>5. Ihre Rechte</h3>
-        <p>Sie haben das Recht auf Auskunft über die bei uns gespeicherten Daten, deren Berichtigung, Löschung sowie das Recht auf Einschränkung der Verarbeitung. Sie können der Verarbeitung jederzeit widersprechen und haben das Recht auf Datenübertragbarkeit.</p>
-
-        <h3>6. Kontakt</h3>
-        <p>Wenn Sie Fragen zum Datenschutz haben, wenden Sie sich bitte an die oben genannte Adresse.</p>
-
-        <h3>7. Änderung der Datenschutzerklärung</h3>
-        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht.</p>
-    </section>
-
-    <section id="blog">
-        <h2>Blog – AfD Rodalben</h2>
-        <article>
-            <h3>Stellungnahme zur Kommunalwahl 2024</h3>
-            <small>Veröffentlicht am 12. Mai 2024</small>
-            <p>Wir bedanken uns für das Vertrauen, das uns entgegengebracht wurde, und werden uns weiterhin mit Nachdruck für Rodalben einsetzen. Unsere Kandidaten stehen für bürgernahe Politik, Transparenz und eine starke Region.</p>
-        </article>
-
-        <article>
-            <h3>Infostand auf dem Wochenmarkt</h3>
-            <small>Veröffentlicht am 28. April 2024</small>
-            <p>Vielen Dank an alle Besucher unseres Infostandes! Die Gespräche waren konstruktiv und wichtig für unsere zukünftige Arbeit. Wir freuen uns auf die nächsten Begegnungen vor Ort.</p>
-        </article>
-
-        <article>
-            <h3>AfD Rodalben gegründet</h3>
-            <small>Veröffentlicht am 10. März 2022</small>
-            <p>Mit der Gründung des Ortsverbandes Rodalben möchten wir die politische Landschaft in unserer Region aktiv mitgestalten. Wir laden alle Interessierten herzlich ein, mitzumachen!</p>
-        </article>
-        <a href="blog2.html">Alle Blogbeiträge ansehen</a>
-    </section>
-</main>
-
-<footer>
-    <p>© 2025 AfD Rodalben – Ortsverband Südwestpfalz</p>
-</footer>
-
-<script>
-    // Funktion zum Anzeigen der Sektionen
-    function zeige(id) {
-        const sections = document.querySelectorAll('main section');
-        sections.forEach(s => s.classList.remove('active'));
-        const target = document.getElementById(id);
-        if (target) {
-            target.classList.add('active');
-            // Scrollt zum oberen Rand der Sektion,
-            // unter Berücksichtigung des festen Headers/News Ticker/Nav.
-            let offset = 0;
-            const header = document.querySelector('header');
-            const newsTicker = document.querySelector('.news-ticker-container');
-            const nav = document.querySelector('nav');
-
-            // Only add offset if elements are fixed
-            if (header && window.getComputedStyle(header).position === 'fixed') {
-                offset += header.offsetHeight;
-            }
-            if (newsTicker && window.getComputedStyle(newsTicker).position === 'fixed') {
-                offset += newsTicker.offsetHeight;
-            }
-            if (nav && window.getComputedStyle(nav).position === 'fixed') {
-                offset += nav.offsetHeight;
-            }
-
-            window.scrollTo({
-                top: target.offsetTop - offset,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    // Funktion zum Aktualisieren der Uhrzeit
-    function updateUhrzeit() {
-        const jetzt = new Date();
-        const zeit = jetzt.toLocaleTimeString("de-DE", { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        document.getElementById("uhrzeit").textContent = zeit;
-    }
-
-    // Funktion zum Aktualisieren des Datums
-    function updateDatum() {
-        const jetzt = new Date();
-        const optionen = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
-        const datum = jetzt.toLocaleDateString("de-DE", optionen);
-        document.getElementById("datum").textContent = datum;
-    }
-
-    // Funktion zum Laden der Temperatur für den Header
-    async function ladeTemperaturHeader() {
-        // Koordinaten für Rodalben (ungefähre Werte)
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=49.20&longitude=7.65&current_weather=true&timezone=Europe/Berlin";
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            const temp = data.current_weather?.temperature;
-            document.getElementById("temperatur").textContent =
-                (temp !== undefined ? temp.toFixed(1) : "N/A") + " °C";
-        } catch (error) {
-            console.error("Fehler beim Laden der Temperatur:", error);
-            document.getElementById("temperatur").textContent = "Fehler";
-        }
-    }
-
-    // Funktion zur dynamischen Anpassung der Top-Positionen
-    function adjustFixedElementsPosition() {
-        const header = document.querySelector('header');
-        const newsTicker = document.querySelector('.news-ticker-container');
-        const nav = document.querySelector('nav');
-        const body = document.body;
-
-        if (header && newsTicker && nav) {
-            const headerHeight = header.offsetHeight;
-            const newsTickerHeight = newsTicker.offsetHeight;
-            const navHeight = nav.offsetHeight;
-
-            // Set top position for news ticker
-            newsTicker.style.top = `${headerHeight}px`;
-
-            // Set top position for navigation
-            nav.style.top = `${headerHeight + newsTickerHeight}px`;
-
-            // Adjust body padding-top
-            body.style.paddingTop = `${headerHeight + newsTickerHeight + navHeight}px`;
-        }
-    }
-
-
-    // Dieser Event Listener wird ausgeführt, sobald das DOM vollständig geladen ist.
-    document.addEventListener("DOMContentLoaded", function () {
-        // Initial adjustment of fixed elements
-        adjustFixedElementsPosition();
-        // Adjust again on window resize to handle responsiveness
-        window.addEventListener('resize', adjustFixedElementsPosition);
-
-
-        // E-Mail-Validierung für das Kontaktformular
-        const contactForm = document.getElementById("contactForm");
-        const emailInput = document.getElementById("email");
-
-        if (contactForm && emailInput) {
-            contactForm.addEventListener("submit", function (event) {
-                const emailValue = emailInput.value.trim();
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                if (!emailPattern.test(emailValue)) {
-                    alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-                    event.preventDefault(); // Verhindert das Absenden des Formulars
-                }
-            });
-        }
-
-        // Initiales Anzeigen der Startseite beim Laden der Seite
-        const activeSection = document.querySelector('main section.active');
-        if (!activeSection) {
-            zeige('start');
-        }
-
-        // Datum, Uhrzeit und Temperatur beim Laden der Seite laden und aktualisieren
-        updateDatum(); // Initialer Aufruf
-        setInterval(updateDatum, 60000); // Datum jede Minute aktualisieren (falls der Tag wechselt)
-
-        updateUhrzeit(); // Initialer Aufruf
-        setInterval(updateUhrzeit, 1000); // Uhrzeit jede Sekunde aktualisieren
-
-        ladeTemperaturHeader(); // Initialer Aufruf
-        // Temperatur aktualisiert sich normalerweise nicht so oft,
-        // daher kein setInterval hier, außer du möchtest eine häufigere Aktualisierung.
-    });
-</script>
-
-<script>
-    (function(d, w, c) {
-        w.ChatraID = 'B4ZtcWzNX3odoYq7F'; // Deine Chatra ID
-        var s = d.createElement('script');
-        w[c] = w[c] || function() { (w[c].q = w[c].q || []).push(arguments); };
-        s.async = true;
-        s.src = 'https://call.chatra.io/chatra.js';
-        if (d.head) d.head.appendChild(s);
-    })(document, window, 'Chatra');
-</script>
-
-</body>
-</html>
+        <p>Die AfD Rodalben wurde 2022 als Orts
