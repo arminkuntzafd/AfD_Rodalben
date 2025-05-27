@@ -13,7 +13,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      padding-top: 110px;
+      padding-top: 110px; /* Platz für fixierten Header+Nav */
       background: #f9f9f9;
     }
 
@@ -27,25 +27,23 @@
       color: white;
       display: flex;
       align-items: center;
-      justify-content: center;
       padding: 0 20px;
       z-index: 1000;
     }
 
-    header .logo-container {
-      position: absolute;
-      left: 20px;
-    }
-
-
-
-    
-    header .text-container {
-      text-align: center;
+    header > div:first-child {
+      flex-shrink: 0;
     }
 
     header img {
-      height: 25px;
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+
+    header > div:nth-child(2) {
+      flex-grow: 1;
+      text-align: center;
     }
 
     header h1 {
@@ -124,6 +122,7 @@
       background-color: #ddd;
     }
 
+    /* Dropdown sichtbar bei Hover */
     .dropdown:hover .dropdown-content {
       display: block;
     }
@@ -181,12 +180,12 @@
 <body>
 
 <header>
-  <div class="logo-container">
+  <div> <!-- Logo links -->
     <a href="#" onclick="zeige('start'); return false;">
       <img src="AfD_Logo_blau.png" alt="Logo" />
     </a>
   </div>
-  <div class="text-container">
+  <div> <!-- Textblock zentriert -->
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
   </div>
@@ -195,6 +194,7 @@
 <nav>
   <button onclick="zeige('start')">Start</button>
   <button onclick="zeige('ueberuns')">Über uns</button>
+
   <div class="dropdown">
     <button class="dropbtn">Kontakt ▾</button>
     <div class="dropdown-content">
@@ -202,6 +202,7 @@
       <button onclick="zeige('lage')">Lage</button>
     </div>
   </div>
+
   <div class="dropdown">
     <button class="dropbtn">Satzungen ▾</button>
     <div class="dropdown-content">
@@ -210,7 +211,9 @@
       <button onclick="zeige('bundessatzung')">Bundessatzung</button>
     </div>
   </div>
+
   <button onclick="zeige('bilder')">Bilder</button>
+  
   <div class="dropdown">
     <button class="dropbtn">Verschiedenes ▾</button>
     <div class="dropdown-content">
@@ -220,10 +223,135 @@
       <button onclick="zeige('datenschutz')">Datenschutz</button>
     </div>
   </div>
+
   <button onclick="zeige('blog')">Blog</button>
 </nav>
 
 <main>
   <section id="start" class="active">
     <h2>Willkommen</h2>
-    <p>Hier findest
+    <p>Hier findest du Neuigkeiten, Termine und politische Beiträge rund um die Arbeit der AfD Rodalben.</p>
+    <img src="Rathaus.jpg" alt="Rathaus Rodalben" style="max-width: 100%;" />
+  </section>
+
+  <section id="ueberuns">
+    <h2>Über uns</h2>
+    <p>Die AfD Rodalben wurde 2022 als Ortsverband gegründet. Wir setzen uns für Transparenz, Bürgernähe und eine verantwortungsvolle Kommunalpolitik ein.</p>
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <form action="mailto:kuntzarmin6@gmail.com" method="POST" enctype="text/plain">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+      <label for="email">E-Mail:</label>
+      <input type="email" id="email" name="email" required />
+      <label for="nachricht">Nachricht:</label>
+      <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
+      <button type="submit">Absenden</button>
+    </form>
+  </section>
+
+  <section id="lage">
+    <h2>Unsere Lage</h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2615.9938322045243!2d7.624962376754457!3d49.24107117433169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796071d53725cb3%3A0x63d1df3eb4d1ef69!2sRodalben!5e0!3m2!1sde!2sde!4v1716392068983!5m2!1sde!2sde"
+      height="400" loading="lazy"></iframe>
+  </section>
+
+  <section id="kreissatzung">
+    <h2>Kreissatzung</h2>
+    <iframe src="kreissatzung.html" height="800"></iframe>
+  </section>
+
+  <section id="landessatzung">
+    <h2>Landessatzung</h2>
+    <iframe src="landessatzung.html" height="800"></iframe>
+  </section>
+
+  <section id="bundessatzung">
+    <h2>Bundessatzung</h2>
+    <iframe src="bundessatzung.html" height="800"></iframe>
+  </section>
+
+  <section id="bilder">
+    <h2>Bildergalerie</h2>
+    <img src="bild1.jpg" alt="Bild 1" style="max-width: 100%; margin-bottom: 15px;" />
+    <img src="bild2.jpg" alt="Bild 2" style="max-width: 100%; margin-bottom: 15px;" />
+    <img src="bild3.jpg" alt="Bild 3" style="max-width: 100%;" />
+  </section>
+
+  <section id="spenden">
+    <h2>Spenden</h2>
+    <p>Vielen Dank für Ihre Unterstützung! Sie können bequem per Überweisung spenden:</p>
+    <ul>
+      <li>Bank: Musterbank</li>
+      <li>IBAN: DE00 0000 0000 0000 0000 00</li>
+      <li>BIC: MUSTERBIC</li>
+    </ul>
+  </section>
+
+  <section id="impressum">
+    <h2>Impressum</h2>
+    <p>Angaben gemäß § 5 TMG:<br />
+      AfD Rodalben<br />
+      Musterstraße 1<br />
+      66871 Rodalben<br />
+      Telefon: 01234 567890<br />
+      E-Mail: info@afd-rodalben.de
+    </p>
+  </section>
+
+  <section id="datenschutz">
+    <h2>Datenschutz</h2>
+    <p>Wir nehmen den Schutz Ihrer Daten ernst. Alle Informationen finden Sie in unserer Datenschutzerklärung.</p>
+  </section>
+
+  <section id="blog">
+    <h2>Blog – AfD Rodalben</h2>
+
+    <article class="post">
+      <h3>Stellungnahme zur Kommunalwahl 2024</h3>
+      <p><em>Veröffentlicht am 12. Mai 2024</em></p>
+      <p>Wir bedanken uns für das Vertrauen, das uns entgegengebracht wurde, und werden uns weiterhin mit Nachdruck für Rodalben einsetzen. Unsere Kandidaten stehen für bürgernahe Politik, Transparenz und eine starke Region.</p>
+    </article>
+
+    <article class="post">
+      <h3>Infostand auf dem Wochenmarkt</h3>
+      <p><em>Veröffentlicht am 28. April 2024</em></p>
+      <p>Vielen Dank an alle Besucher unseres Infostandes! Die Gespräche waren konstruktiv und wichtig für unsere zukünftige Arbeit. Wir freuen uns auf die nächsten Begegnungen vor Ort.</p>
+    </article>
+
+    <article class="post">
+      <h3>AfD Rodalben gegründet</h3>
+      <p><em>Veröffentlicht am 10. März 2022</em></p>
+      <p>Mit der Gründung des Ortsverbandes Rodalben möchten wir die politische Landschaft in unserer Region aktiv mitgestalten. Wir laden alle Interessierten herzlich ein, mitzumachen!</p>
+    </article>
+
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 AfD Rodalben</p>
+</footer>
+
+<script>
+  function zeige(id) {
+    // Alle Sektionen ausblenden
+    document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+    // Gewählte Sektion einblenden
+    const sektion = document.getElementById(id);
+    if (sektion) {
+      sektion.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  }
+
+  // Optional: Beim Laden die Startseite anzeigen
+  document.addEventListener('DOMContentLoaded', () => {
+    zeige('start');
+  });
+</script>
+
+</body>
+</html>
