@@ -674,6 +674,39 @@
         }
     }
 
+    // NEUE FUNKTION: Suche auf der Webseite
+    function sucheAufDerSeite() {
+        const suchbegriff = document.getElementById("suchfeld").value.toLowerCase();
+        const sections = document.querySelectorAll('main section');
+        let foundSection = false; // Flag, um zu prüfen, ob irgendeine Sektion gefunden wurde
+
+        sections.forEach(section => {
+            const sectionContent = section.textContent.toLowerCase();
+            if (suchbegriff === "") {
+                // Wenn Suchfeld leer ist, alle Sektionen wieder anzeigen
+                section.style.display = 'block';
+                section.classList.remove('active'); // "active" Klasse entfernen
+            } else if (sectionContent.includes(suchbegriff)) {
+                section.style.display = 'block';
+                section.classList.add('active'); // Sektion anzeigen und aktiv machen
+                foundSection = true;
+            } else {
+                section.style.display = 'none';
+                section.classList.remove('active'); // Sektion ausblenden
+            }
+        });
+
+        // Wenn Suchfeld leer ist, wieder zur Startseite zurückkehren
+        if (suchbegriff === "") {
+            zeige('start');
+        } else if (!foundSection) {
+            // Optional: Nachricht anzeigen, wenn nichts gefunden wurde
+            // Hier könnte man z.B. einen DIV-Container mit einer Nachricht einblenden
+            console.log("Keine Ergebnisse für: " + suchbegriff);
+        }
+    }
+
+
     // Dieser Event Listener wird ausgeführt, sobald das DOM vollständig geladen ist.
     document.addEventListener("DOMContentLoaded", function () {
         // E-Mail-Validierung für das Kontaktformular
@@ -708,6 +741,18 @@
         ladeTemperaturHeader(); // Initialer Aufruf
         // Temperatur aktualisiert sich normalerweise nicht so oft, 
         // daher kein setInterval hier, außer du möchtest eine häufigere Aktualisierung.
+
+        // Event-Listener für die Suche hinzufügen
+        const suchfeld = document.getElementById("suchfeld");
+        if (suchfeld) {
+            suchfeld.addEventListener('input', sucheAufDerSeite);
+            // Optional: Auch Suche auslösen, wenn Enter gedrückt wird (falls nicht schon bei 'input' genug)
+            // suchfeld.addEventListener('keypress', function(e) {
+            //     if (e.key === 'Enter') {
+            //         sucheAufDerSeite();
+            //     }
+            // });
+        }
     });
 </script>
 
