@@ -175,11 +175,19 @@
       font-size: 1em;
       border-radius: 4px;
     }
+  
+  .header-temperature {
+  position: absolute;
+  right: 20px;
+  bottom: 5px;
+  font-size: 0.9em;
+  color: #ffffffcc;
+}
   </style>
 </head>
 <body>
 
-<header>
+<header style="position: relative;">
   <div> <!-- Logo links -->
     <a href="#" onclick="zeige('start'); return false;">
       <img src="AfD_Logo_blau.png" alt="Logo" />
@@ -189,7 +197,9 @@
     <h1>AfD Rodalben</h1>
     <p>Informationen & Aktuelles aus der Region</p>
   </div>
+  <div class="header-temperature">21 °C</div>
 </header>
+
 
 <nav>
   <button onclick="zeige('start')">Start</button>
