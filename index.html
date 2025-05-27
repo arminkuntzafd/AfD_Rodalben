@@ -15,8 +15,9 @@
 
         body {
             font-family: Arial, sans-serif;
-            /* Platz für fixierten Header (80px) + News Ticker (30px) + Nav (50px) = 160px */
-            padding-top: 160px;
+            /* Padding für fixierten Header + News Ticker + Nav */
+            /* Header (top-row ~60px + search ~30px) + News Ticker (30px) + Nav (50px) = ~170px */
+            padding-top: 170px;
             /* Platz für fixierten Footer (50px) */
             padding-bottom: 50px;
             background: #f9f9f9;
@@ -29,34 +30,33 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 80px; /* Höhe des Headers */
+            height: auto; /* Auto height to fit content */
             background: #005ea5; /* Blau der AfD */
             color: white;
             display: flex;
-            align-items: flex-start; /* Aligns items to the top to make room for search */
-            justify-content: space-between;
-            padding: 10px 20px; /* Slightly more padding for the search bar */
+            flex-direction: column; /* Stack items vertically */
+            padding: 10px 20px;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
         }
 
         .header-top-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 100%; /* Take full width of the header */
-            margin-bottom: 5px; /* Space between top row and search field */
+            width: 100%;
+            margin-bottom: 10px; /* Space between top row and search field */
+            min-height: 60px; /* Ensure enough height for logo/title */
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            flex-shrink: 0; /* Prevents logo from shrinking */
+            flex-shrink: 0;
         }
 
         .logo-area img {
-            height: 60px; /* Angepasste Logo-Größe */
+            height: 60px;
             margin-right: 15px;
         }
 
@@ -66,9 +66,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            flex-grow: 1; /* Allows title to take available space */
-            margin-left: 20px; /* Add some space from logo */
-            margin-right: 20px; /* Add some space before info */
+            flex-grow: 1;
+            margin: 0 20px;
         }
 
         .main-title-container h1 {
@@ -102,21 +101,24 @@
             white-space: nowrap;
         }
 
-        /* Search Field - now below the top row in the header */
+        /* Search Field - now clearly on its own row within the header */
         #suchfeld {
-            width: calc(100% - 40px); /* Full width minus padding */
-            padding: 5px 10px;
+            width: calc(100% - 40px); /* Full width minus header padding */
+            padding: 8px 10px;
             font-size: 14px;
             border-radius: 4px;
             border: none;
             margin: 0 auto; /* Center it */
             display: block; /* Takes its own line */
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
         }
 
         /* News Ticker */
         .news-ticker-container {
             position: fixed;
-            top: 80px; /* Direkt unter dem Header */
+            /* dynamic top based on header height */
+            top: 100px; /* This will be set by JS dynamically */
             left: 0;
             right: 0;
             height: 30px; /* Höhe des Laufbands */
@@ -143,7 +145,8 @@
         /* Navigation (Hauptmenü) */
         nav {
             position: fixed;
-            top: 110px; /* Direkt unter dem News Ticker (80px Header + 30px News Ticker) */
+            /* dynamic top based on header + news ticker height */
+            top: 130px; /* This will be set by JS dynamically */
             left: 0;
             right: 0;
             background: #003b70; /* Dunkelblau der Nav */
@@ -225,7 +228,7 @@
             margin: 20px auto;
             padding: 20px;
             background: white;
-            min-height: calc(100vh - 160px - 50px - 40px);
+            min-height: calc(100vh - 170px - 50px - 40px); /* Adjust based on new padding-top */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
         }
@@ -368,7 +371,6 @@
 
             header {
                 position: static;
-                flex-direction: column;
                 height: auto;
                 padding: 10px;
                 text-align: center;
@@ -391,20 +393,20 @@
             .main-title-container {
                 margin-left: 0;
                 margin-right: 0;
-                order: unset; /* Reset order for smaller screens */
+                order: unset;
             }
 
             #suchfeld {
-                width: 90%; /* Wider on small screens */
-                margin: 10px 0; /* Space above/below on small screens */
-                order: unset; /* Reset order for smaller screens */
+                width: 90%;
+                margin: 10px 0;
+                order: unset;
             }
 
             .header-info-right {
                 align-items: center;
                 margin-left: 0;
                 text-align: center;
-                order: unset; /* Reset order for smaller screens */
+                order: unset;
             }
 
             .news-ticker-container {
@@ -412,6 +414,7 @@
                 height: auto;
                 padding: 5px 10px;
                 margin-bottom: 10px;
+                top: auto; /* Reset static position */
             }
 
             .news-ticker-content {
@@ -425,6 +428,7 @@
                 flex-direction: column;
                 height: auto;
                 padding: 0;
+                top: auto; /* Reset static position */
             }
 
             nav > button,
@@ -739,8 +743,38 @@
         }
     }
 
+    // Funktion zur dynamischen Anpassung der Top-Positionen
+    function adjustFixedElementsPosition() {
+        const header = document.querySelector('header');
+        const newsTicker = document.querySelector('.news-ticker-container');
+        const nav = document.querySelector('nav');
+        const body = document.body;
+
+        if (header && newsTicker && nav) {
+            const headerHeight = header.offsetHeight;
+            const newsTickerHeight = newsTicker.offsetHeight;
+            const navHeight = nav.offsetHeight;
+
+            // Set top position for news ticker
+            newsTicker.style.top = `${headerHeight}px`;
+
+            // Set top position for navigation
+            nav.style.top = `${headerHeight + newsTickerHeight}px`;
+
+            // Adjust body padding-top
+            body.style.paddingTop = `${headerHeight + newsTickerHeight + navHeight}px`;
+        }
+    }
+
+
     // Dieser Event Listener wird ausgeführt, sobald das DOM vollständig geladen ist.
     document.addEventListener("DOMContentLoaded", function () {
+        // Initial adjustment of fixed elements
+        adjustFixedElementsPosition();
+        // Adjust again on window resize to handle responsiveness
+        window.addEventListener('resize', adjustFixedElementsPosition);
+
+
         // E-Mail-Validierung für das Kontaktformular
         const contactForm = document.getElementById("contactForm");
         const emailInput = document.getElementById("email");
